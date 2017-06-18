@@ -15,15 +15,18 @@
     height: 300px;
     color: #01afb1;
   }
+
   .aboutus{
     color: white;
     background-color: #01afb1;
     height:400px;
     width: 100%;
   }
+
   h4 {
     font-family: Helvetica;
   }
+
   .ways{
     background-color: #e7e7e7;
     width: 100%;
@@ -31,21 +34,25 @@
   }
 h3{
   text-align: center;
-font-family: Arial Black, sans-serif;
+font-family: 'Fruktur', sans-serif;
 font-weight: lighter;
 }
-h1{
+
+.title{
     text-align: center;
-    font-family: Impact, sans-serif;
+    font-family: 'Lobster', cursive;
     font-size: 400%;
   }
+
   p {
     font-family: Arial;
   }
+
   h2{
     font-family: Arial Black;
     font-weight: 300px;
   }
+
   .box{
     background-color: #ffffff;
     display: inline-block;

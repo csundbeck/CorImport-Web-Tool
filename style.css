@@ -61,5 +61,9 @@ font-weight: lighter;
     border-top: 5px solid #01afb1;
     margin: 10px 10px;
   }
+  
+  .footer{
+    text-align:center;
+  }
   </style>
 </head>

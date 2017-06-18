@@ -1,0 +1,58 @@
+<html>
+<head>
+  <style>
+  img.kids.jpg{
+      width: 50%;
+      height: 400px;
+      display: block;
+      margin: 0px auto;
+  }
+
+  .hero {
+    background-image: url(back.jpg);
+    background-repeat: repeat-x;
+    text-align: center;
+    height: 300px;
+    color: #01afb1;
+  }
+  .aboutus{
+    color: white;
+    background-color: #01afb1;
+    height:400px;
+    width: 100%;
+  }
+  h4 {
+    font-family: Helvetica;
+  }
+  .ways{
+    background-color: #e7e7e7;
+    width: 100%;
+    height: auto;
+  }
+h3{
+  text-align: center;
+font-family: Arial Black, sans-serif;
+font-weight: lighter;
+}
+h1{
+    text-align: center;
+    font-family: Impact, sans-serif;
+    font-size: 400%;
+  }
+  p {
+    font-family: Arial;
+  }
+  h2{
+    font-family: Arial Black;
+    font-weight: 300px;
+  }
+  .box{
+    background-color: #ffffff;
+    display: inline-block;
+    width: 30%;
+    height: auto;
+    border-top: 5px solid #01afb1;
+    margin: 10px 10px;
+  }
+  </style>
+</head>

@@ -1,7 +1,25 @@
-<html>
-<head>
-  <style>
-  img.kids.jpg{
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+.aboutus img{
       width: 50%;
       height: 400px;
       display: block;
@@ -25,17 +43,21 @@
 
   h4 {
     font-family: Helvetica;
+    margin: 0px;
+    padding-top: 20px;
   }
 
-  .ways{
+.ways{
     background-color: #e7e7e7;
     width: 100%;
     height: auto;
   }
-h3{
+h3 {
   text-align: center;
 font-family: 'Fruktur', sans-serif;
 font-weight: lighter;
+margin: 0px;
+padding-top: 20px;
 }
 
 .title{
@@ -53,21 +75,29 @@ font-weight: lighter;
     font-weight: 300px;
   }
 
-  .box{
+.box {
     background-color: #ffffff;
     display: inline-block;
     width: 30%;
     height: auto;
     border-top: 5px solid #01afb1;
-    margin: 10px 10px;
-  }
+    margin-left: 2.5%;
+    margin-bottom: 10px;
+}
 
-  .footer{
+  .footer {
     text-align:center;
   }
 
   .facebook, .twitter, .instagram {
     display: inline;
   }
-  </style>
-</head>
+
+  @media only screen and (max-width: 500px) {
+.box{
+  width:100%;
+
+}
+}
+
+}

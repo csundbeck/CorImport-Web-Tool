@@ -41,7 +41,7 @@ time, mark, audio, video {
     width: 100%;
   }
 
-  h4 {
+  .aboutus h4{
     font-family: Helvetica;
     margin: 0px;
     padding-top: 20px;
@@ -52,12 +52,17 @@ time, mark, audio, video {
     width: 100%;
     height: auto;
   }
-h3 {
+
+.ways h3 {
   text-align: center;
 font-family: 'Fruktur', sans-serif;
 font-weight: lighter;
 margin: 0px;
 padding-top: 20px;
+}
+
+.ways h4{
+  font-weight: bold;
 }
 
 .title{
@@ -70,7 +75,7 @@ padding-top: 20px;
     font-family: Arial;
   }
 
-  h2{
+  .aboutus h2{
     font-family: Arial Black;
     font-weight: 300px;
   }
@@ -83,6 +88,8 @@ padding-top: 20px;
     border-top: 5px solid #01afb1;
     margin-left: 2.5%;
     margin-bottom: 10px;
+    box-sizing: border-box;
+    padding: 20px;
 }
 
   .footer {
@@ -96,8 +103,4 @@ padding-top: 20px;
   @media only screen and (max-width: 500px) {
 .box{
   width:100%;
-
-}
-}
-
 }

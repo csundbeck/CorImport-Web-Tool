@@ -1,3 +1,4 @@
+/*CSS Reset*/
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -19,37 +20,48 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 
-html {
-	width: auto;
-	height: 1200px;
-}
+/*Sitewide*/
 
-body {
+/*Hero*/
+
+/*About Us*/
+
+/*Ways*/
+
+/*Footer*/
+
+/*Media Query*/
+
+	body {
 	min-width: 50%;
 	max-height: 50%;
-}
+	}
 
-.aboutus img{
+	.aboutus img{
 			max-width:100%;
       width: 50%;
-      /*height: auto;*/
       display: block;
       margin: 0px auto;
+			float: right
   }
+
+	.par {
+		padding: 20px;
+	}
+
 
   .hero {
     background-image: url(back.jpg);
     background-repeat: repeat-x;
     text-align: center;
-    height: 40%;
     color: #01afb1;
   }
 
-  .aboutus{
+  .aboutus {
     color: white;
     background-color: #01afb1;
-    height:40%;
     width: 100%;
+	  display: inline-block;
   }
 
 	.aboutus h2{
@@ -61,6 +73,7 @@ body {
     font-family: Helvetica;
     margin: 0px;
     padding-top: 20px;
+		text-transform: uppercase;
   }
 
 .ways{
@@ -86,8 +99,9 @@ padding: 20px;
     font-size: 400%;
   }
 
-  p {
+  .hero p {
     font-family: Arial;
+		padding-bottom: 100px;
   }
 
 .box {
@@ -105,7 +119,6 @@ padding: 20px;
   .footer {
 		padding-top: 10px;
     text-align:center;
-		height: 5%;
   }
 
   .facebook, .twitter, .instagram {

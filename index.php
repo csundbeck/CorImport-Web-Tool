@@ -10,7 +10,12 @@
 <body>
 
 <?php
-$nonprofit_name = "The non-profit name";
+if (empty($_POST["name"])) {
+  $nonprofit_name = "The non-profit name";
+} else {
+  $nonprofit_name = $_POST["name"];
+}
+
 $hero_p = "We're here to save lives and make the world a better place.";
 $help = "We're here to help.";
 $mission = "Our mission is to help those less fortunate get a second chance.";
@@ -61,7 +66,7 @@ $copyright = "&copy;";
 </div>
 
 <footer class="footer">
-  <p><?php echo $copyright ?> <?php echo date("Y"); ?> <?php echo $rights ?></p>
+  <p><?php echo $copyright ." ". date("Y") ." ". $rights; ?></p>
   <div class="facebook">
     <i class="fa fa-facebook-official" aria-hidden="true" href="https://www.facebook.com/"></i>
   </div>

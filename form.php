@@ -2,8 +2,10 @@
 <body>
 
 <form action="index.php" method="post">
-Name: <input type="text" name="name"><br>
-E-mail: <input type="text" name="email"><br>
+Site Name: <input type="text" name="name"><br>
+Header Paragraph: <input type="text" name="par"><br>
+Body Header: <input type="text" name="bhead"><br>
+Body Paragraph: <input type="text" name="bpar"><br>
 <input type="submit">
 </form>
 

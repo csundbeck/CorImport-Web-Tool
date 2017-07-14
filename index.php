@@ -16,9 +16,24 @@ if (empty($_POST["name"])) {
   $nonprofit_name = $_POST["name"];
 }
 
-$hero_p = "We're here to save lives and make the world a better place.";
-$help = "We're here to help.";
-$mission = "Our mission is to help those less fortunate get a second chance.";
+if (empty($_POST["par"])) {
+  $hero_p = "We're here to save lives and make the world a better place.";
+} else {
+  $hero_p = $_POST["par"];
+}
+
+if (empty($_POST["bhead"])) {
+  $help = "We're here to help.";
+} else {
+  $help = $_POST["bhead"];
+}
+
+if (empty($_POST["bpar"])) {
+  $mission = "Our mission is to help those less fortunate get a second chance.";
+} else {
+  $mission = $_POST["bpar"];
+}
+
 $rights = "All Rights Reserved.";
 $copyright = "&copy;";
 ?>

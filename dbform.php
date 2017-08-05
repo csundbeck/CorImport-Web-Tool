@@ -28,23 +28,50 @@ die("Connection failed: " . mysqli_connect_error());
 
   if(isset($_POST['save']))
 {
-    $sql = "INSERT INTO MyGuests (firstname, lastname, email)
-    VALUES ('".$_POST["first"]."','".$_POST["last"]."','".$_POST["email"]."')";
+    $sql = "INSERT INTO settings (name, par, bhead, bpar)
+    VALUES ('".$_POST["name"]."','".$_POST["par"]."','".$_POST["bhead"]."','".$_POST["bpar"]."')";
 
-    $result = mysqli_query($conn,$sql);
+    // $result = mysqli_query($conn,$sql);
+}
+if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
 }
 
 ?>
 
 <form action="dbform.php" method="post">
-<label id="first"> First</label><br/>
-<input type="text" name="first"><br/>
+  <label id="name"> Name</label><br/>
+  <input type="text" name="name"><br/>
 
-<label id="first">Last</label><br/>
-<input type="password" name="last"><br/>
+  <label id="par">Paragraph</label><br/>
+  <textarea rows="4" cols="50" name="par"></textarea><br/>
 
-<label id="first">Email</label><br/>
-<input type="text" name="email"><br/>
+  <label id="bhead">Body Head</label><br/>
+  <input type="text" name="bhead"><br/>
+
+  <label id="bpar">Body Paragraph</label><br/>
+  <input type="textarea" name="bpar"><br/>
+
+  <button type="submit" name="save">save</button>
+</form>
+
+</body>
+</html>
+
+<form action="dbform.php" method="post">
+<label id="name">Name</label><br/>
+<input type="text" name="name"><br/>
+
+<label id="par">Paragraph</label><br/>
+<textarea row="4" col="50"name="par"></textarea><br/>
+
+<label id="bhead">Body Head</label><br/>
+<input type="text" name="bhead"><br/>
+
+<label id="bpar">Body Paragraph</label><br/>
+<textarea row="4" col="50"name="bpar"></textarea><br/>
 
 <button type="submit" name="save">save</button>
 

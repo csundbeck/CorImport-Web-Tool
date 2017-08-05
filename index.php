@@ -8,49 +8,54 @@
 
 </head>
 <body>
+
+  <?php /// confusing about index.php and also which lines to delete, etc. ?>
+
+<?php include 'connect.php'; ?>
+
 <?php
+      $sql = "SELECT id, name, par, bhead, bpar FROM settings WHERE id='6'";
+      $result = $conn->query($sql);
 
-include db.php;
-
-//////////////////////////////////////////////////////////////////////////////
-
-$sql = "INSERT INTO MyGuests (firstname, lastname, email)
-VALUES ('John', 'Doe', 'john@example.com')";
-
-if ($conn->query($sql) === TRUE) {
-    echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
-///////////////////////////////////////////////////////////////////////////////
-$conn->close();
-
-
+      if ($result->num_rows > 0) {
+          // output data of each row
+          while($row = $result->fetch_assoc()) {
+              // echo "id: " . $row["id"]. " - Name: " . $row["name"]. " " . $row["bpar"]. " " . $row["bhead"]. " " .  $row["bpar"]. "<br>";
+              $import_name = $row["name"];
+              $import_par = $row["par"];
+              $import_bpar = $row["bpar"];
+              $import_bhead = $row["bhead"];
+          }
+      } else {
+          echo "0 results";
+      }
 ?>
 
+<?php $conn->close(); ?>
+
 <?php
-if (empty($_POST["name"])) {
+if (empty($import_name)) {
   $nonprofit_name = "The non-profit name";
 } else {
-  $nonprofit_name = $_POST["name"];
+  $nonprofit_name = $import_name;
 }
 
-if (empty($_POST["par"])) {
+if (empty($import_bpar)) {
   $hero_p = "We're here to save lives and make the world a better place.";
 } else {
-  $hero_p = $_POST["par"];
+  $hero_p = $import_bpar;
 }
 
-if (empty($_POST["bhead"])) {
+if (empty($import_name)) {
   $help = "We're here to help.";
 } else {
-  $help = $_POST["bhead"];
+  $help = $import_bhead;
 }
 
-if (empty($_POST["bpar"])) {
+if (empty($import_par)) {
   $mission = "Our mission is to help those less fortunate get a second chance.";
 } else {
-  $mission = $_POST["bpar"];
+  $mission = $import_par;
 }
 
 $rights = "All Rights Reserved.";

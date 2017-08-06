@@ -52,29 +52,9 @@ if ($conn->query($sql) === TRUE) {
   <input type="text" name="bhead"><br/>
 
   <label id="bpar">Body Paragraph</label><br/>
-  <input type="textarea" name="bpar"><br/>
+  <textarea type="textarea" name="bpar"></textarea><br/>
 
   <button type="submit" name="save">save</button>
-</form>
-
-</body>
-</html>
-
-<form action="dbform.php" method="post">
-<label id="name">Name</label><br/>
-<input type="text" name="name"><br/>
-
-<label id="par">Paragraph</label><br/>
-<textarea row="4" col="50"name="par"></textarea><br/>
-
-<label id="bhead">Body Head</label><br/>
-<input type="text" name="bhead"><br/>
-
-<label id="bpar">Body Paragraph</label><br/>
-<textarea row="4" col="50"name="bpar"></textarea><br/>
-
-<button type="submit" name="save">save</button>
-
 </form>
 
 </body>

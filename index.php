@@ -9,6 +9,8 @@ die("Connection failed: " . mysqli_connect_error());
 
 ?>
 
+<?php include 'form.css';?>
+
 <html>
 <head>
 <meta charset="utf-8">
@@ -17,6 +19,7 @@ die("Connection failed: " . mysqli_connect_error());
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="form.css">
 
 <title>Start Form</title>
 
@@ -25,7 +28,7 @@ die("Connection failed: " . mysqli_connect_error());
 <body>
 
 <div class="style">
-<link rel="stylesheet" type="text/css" href="form.css">
+
 <form action="result.php" method="post" enctype="multipart/form-data">
   <label id="name"> Name</label><br/>
   <input type="text" name="name"><br/>

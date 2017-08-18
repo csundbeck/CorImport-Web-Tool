@@ -44,7 +44,7 @@ if ($conn->query($sql) === TRUE) {
               $import_par = $row["par"];
               $import_bpar = $row["bpar"];
               $import_bhead = $row["bhead"];
-              $import_img = $row["image"]
+              $import_img = $row["file"]
           }
       } else {
           echo "0 results";

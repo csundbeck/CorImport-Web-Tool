@@ -122,7 +122,7 @@ if (empty($import_par)) {
 }
 
 if (empty($target_file)) {
-  $target_file = "url: kids.jpg";
+  $target_file = "url: images/kids.jpg";
 } else {
   $target_file = $import_img;
 }
@@ -137,7 +137,7 @@ $copyright = "&copy;";
 </div>
 
 <div class="aboutus">
-    <img src="kids.jpg" alt="kids">
+    <img src="images/kids.jpg" alt="kids">
     <div class="par">
   <h4>About Us</h4>
   <h2><?php echo $help; ?></h2>

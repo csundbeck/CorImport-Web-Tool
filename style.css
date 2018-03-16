@@ -51,7 +51,7 @@ time, mark, audio, video {
 
 
   .hero {
-    background-image: url(back.jpg);
+    background-image: url(images/back.jpg);
     background-repeat: repeat-x;
     text-align: center;
     color: #01afb1;

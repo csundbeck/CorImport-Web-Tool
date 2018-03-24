@@ -9,8 +9,6 @@
 </head>
 <body>
 
-  <?php /// confusing about index.php and also which lines to delete, etc. ?>
-
 <?php include 'connect.php';?>
 
 <?php
@@ -21,8 +19,7 @@ $uploadedfile = basename($_FILES["fileToUpload"]["name"]);
 {
    $sql = "INSERT INTO settings (name, par, bhead, bpar, file)
    VALUES ('".$_POST["name"]."','".$_POST["par"]."','".$_POST["bhead"]."','".$_POST["bpar"]."','".$uploadedfile."')";
-
-   // $result = mysqli_query($conn,$sql);
+   
 }
 if ($conn->query($sql) === TRUE) {
    echo "New record created successfully";

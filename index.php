@@ -9,8 +9,6 @@ die("Connection failed: " . mysqli_connect_error());
 
 ?>
 
-<?php include 'form.css';?>
-
 <html>
 <head>
 <meta charset="utf-8">

@@ -19,7 +19,7 @@ $uploadedfile = basename($_FILES["fileToUpload"]["name"]);
 {
    $sql = "INSERT INTO settings (name, par, bhead, bpar, file)
    VALUES ('".$_POST["name"]."','".$_POST["par"]."','".$_POST["bhead"]."','".$_POST["bpar"]."','".$uploadedfile."')";
-   
+
 }
 if ($conn->query($sql) === TRUE) {
    echo "New record created successfully";
@@ -41,7 +41,7 @@ if ($conn->query($sql) === TRUE) {
               $import_par = $row["par"];
               $import_bpar = $row["bpar"];
               $import_bhead = $row["bhead"];
-              $import_img = $row["file"]
+              $import_img = $row["file"];
           }
       } else {
           echo "0 results";

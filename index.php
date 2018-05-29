@@ -1,9 +1,12 @@
 <?php
 
+//Defining the connecton to the database
 $conn=mysqli_connect("localhost","root","root","landing");
 
+//If if doesn't connect...
 if(!$conn)
 {
+//Print the error
 die("Connection failed: " . mysqli_connect_error());
 }
 

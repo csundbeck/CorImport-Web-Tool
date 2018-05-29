@@ -9,6 +9,7 @@
 </head>
 <body>
 
+<!-- Referenceing connect.php file (will not cause fatal error on failure) -->
 <?php include 'connect.php';?>
 
 <?php
@@ -33,8 +34,9 @@ if ($conn->query($sql) === TRUE) {
       $sql = "SELECT id, name, par, bhead, bpar, file FROM settings WHERE id='6'";
       $result = $conn->query($sql);
 
+      // If there is a record in the database...
       if ($result->num_rows > 0) {
-          // output data of each row
+          // Output data of each row
           while($row = $result->fetch_assoc()) {
               // echo "id: " . $row["id"]. " - Name: " . $row["name"]. " " . $row["bpar"]. " " . $row["bhead"]. " " .  $row["bpar"]. "<br>";
               $import_name = $row["name"];
@@ -42,7 +44,7 @@ if ($conn->query($sql) === TRUE) {
               $import_bpar = $row["bpar"];
               $import_bhead = $row["bhead"];
               $import_img = $row["file"];
-          }
+            }
       } else {
           echo "0 results";
       }
@@ -50,7 +52,9 @@ if ($conn->query($sql) === TRUE) {
 
 <?php $conn->close();
 
-//***Uploading A File***
+//Uploading A File
+
+//Defining the directory where the files will be saved
 $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
@@ -76,13 +80,13 @@ if ($_FILES["fileToUpload"]["size"] > 15000000) {
     echo "Sorry, your file is too large.";
     $uploadOk = 0;
 }
-// Allow certain file formats
+// Allow certain file formats (JPG, PNG, JPEG, GIF only)
 if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
 && $imageFileType != "gif" ) {
     echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
     $uploadOk = 0;
 }
-// Check if $uploadOk is set to 0 by an error
+// Check if file was uploaded, set to 0 = false, 1 = true
 if ($uploadOk == 0) {
     echo "Sorry, your file was not uploaded.";
 // if everything is ok, try to upload file
@@ -90,34 +94,40 @@ if ($uploadOk == 0) {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
         echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
     } else {
+      //Catch all, if file is corrupt in some way
         echo "Sorry, there was an error uploading your file.";
     }
 }
 
+// Default value if non-profit name not specified
 if (empty($import_name)) {
   $nonprofit_name = "The non-profit name";
 } else {
   $nonprofit_name = $import_name;
 }
 
+// Default value if body paragraph not specified
 if (empty($import_bpar)) {
   $hero_p = "We're here to save lives and make the world a better place.";
 } else {
   $hero_p = $import_bpar;
 }
 
+// Default value if body heading not specified
 if (empty($import_name)) {
   $help = "We're here to help.";
 } else {
   $help = $import_bhead;
 }
 
+// Default value if paragraph not specified
 if (empty($import_par)) {
   $mission = "Our mission is to help those less fortunate get a second chance.";
 } else {
   $mission = $import_par;
 }
 
+// Default value if image not specified
 if (empty($target_file)) {
   $target_file = "url: images/kids.jpg";
 } else {

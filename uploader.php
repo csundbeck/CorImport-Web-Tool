@@ -1,4 +1,5 @@
 <?php
+//Defining the directory where the files will be saved
 $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
@@ -24,13 +25,13 @@ if ($_FILES["fileToUpload"]["size"] > 15000000) {
     echo "Sorry, your file is too large.";
     $uploadOk = 0;
 }
-// Allow certain file formats
+// Allow certain file formats (JPG, PNG, JPEG, GIF only)
 if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
 && $imageFileType != "gif" ) {
     echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
     $uploadOk = 0;
 }
-// Check if $uploadOk is set to 0 by an error
+// Check if file was uploaded, set to 0 = false, 1 = true
 if ($uploadOk == 0) {
     echo "Sorry, your file was not uploaded.";
 // if everything is ok, try to upload file
@@ -38,6 +39,7 @@ if ($uploadOk == 0) {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
         echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
     } else {
+      //Catch all, if file is corrupt in some way
         echo "Sorry, there was an error uploading your file.";
     }
 }

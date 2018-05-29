@@ -1,7 +1,7 @@
 <?php
 // Connecting to MySQL
 
-// Declaring variables
+// Declaring variables for the server and database
 $servername = "localhost";
 $username = "root";
 $password = "root";

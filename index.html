@@ -31,21 +31,47 @@ die("Connection failed: " . mysqli_connect_error());
 <div class="style">
 
 <form action="result.php" method="post" enctype="multipart/form-data">
-  <label id="name"> Name</label><br/>
-  <input type="text" name="name"><br/>
+  <img src="images\CORRIDOR-CAMP-Systems-White-copy.png" alt="CORRIDOR"><br/>
+  <label id="name">Data Set</label><br/>
+  <select>
+    <option>Select a data set...</option>
+    <option>Add Account Numbers</option>
+    <option>Add Aircraft</option>
+    <option></option>
+    <option></option>
+    <option></option>
+    <option></option>
+    <option></option>
+    <option></option>
+    <option></option>
+    <option>Add Company Addresses</option>
+    <option>Add Company Phone</option>
+    <option>Add Company Profile</option>
+    <option>Add Contact Address</option>
+    <option>Add Contact Phone</option>
+    <option>Add Contact Profile</option>
+    <option>Add Inventory Lots</option>
+    <option>Add/Update Part Discount Codes</option>
+    <option>Add/Update Part Masters</option>
+    <option>Add/Update Part Pricing</option>
+    <option>Add/Update Warehouse Min/Max</option>
+    <option>Add/Update Tool Master Calibration</option>
+    <option>Add/Update Tool Master</option>
+    <option>Add/Update Tool</option>
+    <option></option>
+    <option></option>
+    <option></option>
+    <option></option>
+    <option></option>
+    <option></option>
+    <option></option>
+  </select><br/>
 
-  <label id="par">Paragraph</label><br/>
-  <textarea rows="4" cols="50" name="par"></textarea><br/>
-
-  <label id="bhead">Body Head</label><br/>
-  <input type="text" name="bhead"><br/>
-
-  <label id="bpar">Body Paragraph</label><br/>
-  <textarea type="textarea" name="bpar"></textarea><br/>
-
+  <label id="name">Choose a file to format</label><br/>
   <input type="file" name="fileToUpload" id="fileToUpload">
 
-  <input type="submit" value="Generate" name="submit">
+  <input id="btnGenerate" type="submit" value="Generate" name="submit">
+
 </form>
 </div>
 

@@ -37,14 +37,6 @@ time, mark, audio, video {
 	max-height: 50%;
 	}
 
-	.aboutus img{
-			max-width:100%;
-      width: 50%;
-      display: block;
-      margin: 0px auto;
-			float: right
-  }
-
 	.par {
 		padding: 20px;
 	}

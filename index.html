@@ -1,17 +1,3 @@
-<!-- <?php
-
-//Defining the connecton to the database
-$conn=mysqli_connect("localhost","root","root","landing");
-
-//If if doesn't connect...
-if(!$conn)
-{
-//Print the error
-die("Connection failed: " . mysqli_connect_error());
-}
-
-?> -->
-
 <html>
 <head>
 <meta charset="utf-8">
@@ -22,6 +8,9 @@ die("Connection failed: " . mysqli_connect_error());
 <link rel="stylesheet" type="text/css" href="style.css">
 <link rel="stylesheet" type="text/css" href="form.css">
 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
+
 <title>CorImport Web Tool</title>
 
 
@@ -30,8 +19,11 @@ die("Connection failed: " . mysqli_connect_error());
 
 <div class="style">
 
-<form action="result.php" method="post" enctype="multipart/form-data">
-  <img src="images\CORRIDOR-CAMP-Systems-White-copy.png" alt="CORRIDOR"><br/>
+  <form <!--action="result.php" method="post" enctype="multipart/form-data" -->>
+  <a id="help" href="https://support.corridor.aero/hc/en-us/restricted?return_to=https%3A%2F%2Fsupport.corridor.aero%2Fhc%2Fen-us">Help</a>
+  <a href="https://www.corridor.aero/"><img src="images\CORRIDOR-CAMP-Systems-White-copy.png" alt="CORRIDOR"></a><br/>
+  <h1>Welcome to the CorImport Web Tool!</h1><br/>
+  <hr/>
   <label id="name">Data Set</label><br/>
   <select>
     <option>Select a data set...</option>
@@ -68,9 +60,101 @@ die("Connection failed: " . mysqli_connect_error());
   </select><br/>
 
   <label id="name">Choose a file to format</label><br/>
-  <input type="file" name="fileToUpload" id="fileToUpload">
+  <input type="file" name="fileToUpload" id="fileToUpload" accept=".xlsx,.xls">
 
-  <input id="btnGenerate" type="submit" value="Generate" name="submit">
+  <input id="btnGenerate" type="submit" value="Generate" name="submit" onclick="Upload()"">
+
+  <div id="dvExcel"></div>
+
+  <script type="text/javascript">
+    function Upload() {
+        //Reference the FileUpload element.
+        var fileUpload = document.getElementById("btnGenerate");
+
+        //Validate whether File is valid Excel file.
+        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.xls|.xlsx)$/;
+        if (regex.test(fileUpload.value.toLowerCase())) {
+            if (typeof (FileReader) != "undefined") {
+                var reader = new FileReader();
+
+                //For Browsers other than IE.
+                if (reader.readAsBinaryString) {
+                    reader.onload = function (e) {
+                        ProcessExcel(e.target.result);
+                    };
+                    reader.readAsBinaryString(fileUpload.files[0]);
+                } else {
+                    //For IE Browser.
+                    reader.onload = function (e) {
+                        var data = "";
+                        var bytes = new Uint8Array(e.target.result);
+                        for (var i = 0; i < bytes.byteLength; i++) {
+                            data += String.fromCharCode(bytes[i]);
+                        }
+                        ProcessExcel(data);
+                    };
+                    reader.readAsArrayBuffer(fileUpload.files[0]);
+                }
+            } else {
+                alert("This browser does not support HTML5.");
+            }
+        } else {
+            alert("Please upload a valid Excel file.");
+        }
+    };
+    function ProcessExcel(data) {
+        //Read the Excel File data.
+        var workbook = XLSX.read(data, {
+            type: 'binary'
+        });
+
+        //Fetch the name of First Sheet.
+        var firstSheet = workbook.SheetNames[0];
+
+        //Read all rows from First Sheet into an JSON array.
+        var excelRows = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[firstSheet]);
+
+        //Create a HTML Table element.
+        var table = document.createElement("table");
+        table.border = "1";
+
+        //Add the header row.
+        var row = table.insertRow(-1);
+
+        //Add the header cells.
+        var headerCell = document.createElement("TH");
+        headerCell.innerHTML = "Id";
+        row.appendChild(headerCell);
+
+        headerCell = document.createElement("TH");
+        headerCell.innerHTML = "Name";
+        row.appendChild(headerCell);
+
+        headerCell = document.createElement("TH");
+        headerCell.innerHTML = "Country";
+        row.appendChild(headerCell);
+
+        //Add the data rows from Excel file.
+        for (var i = 0; i < excelRows.length; i++) {
+            //Add the data row.
+            var row = table.insertRow(-1);
+
+            //Add the data cells.
+            var cell = row.insertCell(-1);
+            cell.innerHTML = excelRows[i].Id;
+
+            cell = row.insertCell(-1);
+            cell.innerHTML = excelRows[i].Name;
+
+            cell = row.insertCell(-1);
+            cell.innerHTML = excelRows[i].Country;
+        }
+
+        var dvExcel = document.getElementById("dvExcel");
+        dvExcel.innerHTML = "";
+        dvExcel.appendChild(table);
+    };
+</script>
 
 </form>
 </div>

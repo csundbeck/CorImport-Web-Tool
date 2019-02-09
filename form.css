@@ -3,7 +3,7 @@ body {
 }
 
 img {
-  margin: 40px 42%;
+  margin: 35px 4%;
   width: 14%;
   height: auto;
 }
@@ -23,7 +23,7 @@ label {
 
 select {
     align: center;
-    width: 25%;
+    width: 22%;
     padding: 10px 0;
     margin-bottom:40px;
     margin-left: 10%;
@@ -76,4 +76,11 @@ input[type=submit]:hover {
 #help:hover {
   text-decoration: underline;
   transition: 0.5s;
+}
+
+#data-file-name {
+  font-size: 15px;
+  font-family: 'Oswald', sans-serif;
+  margin: 25px 29%;
+  font-weight: lighter;
 }

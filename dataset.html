@@ -1,0 +1,48 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="$1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="form.css">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
+
+<title>CorImport Web Tool</title>
+
+
+</head>
+<body>
+
+<div class="style">
+
+  <form>
+  <a id="help" href="https://support.corridor.aero/hc/en-us/restricted?return_to=https%3A%2F%2Fsupport.corridor.aero%2Fhc%2Fen-us">Help</a>
+  <a href="https://www.corridor.aero/"><img src="images\CORRIDOR-CAMP-Systems-White-copy.png" alt="CORRIDOR"></a><br/>
+
+  <h1 id="data-set-name"> </h1><br/>
+
+  <p id="data-file-name"> </p><br/>
+
+  <div id="dvExcel"></div>
+
+</form>
+</div>
+
+<script type="text/javascript">
+    var dataSetName = document.getElementById('data-set-name');
+    var dataFileName = document.getElementById('date-file-name');
+
+    dataSetName.innerHTML = localStorage.getItem('dataSetName');
+    dataFileName.textContent = "The name of this file is " + localStorage.getItem('dataFileName');
+
+</script>
+
+</body>
+
+
+
+</html>

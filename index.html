@@ -19,23 +19,23 @@
 
 <div class="style">
 
-  <form <!--action="result.php" method="post" enctype="multipart/form-data" -->>
+  <form> <!--action="result.php" method="post" enctype="multipart/form-data" -->
   <a id="help" href="https://support.corridor.aero/hc/en-us/restricted?return_to=https%3A%2F%2Fsupport.corridor.aero%2Fhc%2Fen-us">Help</a>
   <a href="https://www.corridor.aero/"><img src="images\CORRIDOR-CAMP-Systems-White-copy.png" alt="CORRIDOR"></a><br/>
   <h1>Welcome to the CorImport Web Tool!</h1><br/>
   <hr/>
   <label id="name">Data Set</label><br/>
-  <select>
+  <select id="dataSetDropDown" onchange="dataSetNameSave()">
     <option>Select a data set...</option>
     <option>Add Account Numbers</option>
     <option>Add Aircraft</option>
-    <option></option>
-    <option></option>
-    <option></option>
-    <option></option>
-    <option></option>
-    <option></option>
-    <option></option>
+    <option>Add/Update Canned Squawk Applicability</option>
+    <option>Add/Update Canned Squawk Estimate Adjustment</option>
+    <option>Add/Update Canned Squawk Estimated Labor</option>
+    <option>Add/Update Canned Squawk Files</option>
+    <option>Add/Update Canned Squawk Part</option>
+    <option>Add/Update Canned Squawk Planning</option>
+    <option>Add/Update Canned Squawk</option>
     <option>Add Company Addresses</option>
     <option>Add Company Phone</option>
     <option>Add Company Profile</option>
@@ -50,114 +50,129 @@
     <option>Add/Update Tool Master Calibration</option>
     <option>Add/Update Tool Master</option>
     <option>Add/Update Tool</option>
-    <option></option>
-    <option></option>
-    <option></option>
-    <option></option>
-    <option></option>
-    <option></option>
-    <option></option>
+    <option>Add/Update Work Pak Applicability</option>
+    <option>Add/Update Work Pak Detail</option>
+    <option>Add/Update Work Pak Estimate Adjustment</option>
+    <option>Add/Update Work Pak Estimated Labor</option>
+    <option>Add/Update Work Pak Part</option>
+    <option>Add/Update Work Pak Planning</option>
+    <option>Add/Update Work Pak</option>
   </select><br/>
 
   <label id="name">Choose a file to format</label><br/>
-  <input type="file" name="fileToUpload" id="fileToUpload" accept=".xlsx,.xls">
+  <input type="file" name="fileToUpload" id="fileToUpload" onchange="dataFileNameSave()">
 
-  <input id="btnGenerate" type="submit" value="Generate" name="submit" onclick="Upload()"">
+  <input id="btnGenerate" type="submit" value="Generate" name="submit" onclick="Generate()">
 
   <div id="dvExcel"></div>
-
-  <script type="text/javascript">
-    function Upload() {
-        //Reference the FileUpload element.
-        var fileUpload = document.getElementById("btnGenerate");
-
-        //Validate whether File is valid Excel file.
-        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.xls|.xlsx)$/;
-        if (regex.test(fileUpload.value.toLowerCase())) {
-            if (typeof (FileReader) != "undefined") {
-                var reader = new FileReader();
-
-                //For Browsers other than IE.
-                if (reader.readAsBinaryString) {
-                    reader.onload = function (e) {
-                        ProcessExcel(e.target.result);
-                    };
-                    reader.readAsBinaryString(fileUpload.files[0]);
-                } else {
-                    //For IE Browser.
-                    reader.onload = function (e) {
-                        var data = "";
-                        var bytes = new Uint8Array(e.target.result);
-                        for (var i = 0; i < bytes.byteLength; i++) {
-                            data += String.fromCharCode(bytes[i]);
-                        }
-                        ProcessExcel(data);
-                    };
-                    reader.readAsArrayBuffer(fileUpload.files[0]);
-                }
-            } else {
-                alert("This browser does not support HTML5.");
-            }
-        } else {
-            alert("Please upload a valid Excel file.");
-        }
-    };
-    function ProcessExcel(data) {
-        //Read the Excel File data.
-        var workbook = XLSX.read(data, {
-            type: 'binary'
-        });
-
-        //Fetch the name of First Sheet.
-        var firstSheet = workbook.SheetNames[0];
-
-        //Read all rows from First Sheet into an JSON array.
-        var excelRows = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[firstSheet]);
-
-        //Create a HTML Table element.
-        var table = document.createElement("table");
-        table.border = "1";
-
-        //Add the header row.
-        var row = table.insertRow(-1);
-
-        //Add the header cells.
-        var headerCell = document.createElement("TH");
-        headerCell.innerHTML = "Id";
-        row.appendChild(headerCell);
-
-        headerCell = document.createElement("TH");
-        headerCell.innerHTML = "Name";
-        row.appendChild(headerCell);
-
-        headerCell = document.createElement("TH");
-        headerCell.innerHTML = "Country";
-        row.appendChild(headerCell);
-
-        //Add the data rows from Excel file.
-        for (var i = 0; i < excelRows.length; i++) {
-            //Add the data row.
-            var row = table.insertRow(-1);
-
-            //Add the data cells.
-            var cell = row.insertCell(-1);
-            cell.innerHTML = excelRows[i].Id;
-
-            cell = row.insertCell(-1);
-            cell.innerHTML = excelRows[i].Name;
-
-            cell = row.insertCell(-1);
-            cell.innerHTML = excelRows[i].Country;
-        }
-
-        var dvExcel = document.getElementById("dvExcel");
-        dvExcel.innerHTML = "";
-        dvExcel.appendChild(table);
-    };
-</script>
 
 </form>
 </div>
 
+<script type="text/javascript">
+
+  //setting the option for the dataset name
+  function dataSetNameSave() {
+    var dataSetName = document.getElementById("dataSetDropDown");
+    var dataSetString = dataSetName.options[dataSetName.selectedIndex].value;
+
+    localStorage.setItem("dataSetName", dataSetString);
+  };
+
+  //setting the data file name
+    function dataFileNameSave() {
+      var input = document.getElementById('fileToUpload');
+      var fileName = input.files[0].name;
+      //var dataFileName = document.getElementById("fileToUpload")
+
+      localStorage.setItem("dataFileName", JSON.stringify(fileName));
+      //localStorage.setItem("dataFileName", dataFileName);
+    };
+
+     function Generate() {
+       window.open("dataset.html");
+  //
+  //     //Reference the FileUpload element.
+  //     var fileUpload = document.getElementById("btnGenerate");
+  //
+  //     //Validate whether File is valid Excel file.
+  //     var allowedFiles = [".xls", ".xlsx"];
+  //     var regex = ([a-zA-Z0-9\s_\\.\-:]+('.xls'|'.xlsx')$;
+  //     if (regex.test(fileUpload.value.toLowerCase())) {
+  //         if (typeof (FileReader) != "undefined") {
+  //             var reader = new FileReader();
+  //
+  //             //For Browsers other than IE.
+  //             if (reader.readAsBinaryString) {
+  //                 reader.onload = function (e) {
+  //                     ProcessExcel(e.target.result);
+  //                 };
+  //                 reader.readAsBinaryString(fileUpload.files[0]);
+  //             } else {
+  //
+  //                 reader.readAsArrayBuffer(fileUpload.files[0]);
+  //             }
+  //         } else {
+  //             alert("This browser does not support HTML5.");
+  //         }
+  //     } else {
+  //         alert("Please upload a valid Excel file.");
+  //     }
+  // };
+  // function ProcessExcel(data) {
+  //     //Read the Excel File data.
+  //     var workbook = XLSX.read(data, {
+  //         type: 'binary'
+  //     });
+  //
+  //     //Fetch the name of First Sheet.
+  //     var firstSheet = workbook.SheetNames[0];
+  //
+  //     //Read all rows from First Sheet into an JSON array.
+  //     var excelRows = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[firstSheet]);
+  //
+  //     //Create a HTML Table element.
+  //     var table = document.createElement("table");
+  //     table.border = "1";
+  //
+  //     //Add the header row.
+  //     var row = table.insertRow(-1);
+  //
+  //     //Add the header cells.
+  //     var headerCell = document.createElement("TH");
+  //     headerCell.innerHTML = "Id";
+  //     row.appendChild(headerCell);
+  //
+  //     headerCell = document.createElement("TH");
+  //     headerCell.innerHTML = "Name";
+  //     row.appendChild(headerCell);
+  //
+  //     headerCell = document.createElement("TH");
+  //     headerCell.innerHTML = "Country";
+  //     row.appendChild(headerCell);
+  //
+  //     //Add the data rows from Excel file.
+  //     for (var i = 0; i < excelRows.length; i++) {
+  //         //Add the data row.
+  //         var row = table.insertRow(-1);
+  //
+  //         //Add the data cells.
+  //         var cell = row.insertCell(-1);
+  //         cell.innerHTML = excelRows[i].Id;
+  //
+  //         cell = row.insertCell(-1);
+  //         cell.innerHTML = excelRows[i].Name;
+  //
+  //         cell = row.insertCell(-1);
+  //         cell.innerHTML = excelRows[i].Country;
+  //     }
+  //
+  //     var dvExcel = document.getElementById("dvExcel");
+  //     dvExcel.innerHTML = "";
+  //     dvExcel.appendChild(table);
+   };
+</script>
+
 </body>
+
 </html>

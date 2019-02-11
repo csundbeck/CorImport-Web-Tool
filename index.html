@@ -26,7 +26,7 @@
   <hr/>
   <label id="name">Data Set</label><br/>
   <select id="dataSetDropDown" onchange="dataSetNameSave()">
-    <option>Select a data set...</option>
+    <option>Select a data set...</option><hr/
     <option>Add Account Numbers</option>
     <option>Add Aircraft</option>
     <option>Add/Update Canned Squawk Applicability</option>
@@ -85,12 +85,13 @@
       var fileName = input.files[0].name;
       //var dataFileName = document.getElementById("fileToUpload")
 
-      localStorage.setItem("dataFileName", JSON.stringify(fileName));
+      localStorage.setItem("dataFileName", (fileName));
       //localStorage.setItem("dataFileName", dataFileName);
     };
 
      function Generate() {
        window.open("dataset.html");
+
   //
   //     //Reference the FileUpload element.
   //     var fileUpload = document.getElementById("btnGenerate");

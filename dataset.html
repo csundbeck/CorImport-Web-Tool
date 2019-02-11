@@ -1,5 +1,6 @@
 <html>
 <head>
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="description" content="$1">
@@ -12,7 +13,6 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
 
 <title>CorImport Web Tool</title>
-
 
 </head>
 <body>
@@ -34,15 +34,12 @@
 
 <script type="text/javascript">
     var dataSetName = document.getElementById('data-set-name');
-    var dataFileName = document.getElementById('date-file-name');
+    var dataFileName = document.getElementById('data-file-name');
 
     dataSetName.innerHTML = localStorage.getItem('dataSetName');
-    dataFileName.textContent = "The name of this file is " + localStorage.getItem('dataFileName');
+    dataFileName.innerHTML = "The name of this file is " + localStorage.getItem('dataFileName');
 
 </script>
 
 </body>
-
-
-
 </html>

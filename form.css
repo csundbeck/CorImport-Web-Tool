@@ -63,7 +63,7 @@ input[type=submit] {
 
 input[type=submit]:hover {
     background-color: #1C316C;
-    transition: 0.5s;
+    transition: 0.4s;
 }
 
 #help {
@@ -75,7 +75,6 @@ input[type=submit]:hover {
 
 #help:hover {
   text-decoration: underline;
-  transition: 0.5s;
 }
 
 #data-file-name {

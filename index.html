@@ -1,85 +1,105 @@
+
 <html>
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="description" content="$1">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="description" content="$1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="stylesheet" type="text/css" href="style.css">
-<link rel="stylesheet" type="text/css" href="form.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="form.css">
+  <link href="https://unpkg.com/tabulator-tables@4.2.0/dist/css/tabulator.min.css" rel="stylesheet">
+  <link rel="icon" href="images\corridor-icon.png">
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/handsontable-pro@6.2.2/dist/handsontable.full.min.js"></script>
 
-<title>CorImport Web Tool</title>
-
+  <title>CorImport Web Tool</title>
 
 </head>
 <body>
 
-<div class="style">
+  <div class="style">
 
-  <form> <!--action="result.php" method="post" enctype="multipart/form-data" -->
-  <a id="help" href="https://support.corridor.aero/hc/en-us/restricted?return_to=https%3A%2F%2Fsupport.corridor.aero%2Fhc%2Fen-us">Help</a>
-  <a href="https://www.corridor.aero/"><img src="images\CORRIDOR-CAMP-Systems-White-copy.png" alt="CORRIDOR"></a><br/>
-  <h1>Welcome to the CorImport Web Tool!</h1><br/>
-  <hr/>
-  <label id="name">Data Set</label><br/>
-  <select id="dataSetDropDown" onchange="dataSetNameSave()">
-    <option>Select a data set...</option><hr/
-    <option>Add Account Numbers</option>
-    <option>Add Aircraft</option>
-    <option>Add/Update Canned Squawk Applicability</option>
-    <option>Add/Update Canned Squawk Estimate Adjustment</option>
-    <option>Add/Update Canned Squawk Estimated Labor</option>
-    <option>Add/Update Canned Squawk Files</option>
-    <option>Add/Update Canned Squawk Part</option>
-    <option>Add/Update Canned Squawk Planning</option>
-    <option>Add/Update Canned Squawk</option>
-    <option>Add Company Addresses</option>
-    <option>Add Company Phone</option>
-    <option>Add Company Profile</option>
-    <option>Add Contact Address</option>
-    <option>Add Contact Phone</option>
-    <option>Add Contact Profile</option>
-    <option>Add Inventory Lots</option>
-    <option>Add/Update Part Discount Codes</option>
-    <option>Add/Update Part Masters</option>
-    <option>Add/Update Part Pricing</option>
-    <option>Add/Update Warehouse Min/Max</option>
-    <option>Add/Update Tool Master Calibration</option>
-    <option>Add/Update Tool Master</option>
-    <option>Add/Update Tool</option>
-    <option>Add/Update Work Pak Applicability</option>
-    <option>Add/Update Work Pak Detail</option>
-    <option>Add/Update Work Pak Estimate Adjustment</option>
-    <option>Add/Update Work Pak Estimated Labor</option>
-    <option>Add/Update Work Pak Part</option>
-    <option>Add/Update Work Pak Planning</option>
-    <option>Add/Update Work Pak</option>
-  </select><br/>
+    <form action="dataset.html">
+      <a id="help" href="https://support.corridor.aero/hc/en-us/restricted?return_to=https%3A%2F%2Fsupport.corridor.aero%2Fhc%2Fen-us">Help</a>
+      <a href="https://www.corridor.aero/"><img src="images\CORRIDOR-CAMP-Systems-White-copy.png" alt="CORRIDOR"></a><br/>
+      <h1>Welcome to the CorImport Web Tool!</h1><br/>
+      <hr/>
+      <label id="name">Data Set</label><br/>
+      <select id="dataSetDropDown" onchange="dataSetNameSave()">
+        <option disabled selected>Select a data set...</option>
+        <optgroup label="Accounting">
+          <option value="Add Account Numbers">Add Account Numbers</option>
+        </optgroup>
+        <optgroup label="Aircraft">
+          <option value="Add Aircraft">Add Aircraft</option>
+        </optgroup>
+        <optgroup label="Canned Squawk">
+          <option value="Add/Update Canned Squawk Applicability">Add/Update Canned Squawk Applicability</option>
+          <option value="Add/Update Canned Squawk Estimate Adjustment">Add/Update Canned Squawk Estimate Adjustment</option>
+          <option value="Add/Update Canned Squawk Estimated Labor">Add/Update Canned Squawk Estimated Labor</option>
+          <option value="Add/Update Canned Squawk Files">Add/Update Canned Squawk Files</option>
+          <option value="Add/Update Canned Squawk Part">Add/Update Canned Squawk Part</option>
+          <option value="Add/Update Canned Squawk Planning">Add/Update Canned Squawk Planning</option>
+          <option value="Add/Update Canned Squawk">Add/Update Canned Squawk</option>
+        </optgroup>
+        <optgroup label="Company Database">
+          <option value="Add Company Addresses">Add Company Addresses</option>
+          <option value="Add Company Phone">Add Company Phone</option>
+          <option value="Add Company Profile">Add Company Profile</option>
+        </optgroup>
+        <optgroup label="Contact">
+          <option value="Add Contact Address">Add Contact Address</option>
+          <option value="Add Contact Phone">Add Contact Phone</option>
+          <option value="Add Contact Profile">Add Contact Profile</option>
+        </optgroup>
+        <optgroup label="Inventory">
+          <option value="Add/Update Part Masters">Add/Update Part Masters</option>
+          <option value="Add Inventory Lots">Add Inventory Lots</option>
+          <option value="Add/Update Part Discount Codes">Add/Update Part Discount Codes</option>
+          <option value="Add/Update Part Pricing">Add/Update Part Pricing</option>
+          <option value="Add/Update Warehouse Min/Max">Add/Update Warehouse Min/Max</option>
+        </optgroup>
+        <optgroup label="Tool Crib">
+          <option value="Add/Update Tool Master">Add/Update Tool Master</option>
+          <option value="Add/Update Tool Master Calibration">Add/Update Tool Master Calibration</option>
+          <option value="Add/Update Tool">Add/Update Tool</option>
+        </optgroup>
+        <optgroup label="Work Paks">
+          <option value="Add/Update Work Pak Applicability">Add/Update Work Pak Applicability</option>
+          <option value="Add/Update Work Pak Detail">Add/Update Work Pak Detail</option>
+          <option value="Add/Update Work Pak Estimate Adjustment">Add/Update Work Pak Estimate Adjustment</option>
+          <option value="Add/Update Work Pak Estimated Labor">Add/Update Work Pak Estimated Labor</option>
+          <option value="Add/Update Work Pak Part">Add/Update Work Pak Part</option>
+          <option value="Add/Update Work Pak Planning">Add/Update Work Pak Planning</option>
+          <option value="Add/Update Work Pak">Add/Update Work Pak</option>
+        </optgroup>
+      </select><br/>
 
-  <label id="name">Choose a file to format</label><br/>
-  <input type="file" name="fileToUpload" id="fileToUpload" onchange="dataFileNameSave()">
+      <input type="checkbox" id="open-doc-box">Open documentation for this data set<br/>
 
-  <input id="btnGenerate" type="submit" value="Generate" name="submit" onclick="Generate()">
+      <label id="name">Choose a file to format</label><br/>
+      <input type="file" name="fileToUpload" id="fileToUpload" onchange="dataFileNameSave()">
 
-  <div id="dvExcel"></div>
+      <input id="btnGenerate" type="submit" value="Generate" name="submit" onclick="Generate()">
 
-</form>
-</div>
+      <div id="example-table"></div>
 
-<script type="text/javascript">
+    </form>
+  </div>
 
-  //setting the option for the dataset name
-  function dataSetNameSave() {
-    var dataSetName = document.getElementById("dataSetDropDown");
-    var dataSetString = dataSetName.options[dataSetName.selectedIndex].value;
+  <script type="text/javascript">
+    //setting the option for the dataset name
+    function dataSetNameSave() {
+      var dataSetName = document.getElementById('dataSetDropDown');
+      var dataSetString = dataSetName.options[dataSetName.selectedIndex].value;
 
-    localStorage.setItem("dataSetName", dataSetString);
-  };
+      localStorage.setItem("dataSetName", dataSetString);
+    };
 
-  //setting the data file name
+    //setting the data file name
     function dataFileNameSave() {
       var input = document.getElementById('fileToUpload');
       var fileName = input.files[0].name;
@@ -89,91 +109,95 @@
       //localStorage.setItem("dataFileName", dataFileName);
     };
 
-     function Generate() {
-       window.open("dataset.html");
+    function Generate() {
 
-  //
-  //     //Reference the FileUpload element.
-  //     var fileUpload = document.getElementById("btnGenerate");
-  //
-  //     //Validate whether File is valid Excel file.
-  //     var allowedFiles = [".xls", ".xlsx"];
-  //     var regex = ([a-zA-Z0-9\s_\\.\-:]+('.xls'|'.xlsx')$;
-  //     if (regex.test(fileUpload.value.toLowerCase())) {
-  //         if (typeof (FileReader) != "undefined") {
-  //             var reader = new FileReader();
-  //
-  //             //For Browsers other than IE.
-  //             if (reader.readAsBinaryString) {
-  //                 reader.onload = function (e) {
-  //                     ProcessExcel(e.target.result);
-  //                 };
-  //                 reader.readAsBinaryString(fileUpload.files[0]);
-  //             } else {
-  //
-  //                 reader.readAsArrayBuffer(fileUpload.files[0]);
-  //             }
-  //         } else {
-  //             alert("This browser does not support HTML5.");
-  //         }
-  //     } else {
-  //         alert("Please upload a valid Excel file.");
-  //     }
-  // };
-  // function ProcessExcel(data) {
-  //     //Read the Excel File data.
-  //     var workbook = XLSX.read(data, {
-  //         type: 'binary'
-  //     });
-  //
-  //     //Fetch the name of First Sheet.
-  //     var firstSheet = workbook.SheetNames[0];
-  //
-  //     //Read all rows from First Sheet into an JSON array.
-  //     var excelRows = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[firstSheet]);
-  //
-  //     //Create a HTML Table element.
-  //     var table = document.createElement("table");
-  //     table.border = "1";
-  //
-  //     //Add the header row.
-  //     var row = table.insertRow(-1);
-  //
-  //     //Add the header cells.
-  //     var headerCell = document.createElement("TH");
-  //     headerCell.innerHTML = "Id";
-  //     row.appendChild(headerCell);
-  //
-  //     headerCell = document.createElement("TH");
-  //     headerCell.innerHTML = "Name";
-  //     row.appendChild(headerCell);
-  //
-  //     headerCell = document.createElement("TH");
-  //     headerCell.innerHTML = "Country";
-  //     row.appendChild(headerCell);
-  //
-  //     //Add the data rows from Excel file.
-  //     for (var i = 0; i < excelRows.length; i++) {
-  //         //Add the data row.
-  //         var row = table.insertRow(-1);
-  //
-  //         //Add the data cells.
-  //         var cell = row.insertCell(-1);
-  //         cell.innerHTML = excelRows[i].Id;
-  //
-  //         cell = row.insertCell(-1);
-  //         cell.innerHTML = excelRows[i].Name;
-  //
-  //         cell = row.insertCell(-1);
-  //         cell.innerHTML = excelRows[i].Country;
-  //     }
-  //
-  //     var dvExcel = document.getElementById("dvExcel");
-  //     dvExcel.innerHTML = "";
-  //     dvExcel.appendChild(table);
-   };
-</script>
+      var dataSetName = document.getElementById('dataSetDropDown');
+      var dataSetString = dataSetName.options[dataSetName.selectedIndex].value
+      var openImpDoc = document.getElementById('open-doc-box');
+
+      //disable button for first option in select
+      // if (dataSetName.selectedIndex = 0) {
+      //   document.getElementById('btnGenerate').disabled = true;
+      // } else {
+      //   document.getElementById('btnGenerate').disabled = false;
+      // }
+
+//Open the help documentation for how each data set should be formatted
+       var impPDF = function () {
+
+         var dataSetName = document.getElementById('dataSetDropDown');
+         var dataSetString = dataSetName.options[dataSetName.selectedIndex].value
+         var openImpDoc = document.getElementById('open-doc-box');
+
+      if (openImpDoc.checked == true) {
+           if (dataSetString === 'Add Account Numbers') {
+            window.open('11.7_Add Account Numbers.pdf')
+         } else if (dataSetString === 'Add Aircraft') {
+            window.open('11.7 Aircraft.pdf')
+         } else if (dataSetString === "Add/Update Canned Squawk Applicability") {
+            window.open('11.5 Add Update Canned Squawk Applicability.pdf')
+         } else if (dataSetString === "Add/Update Canned Squawk Estimate Adjustment") {
+            window.open('11.5 Add Update Canned Squawk Estimate Adjustment.pdf')
+         } else if (dataSetString === "Add/Update Canned Squawk Estimated Labor") {
+            window.open('11.5 Add Update Canned Squawk Estimated Labor.pdf')
+         } else if (dataSetString === "Add/Update Canned Squawk Files") {
+            window.open('11.5 Add Update Canned Squawk Files.pdf')
+         } else if (dataSetString === "Add/Update Canned Squawk Part") {
+            window.open('11.5 Add Update Canned Squawk Part.pdf')
+         } else if (dataSetString === "Add/Update Canned Squawk Planning") {
+            window.open('11.5 Add Update Canned Squawk Planning.pdf')
+         } else if (dataSetString === "Add/Update Canned Squawk") {
+            window.open('11.5 Add Update Canned Squawk.pdf')
+         } else if (dataSetString === "Add Company Addresses") {
+            window.open('11.7 Company Address.pdf')
+         } else if (dataSetString === "Add Company Phone") {
+            window.open('11.7 Company Phone.pdf')
+         } else if (dataSetString === "Add Company Profile") {
+            window.open('11.7 Company Profile.pdf')
+         } else if (dataSetString === "Add Contact Address") {
+            window.open('11.7 Add Contact Address.pdf')
+         } else if (dataSetString === "Add Contact Phone") {
+            window.open('11.7 Add Contact Phone.pdf')
+         } else if (dataSetString === "Add Contact Profile") {
+            window.open('11.7 Add Contact Profile.pdf')
+         } else if (dataSetString === "Add/Update Part Masters") {
+            window.open('11.7 Add Update Part Masters.pdf')
+         } else if (dataSetString === "Add Inventory Lots") {
+            window.open('11.7 Add Lots (inventory quantity).pdf')
+         } else if (dataSetString === "Add/Update Part Discount Codes") {
+            window.open('11.7 Add Update Part Discount Codes.pdf')
+         } else if (dataSetString === "Add/Update Part Pricing") {
+            window.open('11.7 Add Update Part Pricing.pdf')
+         } else if (dataSetString === "Add/Update Warehouse Min/Max") {
+            window.open('11.7 Add Update Warehouse Min Max.pdf')
+         } else if (dataSetString === "Add/Update Tool Master") {
+            window.open('11.7 Add Update Tool Master.pdf')
+         } else if (dataSetString === "Add/Update Tool Master Calibration") {
+            window.open('11.7 Add Update Tool Master Calibration.pdf')
+         } else if (dataSetString === "Add/Update Tool") {
+            window.open('11.7 Add Update Tool')
+         } else if (dataSetString === "Add/Update Work Pak Applicability") {
+            window.open('11.5 Add Update Work Pak Applicability.pdf')
+         } else if (dataSetString === "Add/Update Work Pak Detail") {
+            window.open('11.5 Add Update Work Pak Detail.pdf')
+         } else if (dataSetString === "Add/Update Work Pak Estimate Adjustment") {
+            window.open('11.5 Add Update Work Pak Estimate Adjustment.pdf')
+         } else if (dataSetString === "Add/Update Work Pak Estimated Labor") {
+            window.open('11.5 Add Update Work Pak Estimated Labor.pdf')
+         } else if (dataSetString === "Add/Update Work Pak Part") {
+            window.open('11.5 Add Update Work Pak Part.pdf')
+         } else if (dataSetString === "Add/Update Work Pak Planning") {
+            window.open('11.5 Add Update Work Pak Planning.pdf')
+         } else if (dataSetString === "Add/Update Work Pak") {
+            window.open('11.5 Add Update Work Pak.pdf')
+         }
+
+      } else {
+        console.log("box not checked");
+      }
+    }
+  };
+  </script>
 
 </body>
-
 </html>

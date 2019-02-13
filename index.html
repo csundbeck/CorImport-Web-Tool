@@ -36,17 +36,17 @@
         <optgroup label="Aircraft">
           <option value="Add Aircraft">Add Aircraft</option>
         </optgroup>
-        <optgroup label="Canned Squawk">
-          <option value="Add/Update Canned Squawk Applicability">Add/Update Canned Squawk Applicability</option>
-          <option value="Add/Update Canned Squawk Estimate Adjustment">Add/Update Canned Squawk Estimate Adjustment</option>
-          <option value="Add/Update Canned Squawk Estimated Labor">Add/Update Canned Squawk Estimated Labor</option>
-          <option value="Add/Update Canned Squawk Files">Add/Update Canned Squawk Files</option>
-          <option value="Add/Update Canned Squawk Part">Add/Update Canned Squawk Part</option>
-          <option value="Add/Update Canned Squawk Planning">Add/Update Canned Squawk Planning</option>
-          <option value="Add/Update Canned Squawk">Add/Update Canned Squawk</option>
+        <optgroup label="Add/Update Canned Squawk">
+          <option value="Canned Squawk Applicability">Canned Squawk Applicability</option>
+          <option value="Canned Squawk Estimate Adjustment">Canned Squawk Estimate Adjustment</option>
+          <option value="Canned Squawk Estimated Labor">Canned Squawk Estimated Labor</option>
+          <option value="Canned Squawk Files">Canned Squawk Files</option>
+          <option value="Canned Squawk Part">Canned Squawk Part</option>
+          <option value="Canned Squawk Planning">Canned Squawk Planning</option>
+          <option value="Canned Squawk">Canned Squawk</option>
         </optgroup>
         <optgroup label="Company Database">
-          <option value="Add Company Addresses">Add Company Addresses</option>
+          <option value="Add Company Addresses">Add Company Address</option>
           <option value="Add Company Phone">Add Company Phone</option>
           <option value="Add Company Profile">Add Company Profile</option>
         </optgroup>
@@ -55,26 +55,26 @@
           <option value="Add Contact Phone">Add Contact Phone</option>
           <option value="Add Contact Profile">Add Contact Profile</option>
         </optgroup>
-        <optgroup label="Inventory">
-          <option value="Add/Update Part Masters">Add/Update Part Masters</option>
+        <optgroup label="Add/Update Inventory">
+          <option value="Part Masters">Part Masters</option>
           <option value="Add Inventory Lots">Add Inventory Lots</option>
-          <option value="Add/Update Part Discount Codes">Add/Update Part Discount Codes</option>
-          <option value="Add/Update Part Pricing">Add/Update Part Pricing</option>
-          <option value="Add/Update Warehouse Min/Max">Add/Update Warehouse Min/Max</option>
+          <option value="Part Discount Codes">Part Discount Codes</option>
+          <option value="Part Pricing">Part Pricing</option>
+          <option value="Warehouse Min & Max">Warehouse Min & Max</option>
         </optgroup>
-        <optgroup label="Tool Crib">
-          <option value="Add/Update Tool Master">Add/Update Tool Master</option>
-          <option value="Add/Update Tool Master Calibration">Add/Update Tool Master Calibration</option>
-          <option value="Add/Update Tool">Add/Update Tool</option>
+        <optgroup label="Add/Update Tool Crib">
+          <option value="Tool Master">Tool Master</option>
+          <option value="Tool Master Calibration">Add/Update Tool Master Calibration</option>
+          <option value="Tools">Tools</option>
         </optgroup>
-        <optgroup label="Work Paks">
-          <option value="Add/Update Work Pak Applicability">Add/Update Work Pak Applicability</option>
-          <option value="Add/Update Work Pak Detail">Add/Update Work Pak Detail</option>
-          <option value="Add/Update Work Pak Estimate Adjustment">Add/Update Work Pak Estimate Adjustment</option>
-          <option value="Add/Update Work Pak Estimated Labor">Add/Update Work Pak Estimated Labor</option>
-          <option value="Add/Update Work Pak Part">Add/Update Work Pak Part</option>
-          <option value="Add/Update Work Pak Planning">Add/Update Work Pak Planning</option>
-          <option value="Add/Update Work Pak">Add/Update Work Pak</option>
+        <optgroup label="Add/Update Work Paks">
+          <option value="Work Pak Applicability">Work Pak Applicability</option>
+          <option value="Work Pak Detail">Work Pak Detail</option>
+          <option value="Work Pak Estimate Adjustment">Work Pak Estimate Adjustment</option>
+          <option value="Work Pak Estimated Labor">Work Pak Estimated Labor</option>
+          <option value="Work Pak Part">Work Pak Part</option>
+          <option value="Work Pak Planning">Work Pak Planning</option>
+          <option value="Work Pak">Work Pak</option>
         </optgroup>
       </select><br/>
 
@@ -91,10 +91,15 @@
   </div>
 
   <script type="text/javascript">
+  var dataSetName = document.getElementById('dataSetDropDown');
+  var dataSetString = dataSetName.options[dataSetName.selectedIndex].value
+  var fileLocations = 'ValidationFiles/' + dataSetString + '.pdf';
+  var openImpDoc = document.getElementById('open-doc-box');
+
     //setting the option for the dataset name
     function dataSetNameSave() {
-      var dataSetName = document.getElementById('dataSetDropDown');
-      var dataSetString = dataSetName.options[dataSetName.selectedIndex].value;
+      let dataSetName = document.getElementById('dataSetDropDown');
+      let dataSetString = dataSetName.options[dataSetName.selectedIndex].value
 
       localStorage.setItem("dataSetName", dataSetString);
     };
@@ -111,92 +116,23 @@
 
     function Generate() {
 
-      var dataSetName = document.getElementById('dataSetDropDown');
-      var dataSetString = dataSetName.options[dataSetName.selectedIndex].value
-      var openImpDoc = document.getElementById('open-doc-box');
-
-      //disable button for first option in select
-      // if (dataSetName.selectedIndex = 0) {
-      //   document.getElementById('btnGenerate').disabled = true;
-      // } else {
-      //   document.getElementById('btnGenerate').disabled = false;
-      // }
-
-//Open the help documentation for how each data set should be formatted
-       var impPDF = function () {
-
          var dataSetName = document.getElementById('dataSetDropDown');
          var dataSetString = dataSetName.options[dataSetName.selectedIndex].value
          var openImpDoc = document.getElementById('open-doc-box');
 
-      if (openImpDoc.checked == true) {
-           if (dataSetString === 'Add Account Numbers') {
-            window.open('11.7_Add Account Numbers.pdf')
-         } else if (dataSetString === 'Add Aircraft') {
-            window.open('11.7 Aircraft.pdf')
-         } else if (dataSetString === "Add/Update Canned Squawk Applicability") {
-            window.open('11.5 Add Update Canned Squawk Applicability.pdf')
-         } else if (dataSetString === "Add/Update Canned Squawk Estimate Adjustment") {
-            window.open('11.5 Add Update Canned Squawk Estimate Adjustment.pdf')
-         } else if (dataSetString === "Add/Update Canned Squawk Estimated Labor") {
-            window.open('11.5 Add Update Canned Squawk Estimated Labor.pdf')
-         } else if (dataSetString === "Add/Update Canned Squawk Files") {
-            window.open('11.5 Add Update Canned Squawk Files.pdf')
-         } else if (dataSetString === "Add/Update Canned Squawk Part") {
-            window.open('11.5 Add Update Canned Squawk Part.pdf')
-         } else if (dataSetString === "Add/Update Canned Squawk Planning") {
-            window.open('11.5 Add Update Canned Squawk Planning.pdf')
-         } else if (dataSetString === "Add/Update Canned Squawk") {
-            window.open('11.5 Add Update Canned Squawk.pdf')
-         } else if (dataSetString === "Add Company Addresses") {
-            window.open('11.7 Company Address.pdf')
-         } else if (dataSetString === "Add Company Phone") {
-            window.open('11.7 Company Phone.pdf')
-         } else if (dataSetString === "Add Company Profile") {
-            window.open('11.7 Company Profile.pdf')
-         } else if (dataSetString === "Add Contact Address") {
-            window.open('11.7 Add Contact Address.pdf')
-         } else if (dataSetString === "Add Contact Phone") {
-            window.open('11.7 Add Contact Phone.pdf')
-         } else if (dataSetString === "Add Contact Profile") {
-            window.open('11.7 Add Contact Profile.pdf')
-         } else if (dataSetString === "Add/Update Part Masters") {
-            window.open('11.7 Add Update Part Masters.pdf')
-         } else if (dataSetString === "Add Inventory Lots") {
-            window.open('11.7 Add Lots (inventory quantity).pdf')
-         } else if (dataSetString === "Add/Update Part Discount Codes") {
-            window.open('11.7 Add Update Part Discount Codes.pdf')
-         } else if (dataSetString === "Add/Update Part Pricing") {
-            window.open('11.7 Add Update Part Pricing.pdf')
-         } else if (dataSetString === "Add/Update Warehouse Min/Max") {
-            window.open('11.7 Add Update Warehouse Min Max.pdf')
-         } else if (dataSetString === "Add/Update Tool Master") {
-            window.open('11.7 Add Update Tool Master.pdf')
-         } else if (dataSetString === "Add/Update Tool Master Calibration") {
-            window.open('11.7 Add Update Tool Master Calibration.pdf')
-         } else if (dataSetString === "Add/Update Tool") {
-            window.open('11.7 Add Update Tool')
-         } else if (dataSetString === "Add/Update Work Pak Applicability") {
-            window.open('11.5 Add Update Work Pak Applicability.pdf')
-         } else if (dataSetString === "Add/Update Work Pak Detail") {
-            window.open('11.5 Add Update Work Pak Detail.pdf')
-         } else if (dataSetString === "Add/Update Work Pak Estimate Adjustment") {
-            window.open('11.5 Add Update Work Pak Estimate Adjustment.pdf')
-         } else if (dataSetString === "Add/Update Work Pak Estimated Labor") {
-            window.open('11.5 Add Update Work Pak Estimated Labor.pdf')
-         } else if (dataSetString === "Add/Update Work Pak Part") {
-            window.open('11.5 Add Update Work Pak Part.pdf')
-         } else if (dataSetString === "Add/Update Work Pak Planning") {
-            window.open('11.5 Add Update Work Pak Planning.pdf')
-         } else if (dataSetString === "Add/Update Work Pak") {
-            window.open('11.5 Add Update Work Pak.pdf')
-         }
-
+         //Open the help documentation for how each data set should be formatted when the check box is checked
+      if (dataSetString == 'Select a data set...') {
+        alert('Please select a data set from the options below');
+        return false;
       } else {
-        console.log("box not checked");
+         if (openImpDoc.checked == true) {
+            window.open('ValidationFiles/' + dataSetString + '.pdf');
+        } else {
+            return;
       }
-    }
+    };
   };
+
   </script>
 
 </body>

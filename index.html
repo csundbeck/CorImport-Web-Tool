@@ -10,8 +10,12 @@
   <link rel="stylesheet" type="text/css" href="form.css">
   <link rel="icon" href="images\corridor-icon.png">
 
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.3/jquery.csv.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.0/js/jquery.jexcel.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.0/css/jquery.jexcel.min.css" type="text/css" />
+
 
   <title>CorImport Web Tool</title>
 
@@ -20,7 +24,7 @@
 
   <div class="style">
 
-    <form id="myForm" action="dataset.html">
+    <form id="main-form" action="dataset.html">
       <a id="help" href="https://support.corridor.aero/hc/en-us/restricted?return_to=https%3A%2F%2Fsupport.corridor.aero%2Fhc%2Fen-us">Help</a>
       <a href="https://www.corridor.aero/"><img src="images\CORRIDOR-CAMP-Systems-White-copy.png" alt="CORRIDOR"></a><br/>
       <h1>Welcome to the CorImport Web Tool!</h1><br/>
@@ -79,9 +83,9 @@
       <input type="checkbox" id="open-doc-box">Open documentation for this data set<br/>
 
       <label id="name">Choose a file to format</label><br/>
-      <input type="file" name="fileToUpload" id="fileToUpload" onchange="dataFileNameSave()">
+      <input type="file" name="fileToUpload" id="fileToUpload" onchange="dataFileNameSave()" accept=".csv"/>
 
-      <input id="btnGenerate" type="submit" value="Generate" name="submit" onclick="Generate()">
+      <input id="btnGenerate" type="submit" value="Generate" name="submit" onclick="Generate()"/>
 
       <div id="example-table"></div>
 
@@ -106,9 +110,11 @@
     function dataFileNameSave() {
       var input = document.getElementById('fileToUpload');
       var fileName = input.files[0].name;
+      var fileURL = input.value;
       //var dataFileName = document.getElementById("fileToUpload")
 
-      localStorage.setItem("dataFileName", (fileName));
+      localStorage.setItem("dataFileName", fileName);
+      localStorage.setItem("fileURL", fileURL)
       //localStorage.setItem("dataFileName", dataFileName);
     };
 
@@ -141,7 +147,7 @@
     //clear localStorage on refresh
     window.onload = window.localStorage.clear();
     //reset fields on the form
-    document.getElementById("myForm").reset();
+    document.getElementById("main-form").reset();
 
   </script>
 

@@ -8,12 +8,14 @@
 
 <link rel="stylesheet" type="text/css" href="style.css">
 <link rel="stylesheet" type="text/css" href="form.css">
-<link href="https://unpkg.com/tabulator-tables@4.2.0/dist/css/tabulator.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="font-awesome-4.7.0\css\font-awesome.min.css">
 <link rel="icon" href="images\corridor-icon.png">
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/handsontable-pro@6.2.2/dist/handsontable.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.3/jquery.csv.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.0/js/jquery.jexcel.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.0/css/jquery.jexcel.min.css" type="text/css" />
 
 <title>CorImport Web Tool</title>
 
@@ -27,10 +29,9 @@
   <a href="https://www.corridor.aero/"><img src="images\CORRIDOR-CAMP-Systems-White-copy.png" alt="CORRIDOR"></a><br/>
 
   <h1 id="data-set-name"> </h1><br/>
-
   <p id="data-file-name"> </p><br/>
-
-  <div id="dvExcel"></div>
+  <div id="spreadsheet"></div><br/>
+  <button type="button" id="download-csv"><i class="fa fa-download"></i> Download as CSV</button>
 
 </form>
 </div>
@@ -41,6 +42,20 @@
 
     dataSetName.innerHTML = localStorage.getItem('dataSetName');
     dataFileName.innerHTML = "The name of this file is " + localStorage.getItem('dataFileName');
+
+    $('#spreadsheet').jexcel({
+    // URL from the CSV file
+    csv: 'https://bossanova.uk/components/bossanova-ui/demo/demo1.csv',
+    // Get the first of the CSV file and consider the headers
+    csvHeaders: true,
+    // Default column widths
+    colWidths: [ 300, 300, 300, ]
+    });
+
+    $('#download-csv').on('click', function () {
+	     $('#spreadsheet').jexcel('download');
+     })
+
 
 </script>
 

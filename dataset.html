@@ -31,7 +31,7 @@
   <h1 id="data-set-name"> </h1><br/>
   <p id="data-file-name"> </p><br/>
   <div id="spreadsheet"></div><br/>
-  <button type="button" id="download-csv"><i class="fa fa-download"></i> Download as CSV</button>
+  <button type="button" id="download-csv"><i class="fa fa-download"></i>   Download CSV</button>
 
 </form>
 </div>
@@ -43,6 +43,7 @@
     dataSetName.innerHTML = localStorage.getItem('dataSetName');
     dataFileName.innerHTML = "The name of this file is " + localStorage.getItem('dataFileName');
 
+    //Spreadsheet entry
     $('#spreadsheet').jexcel({
     // URL from the CSV file
     csv: 'https://bossanova.uk/components/bossanova-ui/demo/demo1.csv',

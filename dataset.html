@@ -31,7 +31,10 @@
     <h1 id="data-set-name"> </h1><br/>
     <p id="data-file-name"> </p><br/>
     <div id="spreadsheet"></div><br/>
-    <button type="button" id="download-csv"><i class="fa fa-download"></i>   Download CSV</button>
+    <div id="button-div">
+      <button type="button" id="restart"><i class="fa fa-repeat" aria-hidden="true"></i>  Restart</button>
+      <button type="button" id="download-csv"><i class="fa fa-download"></i>  Download CSV</button>
+    </div>
   </div>
 </form>
 </div>
@@ -40,23 +43,38 @@
     var dataSetName = document.getElementById('data-set-name');
     var dataFileName = document.getElementById('data-file-name');
 
-    dataSetName.innerHTML = localStorage.getItem('dataSetName');
-    dataFileName.innerHTML = "The name of this file is " + localStorage.getItem('dataFileName');
+    if (localStorage.getItem('dataSetName') == null) {
+      dataSetName.innerHTML = "CorImport Web Tool";
+      alert('Please return the the home page and select a Data Set and a Data File to format.');
+    } else {
+      dataSetName.innerHTML = localStorage.getItem('dataSetName');
+    }
+
+    if (localStorage.getItem('dataFileName') == null) {
+      dataFileName.innerHTML = "**No file has been selected**";
+      dataFileName.style.color = '#FF0000';
+    } else {
+      dataFileName.innerHTML = "The name of this file is " + localStorage.getItem('dataFileName');
+    }
 
     //Spreadsheet entry
     $('#spreadsheet').jexcel({
-    // URL from the CSV file
+    // file path of the CSV file
     csv: 'https://bossanova.uk/components/bossanova-ui/demo/demo1.csv',
     // Get the first of the CSV file and consider the headers
     csvHeaders: true,
     // Default column widths
-    colWidths: [ 300, 300, 300, ]
+    colWidths: [ 300, 300, 300]
     });
 
+    //Download CSV button function
     $('#download-csv').on('click', function () {
 	     $('#spreadsheet').jexcel('download');
      })
 
+     $('#restart').on('click', function () {
+       location.href = "index.html";
+     })
 
 </script>
 

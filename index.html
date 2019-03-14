@@ -12,6 +12,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.3/jquery.csv.min.js"></script>
+  <script src="corimport.js" type="text/javascript"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.0/js/jquery.jexcel.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.0/css/jquery.jexcel.min.css" type="text/css" />
@@ -93,54 +94,6 @@
 
     </form>
   </div>
-
-  <script type="text/javascript">
-  var dataSetName = document.getElementById('dataSetDropDown');
-  var dataSetString = dataSetName.options[dataSetName.selectedIndex].value;
-  var fileLocations = 'ValidationFiles/' + dataSetString + '.pdf';
-  var openImpDoc = document.getElementById('open-doc-box');
-
-    //setting the option for the dataset name
-    function dataSetNameSave() {
-      let dataSetName = document.getElementById('dataSetDropDown');
-      let dataSetString = dataSetName.options[dataSetName.selectedIndex].value;
-
-      localStorage.setItem("dataSetName", dataSetString);
-    };
-
-    //setting the data file name
-    function dataFileNameSave() {
-      var input = document.getElementById('fileToUpload');
-      var fileName = input.files[0].name;
-      var fileURL = input.value;
-      //var dataFileName = document.getElementById("fileToUpload")
-
-      localStorage.setItem("dataFileName", fileName);
-      localStorage.setItem("fileURL", fileURL);
-      //localStorage.setItem("dataFileName", dataFileName);
-    };
-
-    function Generate() {
-
-         var dataSetName = document.getElementById('dataSetDropDown');
-         var dataSetString = dataSetName.options[dataSetName.selectedIndex].value;
-         var openImpDoc = document.getElementById('open-doc-box');
-         var errorMessageName = document.getElementById('error-message-name');
-         var errorMessageFile = document.getElementById('error-mrssage-file');
-
-         if (openImpDoc.checked == true) {
-            window.open('ValidationFiles/' + dataSetString + '.pdf');
-        } else {
-            return;
-      }
-};
-
-    //clear localStorage on refresh
-    window.onload = window.localStorage.clear();
-    //reset fields on the form
-    document.getElementById("main-form").reset();
-
-  </script>
 
 </body>
 </html>

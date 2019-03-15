@@ -10,12 +10,12 @@
 <link rel="stylesheet" type="text/css" href="form.css">
 <link rel="stylesheet" type="text/css" href="font-awesome-4.7.0\css\font-awesome.min.css">
 <link rel="icon" href="images\corridor-icon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.0/css/jquery.jexcel.min.css" type="text/css" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.3/jquery.csv.min.js"></script>
-
+<script src="corimport.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.0/js/jquery.jexcel.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.0/css/jquery.jexcel.min.css" type="text/css" />
 
 <title>CorImport Web Tool</title>
 
@@ -23,21 +23,62 @@
 <body>
 
 <div class="style">
-
   <form>
-  <a id="help" href="https://support.corridor.aero/hc/en-us/restricted?return_to=https%3A%2F%2Fsupport.corridor.aero%2Fhc%2Fen-us">Help</a>
-  <a href="https://www.corridor.aero/"><img src="images\CORRIDOR-CAMP-Systems-White-copy.png" alt="CORRIDOR"></a><br/>
-  <div id="sub-div">
-    <h1 id="data-set-name"> </h1><br/>
-    <p id="data-file-name"> </p><br/>
-    <div id="spreadsheet"></div><br/>
-    <div id="button-div">
-      <button type="button" id="restart"><i class="fa fa-repeat" aria-hidden="true"></i>  Restart</button>
-      <button type="button" id="download-csv"><i class="fa fa-download"></i>  Download CSV</button>
+    <a id="help" href="https://support.corridor.aero/hc/en-us/restricted?return_to=https%3A%2F%2Fsupport.corridor.aero%2Fhc%2Fen-us">Help</a>
+    <a href="https://www.corridor.aero/"><img src="images\CORRIDOR-CAMP-Systems-White-copy.png" alt="CORRIDOR"></a><br/>
+    <div id="sub-div">
+      <div id="header-container">
+        <h1 id="data-set-name"> </h1><br/>
+        <p id="data-file-name"> </p><br/>
+      </div>
+      <div id="spreadsheet"></div><br/>
+      <div id="button-container">
+        <button type="button" id="restart"><i class="fa fa-repeat" aria-hidden="true"></i>  Restart</button>
+        <button type="button" id="download-csv"><i class="fa fa-download"></i>  Download CSV</button>
+      </div>
     </div>
-  </div>
-</form>
+  </form>
 </div>
+
+<script type="text/javascript">
+
+var dataSetName = document.getElementById('data-set-name');
+var dataFileName = document.getElementById('data-file-name');
+
+if (localStorage.getItem('dataSetName') == null) {
+  dataSetName.innerHTML = "CorImport Web Tool";
+  alert('Please return the the home page and select a Data Set and a Data File to format.');
+} else {
+  dataSetName.innerHTML = localStorage.getItem('dataSetName');
+}
+
+if (localStorage.getItem('dataFileName') == null) {
+  dataFileName.innerHTML = "**No file has been selected**";
+  dataFileName.style.color = '#FF0000';
+} else {
+  dataFileName.innerHTML = "The name of this file is " + localStorage.getItem('dataFileName');
+}
+
+//Spreadsheet entry
+$('#spreadsheet').jexcel({
+// file path of the CSV file
+csv: 'https://bossanova.uk/components/bossanova-ui/demo/demo1.csv',
+// Get the first of the CSV file and consider the headers
+csvHeaders: true,
+// Default column widths
+colWidths: [ 300, 300, 300 ]
+});
+
+//Download CSV button function
+$('#download-csv').on('click', function () {
+   $('#spreadsheet').jexcel('download');
+ });
+
+ $('#restart').on('click', function () {
+   location.href = 'index.html';
+ });
+
+ </script>
 
 </body>
 </html>

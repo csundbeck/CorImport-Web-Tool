@@ -14,8 +14,9 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.3/jquery.csv.min.js"></script>
-<script src="corimport.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.0/js/jquery.jexcel.js"></script>
+<script src="papaparse.min.js" type="text/javascript"></script>
+<script src="corimport.js" type="text/javascript"></script>
 
 <title>CorImport Web Tool</title>
 
@@ -45,6 +46,34 @@
 var dataSetName = document.getElementById('data-set-name');
 var dataFileName = document.getElementById('data-file-name');
 
+var file = "jexcel.csv";
+var config = {
+	delimiter: "",	// auto-detect
+	newline: "",	// auto-detect
+	quoteChar: '"',
+	escapeChar: '"',
+	header: true,
+	transformHeader: undefined,
+	dynamicTyping: false,
+	preview: 0,
+	encoding: "",
+	worker: false,
+	comments: false,
+	step: undefined,
+	complete: undefined,
+	error: undefined,
+	download: false,
+	downloadRequestHeaders: undefined,
+	skipEmptyLines: false,
+	chunk: undefined,
+	fastMode: undefined,
+	beforeFirstChunk: undefined,
+	withCredentials: undefined,
+	transform: undefined,
+	delimitersToGuess: [',', '\t', '|', ';', Papa.RECORD_SEP, Papa.UNIT_SEP]
+};
+var data = Papa.parse(file, config);
+
 if (localStorage.getItem('dataSetName') == null) {
   dataSetName.innerHTML = "CorImport Web Tool";
   alert('Please return the the home page and select a Data Set and a Data File to format.');
@@ -62,11 +91,11 @@ if (localStorage.getItem('dataFileName') == null) {
 //Spreadsheet entry
 $('#spreadsheet').jexcel({
 // file path of the CSV file
-csv: 'https://bossanova.uk/components/bossanova-ui/demo/demo1.csv',
+csv: 'http://crossorigin.me/' + data,
 // Get the first of the CSV file and consider the headers
 csvHeaders: true,
 // Default column widths
-colWidths: [ 300, 300, 300 ]
+colWidths: [ 300, 300, 300, 300, 300 ]
 });
 
 //Download CSV button function

@@ -9,7 +9,6 @@ img {
   margin: 35px 4%;
   width: 14%;
   height: auto;
-  position: fixed;
 }
 
 h1 {
@@ -85,8 +84,6 @@ input[type=submit]:hover {
   padding: 20px;
   font-family: 'Oswald', sans-serif;
   text-decoration: none;
-  position: fixed;
-  left: 93%;
 }
 
 #help:hover {
@@ -94,15 +91,10 @@ input[type=submit]:hover {
 }
 
 #header-container {
-  margin-top: 5%;
   align-items: center;
   font-family: 'Oswald', sans-serif;
   width: 100%;
   display: inline-block;
-  position: fixed;
-  top: 5%;
-  left: 0;
-  right: 0;
 }
 
 #button-container {
@@ -123,7 +115,7 @@ input[type=submit]:hover {
   cursor: pointer;
   font-size:20px;
   z-index: 1;
-  position: relative !important;
+  position: relative;
 }
 
 #download-csv:hover {
@@ -142,7 +134,7 @@ cursor: pointer;
 font-size:20px;
 margin-right: 40px;
 z-index: 1;
-position: relative !important;
+position: relative;
 }
 
 #restart:hover {
@@ -158,5 +150,7 @@ position: relative !important;
 
 #spreadsheet {
   margin-bottom: 3%;
-  margin-top: 25%;
+  margin-top: 5%;
+  z-index: 0;
+  overflow: hidden;
 }

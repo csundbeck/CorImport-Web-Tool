@@ -1,8 +1,12 @@
+html {
+overflow-y: scroll;
+}
+
 body {
   background-color: #d1ccc0;
   font-family: 'Oswald', sans-serif;
   font-size: 14px;
-  margin-bottom: 3%;
+  height: 100%;
 }
 
 img {
@@ -98,11 +102,15 @@ input[type=submit]:hover {
 }
 
 #button-container {
-  align-items: center;
+  align-content: center;
   width: 100%;
   display: inline-flex;
   left: 35%;
-  position: fixed;
+  margin-bottom: 3%;
+  position: absolute;
+  -webkit-transition: all 2s ease-in-out;
+  transition: all 2s ease-in-out;
+  z-index: 1;
 }
 
 #download-csv {
@@ -115,7 +123,8 @@ input[type=submit]:hover {
   cursor: pointer;
   font-size:20px;
   z-index: 1;
-  position: relative;
+  position: sticky;
+  text-align: center;
 }
 
 #download-csv:hover {
@@ -125,6 +134,7 @@ input[type=submit]:hover {
 
 #restart {
 width: 15%;
+text-align: center;
 background-color: #151952;
 color: white;
 padding: 16px 10px;
@@ -134,7 +144,7 @@ cursor: pointer;
 font-size:20px;
 margin-right: 40px;
 z-index: 1;
-position: relative;
+position: static;
 }
 
 #restart:hover {

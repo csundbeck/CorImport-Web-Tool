@@ -45,38 +45,7 @@
 
 var dataSetName = document.getElementById('data-set-name');
 var dataFileName = document.getElementById('data-file-name');
-
-//Papa Parse
-// var file = "Test Files/C2ImportSchoolSample.csv";//localStorage.getItem('fileUrl');
-// var config = {
-// 	delimiter: ",",	// auto-detect
-// 	newline: "",	// auto-detect
-// 	quoteChar: '"',
-// 	escapeChar: '"',
-// 	header: true,
-// 	transformHeader: undefined,
-// 	dynamicTyping: false,
-// 	preview: 0,
-// 	encoding: "",
-// 	worker: false,
-// 	comments: false,
-// 	step: undefined,
-// 	complete: undefined,
-// 	error: undefined,
-// 	download: false,
-// 	downloadRequestHeaders: undefined,
-// 	skipEmptyLines: false,
-// 	chunk: undefined,
-// 	fastMode: undefined,
-// 	beforeFirstChunk: undefined,
-// 	withCredentials: undefined,
-// 	transform: undefined,
-// 	delimitersToGuess: [',', '\t', '|', ';', Papa.RECORD_SEP, Papa.UNIT_SEP]
-// };
-// var data = Papa.parse(file, config);
-//
-// console.log(data);
-
+var data = localStorage.getItem("dataFileName");
 
 if (localStorage.getItem('dataSetName') == null) {
   dataSetName.innerHTML = "CorImport Web Tool";
@@ -85,7 +54,7 @@ if (localStorage.getItem('dataSetName') == null) {
   dataSetName.innerHTML = localStorage.getItem('dataSetName');
 }
 
-if (localStorage.getItem('dataFileName') == null) {
+if (data == null) {
   dataFileName.innerHTML = "**No file has been selected**";
   dataFileName.style.color = '#FF0000';
 } else {
@@ -95,7 +64,7 @@ if (localStorage.getItem('dataFileName') == null) {
 //Spreadsheet entry
 $('#spreadsheet').jexcel({
 // file path of the CSV file
-csv: 'http://insight.dev.schoolwires.com/HelpAssets/C2Assets/C2Files/C2ImportSchoolSample.csv',
+csv: "C:/Users/ConnorS/Desktop/" + data,//'http://insight.dev.schoolwires.com/HelpAssets/C2Assets/C2Files/C2ImportSchoolSample.csv',
 // Get the first of the CSV file and consider the headers
 csvHeaders: true,
 colWidths: [ 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, ]

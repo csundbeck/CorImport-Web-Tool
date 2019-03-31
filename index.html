@@ -90,8 +90,6 @@
 
       <input id="btnGenerate" type="submit" value="Generate" name="submit" onclick="Generate()"/>
 
-      <div id="example-table"></div>
-
     </form>
   </div>
 
@@ -118,11 +116,11 @@
 
       localStorage.setItem("dataFileName", fileName);
       localStorage.setItem("fileURL", fileURL);
+      console.log(input.value);
       //localStorage.setItem("dataFileName", dataFileName);
     }
 
     function Generate() {
-
          var dataSetName = document.getElementById('dataSetDropDown');
          var dataSetString = dataSetName.options[dataSetName.selectedIndex].value;
          var openImpDoc = document.getElementById('open-doc-box');

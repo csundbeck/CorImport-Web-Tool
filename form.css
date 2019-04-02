@@ -101,30 +101,38 @@ input[type=submit]:hover {
   display: inline-block;
 }
 
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
 #button-container {
   align-content: center;
   width: 100%;
-  display: inline-flex;
-  left: 35%;
+  /* display: inline-flex; */
+  left: 25%;
   margin-bottom: 3%;
-  position: absolute;
-  -webkit-transition: all 2s ease-in-out;
-  transition: all 2s ease-in-out;
+
+  /* position: absolute; */
+  /* -webkit-transition: all 2s ease-in-out;
+  transition: all 2s ease-in-out; */
   z-index: 1;
 }
 
 #download-csv {
-  width: 15%;
+width: 40%;
   background-color: #151952;
   color: white;
   padding: 16px 10px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size:20px;
+  font-size:22px;
   z-index: 1;
   position: sticky;
   text-align: center;
+  margin-bottom: 1%;
 }
 
 #download-csv:hover {
@@ -133,7 +141,7 @@ input[type=submit]:hover {
 }
 
 #restart {
-width: 15%;
+width: 40%;
 text-align: center;
 background-color: #151952;
 color: white;
@@ -141,13 +149,32 @@ padding: 16px 10px;
 border: none;
 border-radius: 4px;
 cursor: pointer;
-font-size:20px;
-margin-right: 40px;
+font-size:22px;
 z-index: 1;
 position: static;
+margin-bottom: 1%;
 }
 
 #restart:hover {
+  background-color: #1C316C;
+  transition: 0.4s;
+}
+
+#send-to-support {
+width: 40%;
+  background-color: #151952;
+  color: white;
+  padding: 16px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 20px;
+  z-index: 1;
+  text-align: center;
+  margin-bottom: 1%;
+}
+
+#send-to-support:hover {
   background-color: #1C316C;
   transition: 0.4s;
 }

@@ -95,31 +95,34 @@
         <button type="button" id="btnErrorSearch"><i class="fas fa-exclamation-triangle"></i>    Have an Error?</button>
     </form>
 
+<!-- Modal error search window  -->
     <div id="error-modal">
       <div id="error-modal-content">
-        <span class="close"><i class="far fa-times-circle"></i></span>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi iaculis ligula ante, nec gravida dui dictum eu. Nulla blandit, quam id vehicula iaculis, diam augue molestie metus, faucibus venenatis orci ipsum sit amet leo. Praesent varius dui in ipsum ultricies, eu auctor lectus porttitor. Donec et placerat libero. Maecenas ultricies nunc sed nisi placerat, ac ultricies ante fermentum. Quisque eu ipsum sagittis, auctor tortor scelerisque, rhoncus sem. Quisque convallis suscipit ipsum. Praesent auctor rhoncus lorem in lacinia. Sed lorem nisi, dignissim a elit id, suscipit egestas lorem. Phasellus fermentum viverra sem, et varius velit tincidunt a. Vivamus sapien ante, convallis sit amet placerat laoreet, accumsan tempor arcu. Proin rutrum ligula sit amet efficitur pellentesque. Quisque nunc nisl, vehicula id condimentum ac, efficitur sed nibh. Duis eget vulputate ante.
+        <span class="information"><i id="info" class="fas fa-info-circle"></i></span>
+        <span id="modal-close" class="close"><i class="far fa-times-circle"></i></span><br/>
+        <h2>Search for CorImport Errors</h2>
+        <input type="text" id="error-search-box" onkeyup="filterErrorList()" placeholder="Search for an error code...">
 
-        Sed in aliquam lorem. Suspendisse ut est diam. Curabitur sapien velit, blandit eu molestie id, bibendum sed dui. Suspendisse lacinia tempus nunc, sed bibendum purus maximus at. Aenean nulla quam, tincidunt tristique urna a, dignissim rutrum nibh. Vivamus consequat euismod quam quis scelerisque. Aliquam erat volutpat. Proin hendrerit ornare nisl, sed aliquam magna malesuada non.
-
-        Nulla sit amet elit augue. Vestibulum erat orci, tristique eget malesuada ut, tristique ac ex. Fusce ac sollicitudin ipsum, ac cursus lorem. Fusce tincidunt risus vel quam venenatis maximus. Cras tincidunt nulla dui, vel eleifend nunc porta sit amet. Nam eu dui mattis, sodales sem vitae, bibendum lectus. Nulla facilisi. Aenean mollis velit eget ipsum finibus vestibulum. Duis ullamcorper urna felis, vel volutpat est placerat ut. Praesent non ante pellentesque, consequat mi id, mattis augue. Ut ut purus augue. Donec consectetur diam eget est pharetra, blandit consectetur ligula pellentesque. Suspendisse ac lacus et nibh lacinia viverra vel eget massa. Nullam condimentum urna ac nunc blandit, at venenatis libero accumsan. Nam fermentum cursus ultrices. Phasellus eleifend justo nibh, ac vehicula purus dignissim eget.
-
-        Proin eu nisi at sem volutpat semper. Curabitur imperdiet sem a augue bibendum, ut pellentesque arcu vehicula. Nunc diam arcu, semper id feugiat et, feugiat id lacus. Nunc ut enim id massa elementum dictum ac ut lorem. Nulla facilisi. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec dapibus ipsum id neque rhoncus aliquet. Pellentesque ullamcorper ante a quam dignissim tempor. Duis blandit lectus auctor nulla fermentum, sit amet suscipit justo feugiat. Maecenas mattis porta quam, vitae ultricies nisi posuere ut. Duis placerat dapibus lectus quis eleifend. Phasellus rhoncus libero vitae tempor consequat. Etiam efficitur odio vel tincidunt feugiat. Vestibulum sed nisi id ante rhoncus efficitur. Suspendisse lacinia turpis id felis pellentesque congue. Duis molestie, dolor quis hendrerit hendrerit, metus justo aliquam dolor, in rhoncus enim erat vitae lacus.
-
-        Fusce faucibus turpis sed aliquet vulputate. In hac habitasse platea dictumst. In eget pretium arcu. Praesent vitae eros pretium, sagittis eros vitae, efficitur nulla. Phasellus suscipit id odio et finibus. Vivamus ut eros lacus. Praesent pulvinar quam sit amet augue volutpat egestas. Phasellus at justo libero. Etiam vulputate id purus quis aliquam. Aenean ornare eget leo eu scelerisque. Nullam at arcu vitae diam rutrum placerat. Aliquam sollicitudin at sem sodales molestie. Aliquam quis metus bibendum, ultrices eros in, luctus nisi. Duis at elit convallis, tincidunt orci sed, dapibus turpis. Integer leo ligula, vehicula sed leo nec, hendrerit vestibulum lectus.</p>
-      </div>
+        <ul id="error-list">
+          <li><a href="#">Adele</a></li>
+          <li><a href="#">Agnes</a></li>
+          <li><a href="#">Billy</a></li>
+          <li><a href="#">Bob</a></li>
+          <li><a href="#">Calvin</a></li>
+          <li><a href="#">Christina</a></li>
+          <li><a href="#">Cindy</a></li>
+        </ul>
     </div>
-
   </div>
 
   <script type="text/javascript">
-  var dataSetName = document.getElementById('dataSetDropDown');
-  var dataSetString = dataSetName.options[dataSetName.selectedIndex].value;
-  var fileLocations = 'ValidationFiles/' + dataSetString + '.pdf';
-  var openImpDoc = document.getElementById('open-doc-box');
-  var errorModal = document.getElementById('error-modal');
-  var btnErrorSearch = document.getElementById('btnErrorSearch');
-  var span = document.getElementsByClassName("close")[0];
+    var dataSetName = document.getElementById('dataSetDropDown');
+    var dataSetString = dataSetName.options[dataSetName.selectedIndex].value;
+    var fileLocations = 'ValidationFiles/' + dataSetString + '.pdf';
+    var openImpDoc = document.getElementById('open-doc-box');
+    var errorModal = document.getElementById('error-modal');
+    var btnErrorSearch = document.getElementById('btnErrorSearch');
+    var span = document.getElementsByClassName("close")[0];
 
     //setting the option for the dataset name
     function dataSetNameSave() {
@@ -158,21 +161,43 @@
     }
 
     // When the user clicks the button, open the modal
-    btnErrorSearch.onclick = function() {
-    errorModal.style.display = "block";
-    }
+      $("#btnErrorSearch").click(function() {
+        $("#error-modal").fadeIn('fast');
+      });
     // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-    errorModal.style.display = "none";
-    errorModal.fadeOut('slow');
-    }
+      $("#modal-close").click(function() {
+        $("#error-modal").fadeOut('fast');
+      });
     // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
-    if (event.target == errorModal) {
-      errorModal.style.display = "none";
-      errorModal.fadeOut('slow');
-      }
-    }
+      $(window).click(function(event) {
+        if (event.target == errorModal) {
+          $("#error-modal").fadeOut('fast');
+        }
+      });
+    // When user clicks the info icon, display alert to display the purpose of the window
+        $("#info").click(function() {
+          alert("This search window provides a list of errors and corresponding solutions to correct the failed CorImport. Search for the error code that caused the CorImport to fail, and click on the error for more details on how it can be corrected. Please contact CORRIDOR Support for additional information.");
+        });
+
+    //Error Modal: Fiter error search list based on text entered in the search checkbox
+    function filterErrorList() {
+     var input, filter, ul, li, a, i, txtValue;
+
+     input = document.getElementById("error-search-box");
+     filter = input.value.toUpperCase();
+     ul = document.getElementById("error-list");
+     li = ul.getElementsByTagName("li");
+
+     for (i = 0; i < li.length; i++) {
+         a = li[i].getElementsByTagName("a")[0];
+         txtValue = a.textContent || a.innerText;
+         if (txtValue.toUpperCase().indexOf(filter) > -1) {
+             li[i].style.display = "";
+           } else {
+             li[i].style.display = "none";
+           }
+         }
+       }
 
     //clear localStorage on refresh
     window.onload = window.localStorage.clear();

@@ -94,7 +94,7 @@
         <button type="button" id="btnErrorSearch"><i class="fas fa-exclamation-triangle"></i>    Have an Error?</button>
     </form>
 
-<!-- Modal error search window  -->
+    <!-- Modal error search window  -->
     <div id="error-modal">
       <div id="error-modal-content">
         <span class="information"><i id="info" class="fas fa-info-circle"></i></span>
@@ -191,7 +191,14 @@
           alert("This is how to solve the error");
         });
 
-    //Error Modal: Fiter error search list based on text entered in the search checkbox
+        // Display 0 error codes if user has not starte searching
+        // if (document.getElementById("error-search-box") == "") {
+        //   document.getElementById("error-list").style.display = "none";
+        // } else {
+        //   document.getElementById("error-list").style.display = "block";
+        // }
+
+    //Error Search Modal: Fiter error search list based on text entered in the search checkbox
     function filterErrorList() {
      var input, filter, ul, li, a, i, txtValue;
 

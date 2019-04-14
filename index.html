@@ -8,19 +8,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.0/css/jquery.jexcel.min.css" type="text/css" />
   <link rel="stylesheet" type="text/css" href="style.css">
   <link rel="stylesheet" type="text/css" href="form.css">
   <link rel="icon" href="images\corridor-icon.png">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.3/jquery.csv.min.js"></script>
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="corimport.js" type="text/javascript"></script>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.0/js/jquery.jexcel.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.0/css/jquery.jexcel.min.css" type="text/css" />
 
 
   <title>CorImport Web Tool</title>
@@ -93,7 +89,7 @@
       <label id="name">Choose a file to format</label><br/>
       <input type="file" name="fileToUpload" id="fileToUpload" onchange="dataFileNameSave()" accept=".csv" required/>
       <div class="index-button-container">
-        <button type="submit" id="btnGenerate" name="submit" onclick="Generate()">    Generate</button><br/>
+        <button type="submit"  id="btnGenerate" name="submit" onclick="Generate()">    Generate</button><br/>
         <!-- <input  type="submit" value="Generate" name="submit" onclick="Generate()"/><br/> -->
         <button type="button" id="btnErrorSearch"><i class="fas fa-exclamation-triangle"></i>    Have an Error?</button>
     </form>
@@ -106,63 +102,23 @@
         <h2>Search for CorImport Errors</h2>
         <input type="text" id="error-search-box" onkeyup="filterErrorList()" placeholder="Search for an error code...">
 
-        <!-- <div class="accordion" id="error-list">
-          <h3>Section 1</h3>
-          <div>
-            <p>
-            Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
-            ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
-            amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
-            odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
-            </p>
-          </div>
-          <h3>Section 2</h3>
-          <div>
-            <p>
-            Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
-            purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
-            velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
-            suscipit faucibus urna.
-            </p>
-          </div>
-          <h3>Section 3</h3>
-          <div>
-            <p>
-            Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.
-            Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero
-            ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis
-            lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.
-            </p>
-            <ul>
-              <li>List item one</li>
-              <li>List item two</li>
-              <li>List item three</li>
-            </ul>
-          </div>
-          <h3>Section 4</h3>
-          <div>
-            <p>
-            Cras dictum. Pellentesque habitant morbi tristique senectus et netus
-            et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
-            faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
-            mauris vel est.
-            </p>
-            <p>
-            Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
-            Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
-            inceptos himenaeos.
-            </p>
-          </div>
-        </div> -->
-
-        <ul class="accordion" id="error-list">
-          <li><a href="#">Adele</a></li>
-          <li><a href="#">Agnes</a></li>
-          <li><a href="#">Billy</a></li>
-          <li><a href="#">Bob</a></li>
-          <li><a href="#">Calvin</a></li>
-          <li><a href="#">Christina</a></li>
-          <li><a href="#">Cindy</a></li>
+        <ul id="error-list">
+          <li class="error-code"><a href="#">1030083</a></li>
+          <li class="error-code"><a href="#">1000050</a></li>
+          <li class="error-code"><a href="#">1031217</a></li>
+          <li class="error-code"><a href="#">1200011</a></li>
+          <li class="error-code"><a href="#">1200013</a></li>
+          <li class="error-code"><a href="#">1200044</a></li>
+          <li class="error-code"><a href="#">1030035</a></li>
+          <li class="error-code"><a href="#">1031217</a></li>
+          <li class="error-code"><a href="#">1990008</a></li>
+          <li class="error-code"><a href="#">1990001</a></li>
+          <li class="error-code"><a href="#">1030080</a></li>
+          <li class="error-code"><a href="#">2001007</a></li>
+          <li class="error-code"><a href="#">1030003</a></li>
+          <li class="error-code"><a href="#">1029019</a></li>
+          <li class="error-code"><a href="#">1000052</a></li>
+          <li class="error-code"><a href="#">1000026</a></li>
         </ul>
     </div>
   </div>
@@ -230,6 +186,10 @@
         $("#info").click(function() {
           alert("This search window provides a list of errors and corresponding solutions to correct the failed CorImport. Search for the error code that caused the CorImport to fail, and click on the error for more details on how it can be corrected. Please contact CORRIDOR Support for additional information.");
         });
+    //Display resolution for error code
+        $(".error-code").click(function() {
+          alert("This is how to solve the error");
+        });
 
     //Error Modal: Fiter error search list based on text entered in the search checkbox
     function filterErrorList() {
@@ -250,11 +210,6 @@
            }
          }
        }
-
-       //Expand solution to error when error is clicked
-       // $(function() {
-       //   $(".accordion").accordion();
-       // });
 
     //clear localStorage on refresh
     window.onload = window.localStorage.clear();

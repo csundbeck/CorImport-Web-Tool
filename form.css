@@ -296,6 +296,22 @@ margin-bottom: 1%;
   transition: 0.4s;
 }
 
+#error-list h3 {
+  border: 1px solid #ddd;
+  margin-top: -1px;
+  background-color: #f6f6f6;
+  padding: 1%;
+  text-decoration: none;
+  font-size: 18px;
+  color: #000000;
+  display: block
+}
+
+#error-list h3:hover:not(.header) {
+  background-color: #eee;
+  transition: 0.4s;
+}
+
 .information {
   font-size: 30px;
   opacity: 0.5;

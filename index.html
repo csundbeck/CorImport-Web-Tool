@@ -9,6 +9,7 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.0/css/jquery.jexcel.min.css" type="text/css"/>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.0/css/jquery.jexcel.min.css" type="text/css" />
   <link rel="stylesheet" type="text/css" href="style.css">
   <link rel="stylesheet" type="text/css" href="form.css">
   <link rel="icon" href="images\corridor-icon.png">
@@ -17,7 +18,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.3/jquery.csv.min.js"></script>
   <script src="corimport.js" type="text/javascript"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.0/js/jquery.jexcel.js"></script>
-
 
 
   <title>CorImport Web Tool</title>
@@ -90,7 +90,7 @@
       <label id="name">Choose a file to format</label><br/>
       <input type="file" name="fileToUpload" id="fileToUpload" onchange="dataFileNameSave()" accept=".csv" required/>
       <div class="index-button-container">
-        <button type="submit" id="btnGenerate" name="submit" onclick="Generate()">    Generate</button><br/>
+        <button type="submit"  id="btnGenerate" name="submit" onclick="Generate()">    Generate</button><br/>
         <!-- <input  type="submit" value="Generate" name="submit" onclick="Generate()"/><br/> -->
         <button type="button" id="btnErrorSearch"><i class="fas fa-exclamation-triangle"></i>    Have an Error?</button>
     </form>
@@ -103,6 +103,7 @@
         <h2>Search for CorImport Errors</h2>
         <input type="text" id="error-search-box" onkeyup="filterErrorList()" placeholder="Search for an error code...">
 
+<<<<<<< HEAD
         <ul class="accordion" id="error-list">
           <li><a href="#">Agnes</a></li>
           <li><a href="#">Agnes</a></li>
@@ -111,6 +112,25 @@
           <li><a href="#">Calvin</a></li>
           <li><a href="#">Christina</a></li>
           <li><a href="#">Cindy</a></li>
+=======
+        <ul id="error-list">
+          <li class="error-code"><a href="#">1030083</a></li>
+          <li class="error-code"><a href="#">1000050</a></li>
+          <li class="error-code"><a href="#">1031217</a></li>
+          <li class="error-code"><a href="#">1200011</a></li>
+          <li class="error-code"><a href="#">1200013</a></li>
+          <li class="error-code"><a href="#">1200044</a></li>
+          <li class="error-code"><a href="#">1030035</a></li>
+          <li class="error-code"><a href="#">1031217</a></li>
+          <li class="error-code"><a href="#">1990008</a></li>
+          <li class="error-code"><a href="#">1990001</a></li>
+          <li class="error-code"><a href="#">1030080</a></li>
+          <li class="error-code"><a href="#">2001007</a></li>
+          <li class="error-code"><a href="#">1030003</a></li>
+          <li class="error-code"><a href="#">1029019</a></li>
+          <li class="error-code"><a href="#">1000052</a></li>
+          <li class="error-code"><a href="#">1000026</a></li>
+>>>>>>> 86cf6c828bde98a614266b176818f5c1eff6c874
         </ul>
     </div>
   </div>
@@ -177,6 +197,10 @@
     // When user clicks the info icon, display alert to display the purpose of the window
         $("#info").click(function() {
           alert("This search window provides a list of errors and corresponding solutions to correct the failed CorImport. Search for the error code that caused the CorImport to fail, and click on the error for more details on how it can be corrected. Please contact CORRIDOR Support for additional information.");
+        });
+    //Display resolution for error code
+        $(".error-code").click(function() {
+          alert("This is how to solve the error");
         });
 
         // Display 0 error codes if user has not starte searching

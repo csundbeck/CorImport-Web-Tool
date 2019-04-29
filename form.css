@@ -310,3 +310,10 @@ margin-bottom: 1%;
     transition: 0.4s;
     cursor: pointer;
 }
+
+.solution {
+  display: none;
+  font-family: 'Oswald', sans-serif;
+  font-size: 18px;
+  padding: 2% .5%;
+}

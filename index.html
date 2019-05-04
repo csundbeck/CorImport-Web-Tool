@@ -85,12 +85,11 @@
       </select><br/>
 
       <input type="checkbox" id="open-doc-box">Open documentation for this data set<br/>
-
       <label id="name">Choose a file to format</label><br/>
       <input type="file" name="fileToUpload" id="fileToUpload" onchange="dataFileNameSave()" accept=".csv" required/>
       <div class="index-button-container">
-        <button type="submit"  id="btnGenerate" name="submit" onclick="Generate()">    Generate</button><br/>
-        <button type="button" id="btnErrorSearch"><i class="fas fa-exclamation-triangle"></i>    Have an Error?</button>
+        <button type="submit"  class="button-style" id="btnGenerate" name="submit" onclick="Generate()">    Generate</button><br/>
+        <button type="button" class="button-style" id="btnErrorSearch"><i class="fas fa-exclamation-triangle"></i>    Have an Error?</button>
     </form>
 
     <!-- Modal error search window  -->
@@ -99,7 +98,7 @@
         <span class="information"><i id="info" class="fas fa-info-circle"></i></span>
         <span id="modal-close" class="close"><i class="far fa-times-circle"></i></span><br/>
         <h2>Search for CorImport Errors</h2>
-        <input type="text" id="error-search-box" onkeyup="filterErrorList()" placeholder="Search for an error code...">
+        <input type="text" id="error-search-box" class="modal-h2" onkeyup="filterErrorList()" placeholder="Search for an error code...">
 
         <ul id="error-list">
           <li class="error-code"><a href='#'>1030083</a>

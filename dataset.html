@@ -36,18 +36,34 @@
         </div>
         <div id="spreadsheet"></div><br/>
         <div class="button-container">
-          <button type="button" id="btnDownloadCSV"><i class="fa fa-download"></i>    Download CSV</button><br/>
-          <button type="button" id="btnSendToSupport"><i class="fas fa-paper-plane"></i>   Send to CORRIDOR Support</button><br/>
-          <button type="button" id="btnRestart"><i class="fa fa-repeat" aria-hidden="true"></i>    Restart</button>
+          <button type="button" id="btnDownloadCSV" class="button-style"><i class="fa fa-download"></i>    Download CSV</button><br/>
+          <button type="button" id="btnSendToSupport" class="button-style"><i class="far fa-envelope"></i>   Send to CORRIDOR Support</button><br/>
+          <button type="button" id="btnRestart" class="button-style"><i class="fa fa-repeat" aria-hidden="true"></i>    Restart</button>
         </div>
       </div>
     </form>
+  </div>
+
+  <div id="email-modal">
+    <div id="email-modal-content">
+      <span class="information"><i id="info" class="fas fa-info-circle"></i></span>
+      <span id="modal-close" class="close"><i class="far fa-times-circle"></i></span><br/>
+      <h2>Send File to Corridor Support</h2>
+      <p>Subject: <input type="text" id="email-subject" class="modal-h2"></p>
+      <textarea rows="6" cols="149" placeholder="Include a message..."></textarea><br>
+      <p>Attach the error log: </br><input type="file" name="fileToUpload" accept=".txt" required/></p>
+      </hr>
+      <div class="index-button-container button-container">
+        <button class="button-style"><i class="fas fa-paper-plane"></i>   Send</button>
+      </div>
+    </div>
   </div>
 
 <script type="text/javascript">
 var dataSetName = document.getElementById('data-set-name');
 var dataFileName = document.getElementById('data-file-name');
 var data = localStorage.getItem("dataFileName");
+var emailModal = document.getElementById('email-modal');
 
 if (localStorage.getItem('dataSetName') == null) {
   dataSetName.innerHTML = "CorImport Web Tool";
@@ -72,13 +88,31 @@ csvHeaders: true,
 colWidths: [ 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, ]
 });
 
-//Download CSV button function
+//Download CSV button function, thn return to index.html
 $('#btnDownloadCSV').on('click', function () {
    $('#spreadsheet').jexcel('download');
+   location.href = 'index.html';
  });
 
+//Retrun to index.html
  $('#btnRestart').on('click', function () {
    location.href = 'index.html';
+ });
+
+// When the user clicks the button, open the email modal and populate the subject line
+ $("#btnSendToSupport").click(function() {
+   $("#email-modal").fadeIn('fast');
+   $("#email-subject").val(localStorage.getItem('dataSetName') + ' CorImport Issue');
+ });
+// When the user clicks on <span> (x), close the email modal
+ $("#modal-close").click(function() {
+   $("#email-modal").fadeOut('fast');
+ });
+// When the user clicks anywhere outside of the modal, close it
+ $(window).click(function(event) {
+   if (event.target == emailModal) {
+     $("#email-modal").fadeOut('fast');
+   }
  });
  </script>
 

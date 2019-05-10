@@ -98,14 +98,14 @@
         <span class="information"><i id="info" class="fas fa-info-circle"></i></span>
         <span id="modal-close" class="close"><i class="far fa-times-circle"></i></span><br/>
         <h2>Search for CorImport Errors</h2>
-        <input type="text" id="error-search-box" class="modal-h2" onkeyup="filterErrorList()" placeholder="Search for an error code...">
+        <input type="text" id="error-search-box" class="modal-h2" onkeyup="filterErrorList()" placeholder="Start by searching for an error code...">
 
         <ul id="error-list">
-          <li class="error-code"><a href='#'>1030083</a>
+          <li id="init-display" class="error-code"><a href='#'>1030083</a>
             <div class="solution">Column that represents the Min Inventory value is higher than the Max for this row.
               Min needs to be less that the Max to avoid this error.</div>
           </li>
-          <li class="error-code"><a href='#'>1000050</a>
+          <li id="init-display" class="error-code"><a href='#'>1000050</a>
             <div class="solution">Date format in the data file does not match the format in CORRIDOR's
               System Configuration. Date format must match exactly. Make sure that any date field on the data set
               includes leading zeros for months that are typically represented my a single number
@@ -114,18 +114,6 @@
           <li class="error-code"><a href='#'>1031217</a>
             <div class="solution">The serial number on the data file already exists for this part number.
               CORRIDOR will not allow duplicate serial numbers for the same part number</div>
-          </li>
-          <li class="error-code"><a href='#'>1200011</a>
-            <div class="solution">Contact CORRIDOR Support for assistance</div>
-          </li>
-          <li class="error-code"><a href='#'>1200013</a>
-            <div class="solution">Contact CORRIDOR Support for assistance</div>
-          </li>
-          <li class="error-code"><a href='#'>1200044</a>
-            <div class="solution">Contact CORRIDOR Support for assistance</div>
-          </li>
-          <li class="error-code"><a href='#'>1030035</a>
-            <div class="solution">The column on the data file needs to be formatted as plain text.</div>
           </li>
           <li class="error-code"><a href='#'>1990008</a>
             <div class="solution">Generic message that the record failed.
@@ -162,12 +150,13 @@
           </li>
           <li class="error-code"><a href='#'>1030035</a>
             <div class="solution">Part master may exist for the lot that is trying to import, but part number is in all uppercase and the part master on the data file must also reflect all uppercase to load correctly.
-              Edit the part number field on the data file to capitalize all alphabetical characters.</div>
+              Edit the part number field on the data file to capitalize all alphabetical characters. Additionally, tshe column on the data file needs to be formatted as plain text.</div>
           </li>
           <li class="error-code"><a href='#'>1031208</a>
             <div class="solution">Serial Number cannot validate because part number doesn't exist or is in the incorrect format.
               If part number does exist in CORRIDOR, edit the part number field on the data file to capitalize all alphabetical characters.</div>
           </li>
+          <!-- AIRCRAFT OWNERSHIP -->
           <li class="error-code"><a href='#'>1200001</a>
             <div class="solution">Database Error. Please contact CORRIDOR Support for assistance.</div>
           </li>
@@ -293,7 +282,7 @@
             <div class="solution">The company selected to be imported to the Owned by field does not exist or has been inactivated in Corridor. Please create this company or reacivate the company in the Comapny database module and attempt the import again.</div>
           </li>
           <li class="error-code"><a href='#'>1200044</a>
-            <div class="solution">////////////////////</div>
+            <div class="solution">Generic error that the record could not import. Try resolving one of the other errors from the log file for this record and then attempt to import the file again.</div>
           </li>
           <li class="error-code"><a href='#'>1200045</a>
             <div class="solution">////////////////////</div>
@@ -345,6 +334,124 @@
           </li>
           <li class="error-code"><a href='#'>1200062</a>
             <div class="solution">The Posting Profile selected to be imported for this record is not applicable to Folios. Please navigate to Maintain > Accounting > Posting Profiles... and change the Molule applicability, or create a new Posting profile that applies to Folios (Sales Invoice).</div>
+          </li>
+          <li class="error-code"><a href='#'>1200063</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <!-- CONTACT PROFILE -->
+          <li class="error-code"><a href='#'>1141001</a>
+            <div class="solution">Database Error. Please contact CORRIDOR Support for assistance.</div>
+          </li>
+          <li class="error-code"><a href='#'>1141003</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1141004</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1141012</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1141013</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1142001</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1142002</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1142003</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1142004</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1142005</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1142006</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1140001</a>
+            <div class="solution">Database Error. Please contact CORRIDOR Support for assistance.</div>
+          </li>
+          <li class="error-code"><a href='#'>1140002</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1140003</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1140004</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1140005</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1140006</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1140007</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1140008</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1140008</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1140009</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1140010</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1140011</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1140012</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1140013</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1140014</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1140015</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1141501</a>
+            <div class="solution">Database Error. Please contact CORRIDOR Support for assistance.</div>
+          </li>
+          <li class="error-code"><a href='#'>1141503</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1141504</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1141510</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1141511</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1142501</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1141503</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1143001</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1143002</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1143004</a>
+            <div class="solution">////////////////////</div>
+          </li>
+          <li class="error-code"><a href='#'>1143501</a>
+            <div class="solution">////////////////////</div>
           </li>
           <li class="error-code"><a href='#'>1200063</a>
             <div class="solution">////////////////////</div>

@@ -25,7 +25,7 @@
 <body>
 
   <div class="style">
-    <form id="main-form" onsumbit="return" action="dataset.html">
+    <form id="main-form" onsumbit="return formValidate()" action="dataset.html">
       <a id="help" href="https://support.corridor.aero/hc/en-us/restricted?return_to=https%3A%2F%2Fsupport.corridor.aero%2Fhc%2Fen-us">Help</a>
       <a href="https://www.corridor.aero/"><img src="images\CORRIDOR-CAMP-Systems-White-copy.png" alt="CORRIDOR"></a><br/>
       <div id="sub-div">
@@ -87,7 +87,7 @@
       <div>
         <label id="name">Choose a file to format</label><br/>
         <input type="file" name="fileToUpload" id="fileToUpload" onchange="dataFileNameSave()" accept=".csv" required/><br/>
-        <a id="download-template" onclick="changeFilePath()" download>Download CSV Template</a>
+        <a id="download-template" onclick="changeFilePath()" href='#' download>Download CSV Template</a>
       </div>
       <div class="index-button-container">
         <button type="submit"  class="button-style" id="btnGenerate" name="submit" onclick="Generate()">    Generate</button><br/>
@@ -475,13 +475,8 @@
     function dataSetNameSave() {
       var dataSetName = document.getElementById('dataSetDropDown');
       var dataSetString = dataSetName.options[dataSetName.selectedIndex].value;
-      var downloadTemplate = document.getElementById('download-template');
 
       localStorage.setItem("dataSetName", dataSetString);
-
-      if (dataSetString != "" || dataSetName === 'Select a data set...') {
-        $('#download-template').css({'color': '#FFFFFF', 'cursor': 'pointer', 'text-decoration': 'underline'});
-      }
     }
 
     //setting the data file name
@@ -500,11 +495,11 @@
     function changeFilePath() {
       var dataSetName = document.getElementById('dataSetDropDown');
       var dataSetString = dataSetName.options[dataSetName.selectedIndex].value;
-      var downloadTemplate = document.getElementById('download-template');
 
       if (dataSetString != "") {
-        downloadTemplate.href='templates/' + dataSetString + '_template.xlsx';
+        document.getElementById('download-template').href='templates/' + dataSetString + '_template.xlsx';
       } else {
+        document.getElementById('download-template').classList.add('disabled');
         alert('Please select an option from the Data Set drop down menu before downloading the template.')
       }
     };
@@ -544,11 +539,11 @@
         });
 
         //Display 0 error codes if user has not started searching
-        // if (document.getElementById("error-search-box") == "") {
-        //   document.getElementById("error-list").style.display = "none";
-        // } else {
-        //   document.getElementById("error-list").style.display = "block";
-        // }
+        if (document.getElementById("error-search-box") == "") {
+          document.getElementById("error-list").style.display = "none";
+        } else {
+          document.getElementById("error-list").style.display = "block";
+        }
 
         //Generate button disabled if data set and file not populated
         // if (dataSetName.value == null || document.getElementById('fileToUpload').value == null) {

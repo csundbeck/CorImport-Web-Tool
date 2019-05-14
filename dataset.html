@@ -85,13 +85,12 @@ $('#spreadsheet').jexcel({
 csv: data,
 // Get the first of the CSV file and consider the headers
 csvHeaders: true,
-colWidths: [ 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, ]
+colWidths: [ 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300]
 });
 
 //Download CSV button function, thn return to index.html
 $('#btnDownloadCSV').on('click', function () {
    $('#spreadsheet').jexcel('download');
-   location.href = 'index.html';
  });
 
 //Retrun to index.html

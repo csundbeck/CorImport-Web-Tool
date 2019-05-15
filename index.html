@@ -109,8 +109,11 @@
         <span class="information"><i id="info" class="fas fa-info-circle"></i></span>
         <span id="modal-close" class="close"><i class="far fa-times-circle"></i></span><br/>
         <h2>Search for CorImport Errors</h2>
-        <input type="text" id="error-search-box" class="modal-h2" onkeyup="filterErrorList()" placeholder="Start by searching for an error code...">
-        <!-- <img id="error-example-img" src="images/error_example.png"> -->
+        <input type="text" id="error-search-box" class="modal-h2" onkeyup="filterErrorList(); displayErrorList();" placeholder="Start by searching for an error code...">
+          <div id="no-input-div">
+            <h3>Please see the example below. The code highlighted in the image of the error file should the the number used when searching.</h3>
+            <img id="error-example-img" src="images/error_example.png">
+          </div>
         <ul id="error-list">
           <li id="init-display" class="error-code"><a href='#'>1030083</a>
             <div class="solution">Column that represents the Min Inventory value is higher than the Max for this row.
@@ -597,11 +600,14 @@
        function displayErrorList() {
          input = document.getElementById("error-search-box");
          ul = document.getElementById("error-list");
+         example = document.getElementById("no-input-div");
 
          if (input.value == "") {
            ul.style.display = "none";
+           example.style.display = "block";
          } else {
-           ul.style.display = "block";
+           ul.style.display = "block"
+           example.style.display = "none";
          }
        }
 

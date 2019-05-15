@@ -10,13 +10,6 @@ body {
   color: #FFFFFF;
 }
 
-img {
-  margin: 2% 2%;
-  width: 10%;
-  height: auto;
-  float: right;
-}
-
 h1 {
   font-weight: 700;
   font-size: 38px;
@@ -117,14 +110,11 @@ textarea {
 }
 
 .menu-container {
-  float: right;
-  padding: 20px;
   font-family: 'Oswald', sans-serif;
   text-decoration: none;
   color: #FFFFFF;
   font-size: 16px;
   font-weight: bold;
-  display: inline-block;
   cursor: pointer;
   position: fixed;
 }
@@ -303,6 +293,7 @@ margin-bottom: 1%;
 }
 
 #error-list {
+  display: none;
   list-style-type: none;
   padding: 0;
   margin: 0;
@@ -318,13 +309,18 @@ margin-bottom: 1%;
   padding: 1%;
   text-decoration: none;
   font-size: 18px;
-  display: block;
   color: #151952;
 }
 
 #error-list li a:hover:not(.header) {
   background-color: #eee;
   transition: 0.4s;
+}
+
+#error-example-img {
+  width: 500%;
+
+  float: left;
 }
 
 .information {

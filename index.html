@@ -110,7 +110,7 @@
         <span id="modal-close" class="close"><i class="far fa-times-circle"></i></span><br/>
         <h2>Search for CorImport Errors</h2>
         <input type="text" id="error-search-box" class="modal-h2" onkeyup="filterErrorList()" placeholder="Start by searching for an error code...">
-
+        <!-- <img id="error-example-img" src="images/error_example.png"> -->
         <ul id="error-list">
           <li id="init-display" class="error-code"><a href='#'>1030083</a>
             <div class="solution">Column that represents the Min Inventory value is higher than the Max for this row.
@@ -566,13 +566,6 @@
           alert("This search window provides a list of errors and corresponding solutions to correct the failed CorImport. Search for the error code that caused the CorImport to fail, and click on the error for more details on how it can be corrected. Please contact CORRIDOR Support for additional information.");
         });
 
-        //Display 0 error codes if user has not started searching
-        // if (document.getElementById("error-search-box") == "") {
-        //   document.getElementById("error-list").style.display = "none";
-        // } else {
-        //   document.getElementById("error-list").style.display = "block";
-        // }
-
         //Generate button disabled if data set and file not populated
         // if (dataSetName.value == null || document.getElementById('fileToUpload').value == null) {
         //   document.getElementById('btnGenerate').disable = true;
@@ -600,8 +593,20 @@
          }
        }
 
+       //Display 0 error codes if user has not started searching
+       function displayErrorList() {
+         input = document.getElementById("error-search-box");
+         ul = document.getElementById("error-list");
+
+         if (input.value == "") {
+           ul.style.display = "none";
+         } else {
+           ul.style.display = "block";
+         }
+       }
+
        //Accordion when an error is clicked
-       $(document).ready(function(){
+       $(document).ready(function() {
       $('.error-code').click(function(e){
         e.preventDefault();
         $(this).closest('li').find('.solution').slideToggle();

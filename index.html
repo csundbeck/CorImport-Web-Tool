@@ -95,7 +95,7 @@
       <input type="checkbox" id="open-doc-box">Open documentation for this Data Set<br/>
       <div>
         <label id="name">Choose a file to format</label><br/>
-        <input type="file" name="fileToUpload" id="fileToUpload" onchange="dataFileNameSave()" accept=".csv" required/><br/>
+        <input type="file" name="fileToUpload" id="fileToUpload" onchange="dataFileNameSave(); openFile(event);" accept=".csv" required/><br/>
         <a id="download-template" onclick="changeFilePath()">Download CSV Template</a>
       </div>
       <div class="index-button-container">
@@ -482,7 +482,7 @@
     var errorModal = document.getElementById('error-modal');
     var btnErrorSearch = document.getElementById('btnErrorSearch');
     var span = document.getElementsByClassName("close")[0];
-    var helpMenuContents = document.getElementById("help-menu-contents")
+    var helpMenuContents = document.getElementById("help-menu-contents");
 
     //Display help menu
     function openHelpMenu(x) {
@@ -512,16 +512,15 @@
 
     //setting the data file name
     function dataFileNameSave() {
-      var input = document.getElementById('fileToUpload');
-      var fileName = input.files[0].name;
-      var fileURL = input.value;
-      var dataFileName = document.getElementById("fileToUpload");
+      var fileInput = document.getElementById('fileToUpload');
+      var fileName = fileInput.files[0].name;
+      var fileURL = fileInput.value;
 
-      localStorage.setItem("dataFileName", fileName);
       localStorage.setItem("fileURL", fileURL);
-      localStorage.setItem("dataFileName", dataFileName);
+      localStorage.setItem("dataFileName", fileInput);
     }
 
+    //Downloading data set templates
     function changeFilePath() {
       var dataSetName = document.getElementById('dataSetDropDown');
       var dataSetString = dataSetName.options[dataSetName.selectedIndex].value;
@@ -532,7 +531,19 @@
       } else {
         alert('Please select an option from the Data Set drop down menu before downloading the template.')
       }
+    }
+
+    //Allow the file to be accessed on the client side
+    function openFile(event) {
+      var input = event.target;
+      var fileReader = new FileReader();
+
+      fileReader.onload = function() {
+      var dataURL = fileReader.result;
+      var output = localStorage.setItem("fullFilePath", dataURL);
     };
+    fileReader.readAsDataURL(input.files[0]);
+  };
 
     //open document if the check box is marked
     function Generate() {

@@ -26,7 +26,16 @@
 
   <div class="style">
     <form>
-      <a id="help" href="https://support.corridor.aero/hc/en-us/restricted?return_to=https%3A%2F%2Fsupport.corridor.aero%2Fhc%2Fen-us">Help</a>
+      <div class="menu-container" onclick="openHelpMenu(this)">
+          <div class="bar1"></div>
+          <div class="bar2"></div>
+          <div class="bar3"></div>
+            <div id="help-menu-contents" class="dropdown-content">
+              <a href="https://support.corridor.aero/hc/en-us/sections/115000828514-CorImport">CorImport How-To</a>
+              <a href="https://support.corridor.aero/hc/en-us/categories/115001230327-FAQ">Corridor FAQ</a>
+              <a href="#">Launch corimport.exe</a>
+            </div>
+      </div>
       <a href="https://www.corridor.aero/"><img src="images\CORRIDOR-CAMP-Systems-White-copy.png" alt="CORRIDOR"></a><br/>
       <div id="sub-div">
         <div id="header-container">
@@ -69,20 +78,29 @@ if (localStorage.getItem('dataSetName') == null) {
   dataSetName.innerHTML = "CorImport Web Tool";
   alert('Please return the the home page and select a Data Set and a Data File to format.');
 } else {
-  dataSetName.innerHTML = localStorage.getItem('dataSetName');
+  dataSetName.innerHTML = localStorage.getItem('dataSetName') + " Import";
 }
 
 if (data == null) {
   dataFileName.innerHTML = "**No file has been selected**";
   dataFileName.style.color = '#FF0000';
 } else {
-  dataFileName.innerHTML = "The name of this file is " + localStorage.getItem('dataFileName');
+  var trimFileName = localStorage.getItem('fileURL').slice(12);
+  dataFileName.innerHTML = "The name of this file is " + trimFileName;
 }
 
 //Spreadsheet entry
+// $('#spreadsheet').jexcel({
+// // file path of the CSV file
+// csv: data,
+// // Get the first of the CSV file and consider the headers
+// csvHeaders: true,
+// colWidths: [ 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300]
+// });
+
 $('#spreadsheet').jexcel({
 // file path of the CSV file
-csv: data,
+csv: localStorage.getItem("fullFilePath"),
 // Get the first of the CSV file and consider the headers
 csvHeaders: true,
 colWidths: [ 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300]

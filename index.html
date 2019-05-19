@@ -92,7 +92,7 @@
         </optgroup>
       </select><br/>
 
-      <input type="checkbox" id="open-doc-box">Open documentation for this Data Set<br/>
+        <input type="checkbox" id="open-doc-box"> Open documentation for this Data Set<br/>
       <div>
         <label id="name">Choose a file to format</label><br/>
         <input type="file" name="fileToUpload" id="fileToUpload" onchange="dataFileNameSave(); openFile(event);" accept=".csv" required/><br/>
@@ -554,7 +554,7 @@
          var errorMessageFile = document.getElementById('error-mrssage-file');
 
          if (openImpDoc.checked == true) {
-            window.open('ValidationFiles/' + dataSetString + '.pdf');
+            window.open('validation_files/' + dataSetString + '.pdf');
         } else {
             return;
       }

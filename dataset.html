@@ -39,9 +39,9 @@
       <a href="https://www.corridor.aero/"><img src="images\CORRIDOR-CAMP-Systems-White-copy.png" alt="CORRIDOR"></a><br/>
       <div id="sub-div">
         <div id="header-container">
-          <h1 id="data-set-name"> </h1><br/>
-          <p id="data-file-name"> </p><br/>
-          <hr/>
+          <h1 id="data-set-name"></h1><br/>
+          <p id="data-file-name"></p><br/><br/>
+          <hr id="dataset-hr"/><br/>
         </div>
         <div id="spreadsheet"></div><br/>
         <div class="button-container">
@@ -55,15 +55,15 @@
 
   <div id="email-modal">
     <div id="email-modal-content">
-      <span class="information"><i id="info" class="fas fa-info-circle"></i></span>
+      <span class="information"><i id="email-info" class="fas fa-info-circle"></i></span>
       <span id="modal-close" class="close"><i class="far fa-times-circle"></i></span><br/>
       <h2>Send File to Corridor Support</h2>
       <p>Subject: <input type="text" id="email-subject" class="modal-h2"></p>
       <textarea rows="10" placeholder="Include a message..."></textarea><br>
       <p>Attach the error log: </br><input type="file" name="fileToUpload" accept=".txt" required/></p>
       </hr>
-      <div class="index-button-container button-container">
-        <button class="button-style"><i class="fas fa-paper-plane"></i>   Send</button>
+      <div class="index-button-container">
+        <button id="btnEmailSupport" class="button-style"><i class="fas fa-paper-plane"></i>   Send</button>
       </div>
     </div>
   </div>
@@ -73,6 +73,19 @@ var dataSetName = document.getElementById('data-set-name');
 var dataFileName = document.getElementById('data-file-name');
 var data = localStorage.getItem("dataFileName");
 var emailModal = document.getElementById('email-modal');
+
+//Display help menu
+function openHelpMenu(x) {
+  var helpMenuContents = document.getElementById("help-menu-contents");
+
+  if (helpMenuContents.style.display !== "block") {
+    helpMenuContents.style.display = "block";
+  } else {
+    helpMenuContents.style.display = "none";
+  }
+
+  x.classList.toggle("change");
+}
 
 if (localStorage.getItem('dataSetName') == null) {
   dataSetName.innerHTML = "CorImport Web Tool";
@@ -90,19 +103,13 @@ if (data == null) {
 }
 
 //Spreadsheet entry
-// $('#spreadsheet').jexcel({
-// // file path of the CSV file
-// csv: data,
-// // Get the first of the CSV file and consider the headers
-// csvHeaders: true,
-// colWidths: [ 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300]
-// });
-
 $('#spreadsheet').jexcel({
 // file path of the CSV file
 csv: localStorage.getItem("fullFilePath"),
 // Get the first of the CSV file and consider the headers
 csvHeaders: true,
+tableOverflow: true,
+tableHeight: '415px',
 colWidths: [ 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300]
 });
 
@@ -121,6 +128,11 @@ $('#btnDownloadCSV').on('click', function () {
    $("#email-modal").fadeIn('fast');
    $("#email-subject").val(localStorage.getItem('dataSetName') + ' CorImport Issue');
  });
+
+ $("#email-info").click(function() {
+   alert("This window will allow you to send the date file for review to Corridor Support. Please include your name, aswell as the name of the Company that you are loading the data for in the message of this email.");
+ });
+
 // When the user clicks on <span> (x), close the email modal
  $("#modal-close").click(function() {
    $("#email-modal").fadeOut('fast');

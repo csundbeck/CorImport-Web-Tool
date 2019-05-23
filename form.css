@@ -307,6 +307,7 @@ margin-bottom: 1%;
   border-width: thick;
   border-color: #151952;
   margin-bottom: 2%;
+  position: static;
 }
 
 .close {

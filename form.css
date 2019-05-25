@@ -3,6 +3,7 @@ body {
   font-family: 'Oswald', sans-serif;
   font-size: 14px
   color: #FFFFFF;
+  overflow-y: hidden;
 }
 
 img {
@@ -20,11 +21,10 @@ h1 {
   margin: 6% 29% 2%;
   font-family: 'Oswald', sans-serif;
   color: #FFFFFF;
-
 }
 
 hr {
-  margin-bottom: 3%;
+  margin: 1.9% 0 1%;
 }
 
 label {
@@ -52,6 +52,7 @@ textarea {
   font-family: 'Oswald', sans-serif;
   margin-bottom: 2%;
   width: 75%;
+  resize: none;
 }
 
 form {
@@ -174,28 +175,19 @@ form {
   background-color: #ddd
 }
 
-#header-container {
+#heading {
   align-items: center;
   font-family: 'Oswald', sans-serif;
-  width: 100%;
-  margin-top: 4%;
 }
 
 #data-set-name {
-  position: fixed;
-  left: 8%;
-  margin-top: -2%;
+  margin-top: 2.9%;
 }
 
- #data-file-name {
-  position: fixed;
-  left: 42.5%;
- }
-
- #dataset-hr {
-   position: fixed;
-   width: 100%;
- }
+#data-file-name {
+  margin: -2% 0;
+  font-size: 14px;
+}
 
 .sticky {
   position: fixed;
@@ -207,7 +199,6 @@ form {
   align-content: center;
   width: 100%;
   z-index: 1;
-  position: fixed;
   }
 
 .index-button-container {
@@ -229,7 +220,6 @@ form {
 }
 
 #btnRestart {
-position: static;
 margin-bottom: 1%;
 }
 
@@ -254,11 +244,13 @@ margin-bottom: 1%;
 }
 
 #spreadsheet {
-  margin-top: 2%;
+  margin-top: -1%;
   margin-bottom: 1%;
   z-index: 0;
-  overflow: hidden;
+  overflow-x: scroll;
+  width: 100%;
   color: #000000;
+  font-size: 12px;
 }
 
 #error-modal {

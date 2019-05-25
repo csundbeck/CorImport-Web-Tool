@@ -26,7 +26,8 @@
 
   <div class="style">
     <form id="main-form" onsumbit="return" action="dataset.html">
-      <div class="menu-container" onclick="openHelpMenu(this)">
+      <div class="heading">
+        <div class="menu-container" onclick="openHelpMenu(this)">
           <div class="bar1"></div>
           <div class="bar2"></div>
           <div class="bar3"></div>
@@ -35,12 +36,13 @@
               <a href="https://support.corridor.aero/hc/en-us/categories/115001230327-FAQ">Corridor FAQ</a>
               <a href="#">Launch corimport.exe</a>
             </div>
+          </div>
+          <a href="https://www.corridor.aero/"><img src="images\CORRIDOR-CAMP-Systems-White-copy.png" alt="CORRIDOR"></a><br/>
+          <div id="sub-div">
+            <h1>Welcome to the CorImport Web Tool!</h1><br/>
+          </div>
+          <hr/>
       </div>
-      <a href="https://www.corridor.aero/"><img src="images\CORRIDOR-CAMP-Systems-White-copy.png" alt="CORRIDOR"></a><br/>
-      <div id="sub-div">
-        <h1>Welcome to the CorImport Web Tool!</h1><br/>
-      </div>
-      <hr/>
       <label id="name">Data Set</label><br/>
       <select id="dataSetDropDown" onchange="dataSetNameSave()" required>
         <option value="">Select a data set...</option>

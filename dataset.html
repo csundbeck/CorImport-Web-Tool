@@ -194,6 +194,140 @@ columns: [
       ]
 });
 
+//Company Address
+$('#spreadsheet').jexcel({
+// file path of the CSV file
+csv: localStorage.getItem("fullFilePath"),
+// Get the first of the CSV file and consider the headers
+csvHeaders: true,
+tableOverflow: true,
+lazyLoading:true,
+loadingSpin:true,
+tableHeight: '430px',
+defaultColWidth: 200,
+columns: [
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'boolean' },
+          { type: 'boolean' },
+          { type: 'boolean' },
+      ]
+});
+
+//Company Phone
+$('#spreadsheet').jexcel({
+// file path of the CSV file
+csv: localStorage.getItem("fullFilePath"),
+// Get the first of the CSV file and consider the headers
+csvHeaders: true,
+tableOverflow: true,
+lazyLoading:true,
+loadingSpin:true,
+tableHeight: '430px',
+defaultColWidth: 200,
+columns: [
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'boolean' },
+          { type: 'boolean' },
+          { type: 'boolean' },
+          { type: 'boolean' },
+          { type: 'boolean' },
+          { type: 'boolean' },
+          { type: 'boolean' },
+          { type: 'boolean' },
+          { type: 'boolean' },
+          { type: 'text' },
+          { type: 'boolean' },
+          { type: 'boolean' },
+      ]
+});
+
+//Company Profile
+$('#spreadsheet').jexcel({
+// file path of the CSV file
+csv: localStorage.getItem("fullFilePath"),
+// Get the first of the CSV file and consider the headers
+csvHeaders: true,
+tableOverflow: true,
+lazyLoading:true,
+loadingSpin:true,
+tableHeight: '430px',
+defaultColWidth: 200,
+columns: [
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'boolean' },
+          { type: 'boolean' },
+          { type: 'boolean' },
+          { type: 'text' },
+          { type: 'boolean' },
+          { type: 'boolean' },
+          { type: 'boolean' },
+          { type: 'boolean' },
+          { type: 'boolean' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'boolean' },
+          { type: 'boolean' },
+          { type: 'boolean' },
+          { type: 'boolean' },
+          { type: 'boolean' },
+          { type: 'text' },
+          { type: 'boolean' },
+          { type: 'boolean' },
+          { type: 'boolean' },
+          { type: 'boolean' },
+          { type: 'numeric' },
+          { type:'calendar',
+            options: { format:'DD/MM/YYYY' }
+          },
+          { type: 'text' },
+          { type: 'numeric' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'text' },
+          { type: 'boolean' },
+          { type: 'text' },
+          { type: 'text' },
+          { type:'calendar',
+            options: { format:'DD/MM/YYYY' }
+          },
+          { type: 'text' },
+          { type: 'boolean' },
+          { type: 'boolean' },
+          { type: 'text' },
+          { type: 'boolean' },
+          { type: 'text' },
+          { type: 'text' },
+      ]
+});
+
 //Download CSV button function, thn return to index.html
 $('#btnDownloadCSV').on('click', function () {
    $('#spreadsheet').jexcel('download');

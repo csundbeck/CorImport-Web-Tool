@@ -16,7 +16,8 @@
     <link rel="stylesheet" href="https://jexcel.net/v3/jexcel.css" type="text/css" />
 
     <script src="https://jexcel.net/v2/jexcel.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.3/jquery.csv.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.0/js/jquery.jexcel.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.2/js/jquery.jcalendar.js"></script>
@@ -77,6 +78,8 @@ var dataSetName = document.getElementById('data-set-name');
 var dataFileName = document.getElementById('data-file-name');
 var data = localStorage.getItem("dataFileName");
 var emailModal = document.getElementById('email-modal');
+var dataSetNameText = localStorage.getItem('dataSetName');
+console.log(dataSetNameText);
 
 //Display help menu
 function openHelpMenu(x) {
@@ -107,226 +110,1064 @@ if (data == null) {
 }
 
 //Spreadsheet entry
-// $('#spreadsheet').jexcel({
-// // file path of the CSV file
-// csv: localStorage.getItem("fullFilePath"),
-// // Get the first of the CSV file and consider the headers
-// csvHeaders: true,
-// tableOverflow: true,
-// tableHeight: '430px',
-// colWidths: [ 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300]
-// });
-
-//Account numbers
-// $('#spreadsheet').jexcel({
-// // file path of the CSV file
-// csv: localStorage.getItem("fullFilePath"),
-// // Get the first of the CSV file and consider the headers
-// csvHeaders: true,
-// tableOverflow: true,
-// tableHeight: '430px',
-// colWidths: [200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200],
-// columns: [
-//           { type: 'text' },
-//           { type: 'dropdown', source:[{id:1,name:'Accounts payable'},
-//                                          {id:2,name:'Accounts receivable'},
-//                                          {id:3,name:'Cash'},
-//                                          {id:4,name:'Cost of sales'},
-//                                          {id:5,name:'Current liabilities'},
-//                                          {id:6,name:'Expenses'},
-//                                          {id:7,name:'Inventory'},
-//                                          {id:8,name:'Purchases'},
-//                                          {id:9,name:'Sales revenue'},
-//                                          {id:10,name:'Work in process'}
-//                                        ]},
-//           { type: 'text' },
-//       ]
-// });
-
-//Aircrafts
-$('#spreadsheet').jexcel({
-// file path of the CSV file
-csv: localStorage.getItem("fullFilePath"),
-// Get the first of the CSV file and consider the headers
-csvHeaders: true,
-tableOverflow: true,
-lazyLoading:true,
-loadingSpin:true,
-tableHeight: '430px',
-defaultColWidth: 200,
-columns: [
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'calendar',
+switch(dataSetNameText) {
+  case 'Add Account Numbers':
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  tableHeight: '430px',
+  colWidths: [200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200],
+  columns: [
+            { type: 'text' },
+            { type: 'dropdown', source:[{id:1,name:'Accounts payable'},
+                                           {id:2,name:'Accounts receivable'},
+                                           {id:3,name:'Cash'},
+                                           {id:4,name:'Cost of sales'},
+                                           {id:5,name:'Current liabilities'},
+                                           {id:6,name:'Expenses'},
+                                           {id:7,name:'Inventory'},
+                                           {id:8,name:'Purchases'},
+                                           {id:9,name:'Sales revenue'},
+                                           {id:10,name:'Work in process'}
+                                         ]},
+            { type: 'text' },
+        ]
+  });
+  break;
+  case 'Add Aircraft':
+  //Aircrafts
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'calendar',
+                options: { format:'DD/MM/YYYY' }
+            },
+            { type: 'calendar',
+                options: { format:'DD/MM/YYYY' }
+            },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'text' },
+            { type: 'text' },
+            { type:'calendar',
               options: { format:'DD/MM/YYYY' }
-          },
-          { type: 'calendar',
+            },
+        ]
+  });
+  break;
+  case 'Canned Squawk Applicability':
+  //CSqwk Applicability
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+        ]
+  });
+  break;
+  case 'Canned Squawk Estimate Adjustment':
+  //CSqwk Est Adj
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+        ]
+  });
+  break;
+  case 'Canned Squawk Estimated Labor':
+  //CSqwk Est Labor
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+        ]
+  });
+  break;
+  case 'Canned Squawk Files':
+  //CSqwk Files
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+        ]
+  });
+  break;
+  case 'Canned Squawk Part':
+  //CSqwk Parts
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'boolean' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'text' },
+        ]
+  });
+  break;
+  case 'Canned Squawk Planning':
+  //CSqwk Planning
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+        ]
+  });
+  break;
+  case 'Canned Squawk':
+  //CSqwk
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'text' },
+        ]
+  });
+  break;
+  case 'Add Company Addresses':
+  //Company Address
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+        ]
+  });
+  break;
+  case 'Add Company Phone':
+  //Company Phone
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'text' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+        ]
+  });
+  break;
+  case 'Add Company Profile':
+  //Company Profile
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'text' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'text' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'numeric' },
+            { type:'calendar',
               options: { format:'DD/MM/YYYY' }
-          },
-          { type: 'numeric' },
-          { type: 'numeric' },
-          { type: 'numeric' },
-          { type: 'numeric' },
-          { type: 'text' },
-          { type: 'numeric' },
-          { type: 'text' },
-          { type: 'text' },
-          { type:'calendar',
-            options: { format:'DD/MM/YYYY' }
-          },
-      ]
-});
+            },
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'boolean' },
+            { type: 'text' },
+            { type: 'text' },
+            { type:'calendar',
+              options: { format:'DD/MM/YYYY' }
+            },
+            { type: 'text' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'text' },
+            { type: 'boolean' },
+            { type: 'text' },
+            { type: 'text' },
+        ]
+  });
+  break;
+  case 'Add Contact Address':
+  //Contact Addresses
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'boolean' },
+        ]
+  });
+  break;
+  case 'Add Contact Phone':
+  //Contact Phones
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+        ]
+  });
+  break;
+  case 'Add Contact Profile':
+  //Contact Profiles
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type:'calendar',
+              options: { format:'DD/MM/YYYY' }
+            },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type:'calendar',
+              options: { format:'DD/MM/YYYY' }
+            },
+            { type: 'text' },
+            { type: 'text' },
+        ]
+  });
+  break;
+  case 'Part Masters':
+  //Part Masters
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'numeric' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'numeric' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'text' },
+            { type: 'numeric' },
+        ]
+  });
+  break;
+  case 'Add Inventory Lots':
+  //Inventory Lots
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type:'calendar',
+              options: { format:'DD/MM/YYYY' }
+            },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type:'calendar',
+              options: { format:'DD/MM/YYYY' }
+            },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type:'calendar',
+              options: { format:'DD/MM/YYYY' }
+            },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type:'calendar',
+              options: { format:'DD/MM/YYYY' }
+            },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'text' },
+            { type: 'text' },
+            { type:'calendar',
+              options: { format:'DD/MM/YYYY' }
+            },
+            { type:'calendar',
+              options: { format:'DD/MM/YYYY' }
+            },
+            { type:'calendar',
+              options: { format:'DD/MM/YYYY' }
+            },
+        ]
+  });
+  break;
+  case 'Part Discount Codes':
+  //Part Discount Codes
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'numeric' },
+        ]
+  });
+  break;
+  case 'Part Pricing':
+  //Part Pricing
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+        ]
+  });
+  break;
+  case 'Warehouse Min & Max':
+  //Warehouse Min/Max
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+        ]
+  });
+  break;
+  case 'Tool Master':
+  //Tool Master
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'boolean' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'text' },
+          ]
+  });
+  break;
+  case 'Tool Master Calibration':
+  //Tool Master Cal
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'text' },
+          ]
+  });
+  break;
+  case 'Tools':
+  //Tool IDs
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'numeric' },
+            { type: 'text' },
+            { type: 'text' },
+            { type:'calendar',
+              options: { format:'DD/MM/YYYY' }
+            },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'boolean' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type:'calendar',
+              options: { format:'DD/MM/YYYY' }
+            },
+        ]
+  });
+  break;
+  case 'Work Pak Applicability':
+  //Work Pak Applicability
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'text' },
+            { type: 'text' },
+        ]
+  });
+  break;
+  case 'Work Pak Detail':
+  //Work Pak Detail
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'boolean' },
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'boolean' },
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'boolean' },
+            { type: 'text' },
+        ]
+  });
+  break;
+  case 'Work Pak Estimate Adjustment':
+  //Work Pak Est Adj
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+        ]
+  });
+  break;
+  case 'Work Pak Estimated Labor':
+  //Work Pak Est Labor
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'boolean' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+        ]
+  });
+  break;
+  case 'Work Pak Part':
+  //Work Pak Parts
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'boolean' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'boolean' },
+        ]
+  });
+  break;
+  case 'Work Pak Planning':
+  //Work Pak Planning
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+            { type: 'numeric' },
+        ]
+  });
+  break;
+  case 'Work Pak':
+  //Work Paks
+  $('#spreadsheet').jexcel({
+  // file path of the CSV file
+  csv: localStorage.getItem("fullFilePath"),
+  // Get the first of the CSV file and consider the headers
+  csvHeaders: true,
+  tableOverflow: true,
+  lazyLoading:true,
+  loadingSpin:true,
+  tableHeight: '430px',
+  defaultColWidth: 200,
+  columns: [
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'text' },
+            { type: 'boolean' },
+            { type: 'text' },
 
-//Company Address
-$('#spreadsheet').jexcel({
-// file path of the CSV file
-csv: localStorage.getItem("fullFilePath"),
-// Get the first of the CSV file and consider the headers
-csvHeaders: true,
-tableOverflow: true,
-lazyLoading:true,
-loadingSpin:true,
-tableHeight: '430px',
-defaultColWidth: 200,
-columns: [
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'boolean' },
-          { type: 'boolean' },
-          { type: 'boolean' },
-      ]
-});
-
-//Company Phone
-$('#spreadsheet').jexcel({
-// file path of the CSV file
-csv: localStorage.getItem("fullFilePath"),
-// Get the first of the CSV file and consider the headers
-csvHeaders: true,
-tableOverflow: true,
-lazyLoading:true,
-loadingSpin:true,
-tableHeight: '430px',
-defaultColWidth: 200,
-columns: [
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'boolean' },
-          { type: 'boolean' },
-          { type: 'boolean' },
-          { type: 'boolean' },
-          { type: 'boolean' },
-          { type: 'boolean' },
-          { type: 'boolean' },
-          { type: 'boolean' },
-          { type: 'boolean' },
-          { type: 'text' },
-          { type: 'boolean' },
-          { type: 'boolean' },
-      ]
-});
-
-//Company Profile
-$('#spreadsheet').jexcel({
-// file path of the CSV file
-csv: localStorage.getItem("fullFilePath"),
-// Get the first of the CSV file and consider the headers
-csvHeaders: true,
-tableOverflow: true,
-lazyLoading:true,
-loadingSpin:true,
-tableHeight: '430px',
-defaultColWidth: 200,
-columns: [
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'boolean' },
-          { type: 'boolean' },
-          { type: 'boolean' },
-          { type: 'text' },
-          { type: 'boolean' },
-          { type: 'boolean' },
-          { type: 'boolean' },
-          { type: 'boolean' },
-          { type: 'boolean' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'boolean' },
-          { type: 'boolean' },
-          { type: 'boolean' },
-          { type: 'boolean' },
-          { type: 'boolean' },
-          { type: 'text' },
-          { type: 'boolean' },
-          { type: 'boolean' },
-          { type: 'boolean' },
-          { type: 'boolean' },
-          { type: 'numeric' },
-          { type:'calendar',
-            options: { format:'DD/MM/YYYY' }
-          },
-          { type: 'text' },
-          { type: 'numeric' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'text' },
-          { type: 'boolean' },
-          { type: 'text' },
-          { type: 'text' },
-          { type:'calendar',
-            options: { format:'DD/MM/YYYY' }
-          },
-          { type: 'text' },
-          { type: 'boolean' },
-          { type: 'boolean' },
-          { type: 'text' },
-          { type: 'boolean' },
-          { type: 'text' },
-          { type: 'text' },
-      ]
-});
+        ]
+  });
+  break;
+    // default:
+    // $('#spreadsheet').jexcel({
+    // // file path of the CSV file
+    // csv: localStorage.getItem("fullFilePath"),
+    // // Get the first of the CSV file and consider the headers
+    // csvHeaders: true,
+    // tableOverflow: true,
+    // tableHeight: '430px',
+    // colWidths: [ 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300]
+    // });
+}
 
 //Download CSV button function, thn return to index.html
 $('#btnDownloadCSV').on('click', function () {
@@ -350,6 +1191,10 @@ $('#btnDownloadCSV').on('click', function () {
 
  $('#btnEmailSupport').click(function() {
 
+   $("#email-modal").fadeOut('fast');
+ });
+
+ $("#modal-close").click(function() {
    $("#email-modal").fadeOut('fast');
  });
 

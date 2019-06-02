@@ -72,6 +72,10 @@ form {
   text-align: center;
 }
 
+#index-title {
+  margin-bottom: -1%;
+}
+
 #open-doc-box {
   font-size: 8px;
   font-family: 'Oswald', sans-serif;
@@ -81,7 +85,7 @@ form {
 
 #fileToUpload {
   align: center;
-  width: 15%;
+  width: 100%;
   padding: 10px 0;
   margin-left: 10%;
   margin-top: 10px;
@@ -97,6 +101,34 @@ form {
   font-size: 12px;
   color: #D3D3D3;
   text-decoration: none;
+}
+
+#controls-container {
+  position: absolute;
+  width: 96%;
+}
+
+#controls-container > div{
+  float: left;
+}
+
+#data-select-container{
+  width: 45%;
+  margin-left: 4%;
+  padding: 1%;
+  margin-bottom: 3%;
+}
+
+#formats-container {
+  width: 45%;
+  height: 310px;
+  margin-left: 1%;
+  padding: 1%;
+}
+
+#formats-container > h4 {
+  text-align: center;
+  margin-bottom: 15px;
 }
 
 #btnGenerate {
@@ -204,7 +236,6 @@ form {
 .index-button-container {
   align-content: center;
   width: 100%;
-  z-index: 1;
   display: block;
   justify-content: center;
   padding-left: 30%;

@@ -39,70 +39,93 @@
           </div>
           <a href="https://www.corridor.aero/"><img src="images\CORRIDOR-CAMP-Systems-White-copy.png" alt="CORRIDOR"></a><br/>
           <div id="sub-div">
-            <h1>Welcome to the CorImport Web Tool!</h1><br/>
+            <h1 id="index-title">Welcome to the CorImport Web Tool!</h1><br/>
           </div>
           <hr/>
       </div>
-      <label id="name">Data Set</label><br/>
-      <select id="dataSetDropDown" onchange="dataSetNameSave()" required>
-        <option value="">Select a data set...</option>
-        <optgroup label="Accounting">
-          <option value="Add Account Numbers">Add Account Numbers</option>
-        </optgroup>
-        <optgroup label="Aircraft">
-          <option value="Add Aircraft">Add Aircraft</option>
-        </optgroup>
-        <optgroup label="Add/Update Canned Squawk">
-          <option value="Canned Squawk Applicability">Canned Squawk Applicability</option>
-          <option value="Canned Squawk Estimate Adjustment">Canned Squawk Estimate Adjustment</option>
-          <option value="Canned Squawk Estimated Labor">Canned Squawk Estimated Labor</option>
-          <option value="Canned Squawk Files">Canned Squawk Files</option>
-          <option value="Canned Squawk Part">Canned Squawk Part</option>
-          <option value="Canned Squawk Planning">Canned Squawk Planning</option>
-          <option value="Canned Squawk">Canned Squawk</option>
-        </optgroup>
-        <optgroup label="Company Database">
-          <option value="Add Company Addresses">Add Company Address</option>
-          <option value="Add Company Phone">Add Company Phone</option>
-          <option value="Add Company Profile">Add Company Profile</option>
-        </optgroup>
-        <optgroup label="Contact">
-          <option value="Add Contact Address">Add Contact Address</option>
-          <option value="Add Contact Phone">Add Contact Phone</option>
-          <option value="Add Contact Profile">Add Contact Profile</option>
-        </optgroup>
-        <optgroup label="Add/Update Inventory">
-          <option value="Part Masters">Part Masters</option>
-          <option value="Add Inventory Lots">Add Inventory Lots</option>
-          <option value="Part Discount Codes">Part Discount Codes</option>
-          <option value="Part Pricing">Part Pricing</option>
-          <option value="Warehouse Min & Max">Warehouse Min & Max</option>
-        </optgroup>
-        <optgroup label="Add/Update Tool Crib">
-          <option value="Tool Master">Tool Master</option>
-          <option value="Tool Master Calibration">Add/Update Tool Master Calibration</option>
-          <option value="Tools">Tools</option>
-        </optgroup>
-        <optgroup label="Add/Update Work Paks">
-          <option value="Work Pak Applicability">Work Pak Applicability</option>
-          <option value="Work Pak Detail">Work Pak Detail</option>
-          <option value="Work Pak Estimate Adjustment">Work Pak Estimate Adjustment</option>
-          <option value="Work Pak Estimated Labor">Work Pak Estimated Labor</option>
-          <option value="Work Pak Part">Work Pak Part</option>
-          <option value="Work Pak Planning">Work Pak Planning</option>
-          <option value="Work Pak">Work Pak</option>
-        </optgroup>
-      </select><br/>
+      <div id="controls-container">
+        <div id="data-select-container">
+          <label id="name">Data Set</label><br/>
+          <select id="dataSetDropDown" onchange="dataSetNameSave()" required>
+          <option value="">Select a data set...</option>
+          <optgroup label="Accounting">
+            <option value="Add Account Numbers">Add Account Numbers</option>
+          </optgroup>
+          <optgroup label="Aircraft">
+            <option value="Add Aircraft">Add Aircraft</option>
+          </optgroup>
+          <optgroup label="Add/Update Canned Squawk">
+            <option value="Canned Squawk Applicability">Canned Squawk Applicability</option>
+            <option value="Canned Squawk Estimate Adjustment">Canned Squawk Estimate Adjustment</option>
+            <option value="Canned Squawk Estimated Labor">Canned Squawk Estimated Labor</option>
+            <option value="Canned Squawk Files">Canned Squawk Files</option>
+            <option value="Canned Squawk Part">Canned Squawk Part</option>
+            <option value="Canned Squawk Planning">Canned Squawk Planning</option>
+            <option value="Canned Squawk">Canned Squawk</option>
+          </optgroup>
+          <optgroup label="Company Database">
+            <option value="Add Company Addresses">Add Company Address</option>
+            <option value="Add Company Phone">Add Company Phone</option>
+            <option value="Add Company Profile">Add Company Profile</option>
+          </optgroup>
+          <optgroup label="Contact">
+            <option value="Add Contact Address">Add Contact Address</option>
+            <option value="Add Contact Phone">Add Contact Phone</option>
+            <option value="Add Contact Profile">Add Contact Profile</option>
+          </optgroup>
+          <optgroup label="Add/Update Inventory">
+            <option value="Part Masters">Part Masters</option>
+            <option value="Add Inventory Lots">Add Inventory Lots</option>
+            <option value="Part Discount Codes">Part Discount Codes</option>
+            <option value="Part Pricing">Part Pricing</option>
+            <option value="Warehouse Min & Max">Warehouse Min & Max</option>
+          </optgroup>
+          <optgroup label="Add/Update Tool Crib">
+            <option value="Tool Master">Tool Master</option>
+            <option value="Tool Master Calibration">Add/Update Tool Master Calibration</option>
+            <option value="Tools">Tools</option>
+          </optgroup>
+          <optgroup label="Add/Update Work Paks">
+            <option value="Work Pak Applicability">Work Pak Applicability</option>
+            <option value="Work Pak Detail">Work Pak Detail</option>
+            <option value="Work Pak Estimate Adjustment">Work Pak Estimate Adjustment</option>
+            <option value="Work Pak Estimated Labor">Work Pak Estimated Labor</option>
+            <option value="Work Pak Part">Work Pak Part</option>
+            <option value="Work Pak Planning">Work Pak Planning</option>
+            <option value="Work Pak">Work Pak</option>
+          </optgroup>
+        </select><br/>
 
         <input type="checkbox" id="open-doc-box"> Open documentation for this Data Set<br/>
-      <div>
         <label id="name">Choose a file to format</label><br/>
         <input type="file" name="fileToUpload" id="fileToUpload" onchange="dataFileNameSave(); openFile(event);" accept=".csv" required/><br/>
         <a id="download-template" onclick="changeFilePath()">Download CSV Template</a>
       </div>
+      <div id="formats-container">
+        <h4>Formatting Requirements</h4>
+        <label id="name">Date Format:</label><br/>
+        <select id="date-format-dropdown" onchange="dateFormatSave()">
+          <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+          <option value="DD-Mon-YYYY">DD-Mon-YYYY</option>
+          <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+          <option value="YYYY/MM/DD">YYYY/MM/DD</option>
+        </select></br/>
+        <label id="name">Decimal Separator:</label><br/>
+        <select id="decimal-sep-dropdown" onchange="decSepSave()">
+          <option value=".">Period</option>
+          <option value=",">Comma</option>
+        </select></br/>
+        <label id="name">Thousands Separator:</label><br/>
+        <select id="thousand-sep-dropdown" onchange="thousSepSave()">
+          <option value=".">Period</option>
+          <option value=",">Comma</option>
+        </select></br/>
+      </div>
       <div class="index-button-container">
         <button type="submit"  class="button-style" id="btnGenerate" name="submit" onclick="Generate()">    Generate</button><br/>
         <button type="button" class="button-style" id="btnErrorSearch"><i class="fas fa-exclamation-triangle"></i>    Have an Error?</button>
+      </div>
+    </div>
     </form>
 
     <!-- Modal error search window  -->
@@ -1022,6 +1045,28 @@
       } else {
         alert('Please select an option from the Data Set drop down menu before downloading the template.')
       }
+    }
+
+    //Saving date format to local storage
+    function dateFormatSave() {
+      var dateFormat = document.getElementById('date-format-dropdown');
+      var dateFormatString = dateFormat.options[dateFormat.selectedIndex].value;
+
+      localStorage.setItem("ss-DateFormat", dateFormatString);
+    }
+    //Saving decimal separator to local storage to local storage
+    function decSepSave() {
+      var decimalSep = document.getElementById('decimal-sep-dropdown');
+      var decimalSepString = decimalSep.options[decimalSep.selectedIndex].value;
+
+      localStorage.setItem("ss-DecimalSepFormat", decimalSepString);
+    }
+    //Saving thousands separator to local storage to local storage
+    function thousSepSave() {
+      var thousandSep = document.getElementById('thousand-sep-dropdown');
+      var thousandSepString = thousandSep.options[thousandSep.selectedIndex].value;
+
+      localStorage.setItem("ss-ThousandSepFormat", thousandSepString);
     }
 
     //Allow the file to be accessed on the client side

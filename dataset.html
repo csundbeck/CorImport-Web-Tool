@@ -79,7 +79,9 @@ var dataFileName = document.getElementById('data-file-name');
 var data = localStorage.getItem("dataFileName");
 var emailModal = document.getElementById('email-modal');
 var dataSetNameText = localStorage.getItem('dataSetName');
-console.log(dataSetNameText);
+var dateFormat = localStorage.getItem('ss-DateFormat');
+var decimalSep = localStorage.getItem('ss-DecimalSepFormat');
+var thousandSep = localStorage.getItem('ss-ThousandSepFormat');
 
 //Display help menu
 function openHelpMenu(x) {
@@ -170,10 +172,10 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'calendar',
-                options: { format:'DD/MM/YYYY' }
+                options: { format: dateFormat }
             },
             { type: 'calendar',
-                options: { format:'DD/MM/YYYY' }
+                options: { format: dateFormat }
             },
             { type: 'numeric' },
             { type: 'numeric' },
@@ -184,7 +186,7 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type:'calendar',
-              options: { format:'DD/MM/YYYY' }
+              options: { format: dateFormat }
             },
         ]
   });
@@ -228,10 +230,10 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'numeric' },
             { type: 'numeric' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
         ]
   });
   break;
@@ -253,10 +255,10 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'numeric' },
             { type: 'numeric' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'numeric' },
             { type: 'numeric' },
         ]
@@ -302,7 +304,7 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'numeric' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
             { type: 'numeric' },
             { type: 'numeric' },
             { type: 'text' },
@@ -364,25 +366,25 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'numeric' },
-            { type: 'boolean' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'numeric' },
             { type: 'numeric' },
             { type: 'numeric' },
             { type: 'numeric' },
             { type: 'numeric' },
             { type: 'numeric' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'text' },
         ]
   });
@@ -416,9 +418,9 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
         ]
   });
   break;
@@ -441,18 +443,18 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'text' },
-            { type: 'boolean' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
         ]
   });
   break;
@@ -471,31 +473,31 @@ switch(dataSetNameText) {
   columns: [
             { type: 'text' },
             { type: 'text' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'text' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'text' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'numeric' },
             { type:'calendar',
-              options: { format:'DD/MM/YYYY' }
+              options: { format: dateFormat }
             },
             { type: 'text' },
             { type: 'numeric' },
@@ -508,17 +510,17 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
             { type: 'text' },
             { type: 'text' },
             { type:'calendar',
-              options: { format:'DD/MM/YYYY' }
+              options: { format: dateFormat }
             },
             { type: 'text' },
-            { type: 'boolean' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'text' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
             { type: 'text' },
             { type: 'text' },
         ]
@@ -553,7 +555,7 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
         ]
   });
   break;
@@ -577,17 +579,17 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
         ]
   });
   break;
@@ -613,15 +615,15 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
             { type:'calendar',
-              options: { format:'DD/MM/YYYY' }
+              options: { format: dateFormat }
             },
             { type: 'text' },
             { type: 'text' },
@@ -629,7 +631,7 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type:'calendar',
-              options: { format:'DD/MM/YYYY' }
+              options: { format: dateFormat }
             },
             { type: 'text' },
             { type: 'text' },
@@ -699,35 +701,35 @@ switch(dataSetNameText) {
             { type: 'numeric' },
             { type: 'numeric' },
             { type: 'numeric' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'numeric' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'numeric' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'text' },
             { type: 'numeric' },
         ]
@@ -765,17 +767,17 @@ switch(dataSetNameText) {
             { type: 'numeric' },
             { type: 'numeric' },
             { type:'calendar',
-              options: { format:'DD/MM/YYYY' }
+              options: { format: dateFormat }
             },
             { type: 'numeric' },
             { type: 'numeric' },
             { type:'calendar',
-              options: { format:'DD/MM/YYYY' }
+              options: { format: dateFormat }
             },
             { type: 'numeric' },
             { type: 'numeric' },
             { type:'calendar',
-              options: { format:'DD/MM/YYYY' }
+              options: { format: dateFormat }
             },
             { type: 'numeric' },
             { type: 'numeric' },
@@ -783,24 +785,24 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type:'calendar',
-              options: { format:'DD/MM/YYYY' }
+              options: { format: dateFormat }
             },
             { type: 'text' },
             { type: 'text' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'text' },
             { type: 'text' },
             { type:'calendar',
-              options: { format:'DD/MM/YYYY' }
+              options: { format: dateFormat }
             },
             { type:'calendar',
-              options: { format:'DD/MM/YYYY' }
+              options: { format: dateFormat }
             },
             { type:'calendar',
-              options: { format:'DD/MM/YYYY' }
+              options: { format: dateFormat }
             },
         ]
   });
@@ -890,14 +892,14 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
             { type: 'numeric' },
-            { type: 'boolean' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'text' },
           ]
   });
@@ -940,11 +942,11 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type:'calendar',
-              options: { format:'DD/MM/YYYY' }
+              options: { format: dateFormat }
             },
             { type: 'text' },
             { type: 'text' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
@@ -952,7 +954,7 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type:'calendar',
-              options: { format:'DD/MM/YYYY' }
+              options: { format: dateFormat }
             },
         ]
   });
@@ -998,24 +1000,24 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'text' },
             { type: 'text' },
             { type: 'numeric' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
             { type: 'text' },
             { type: 'numeric' },
             { type: 'numeric' },
-            { type: 'boolean' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'text' },
             { type: 'numeric' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
             { type: 'text' },
             { type: 'numeric' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
             { type: 'text' },
         ]
   });
@@ -1039,10 +1041,10 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'numeric' },
             { type: 'numeric' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
         ]
   });
   break;
@@ -1065,10 +1067,10 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'numeric' },
             { type: 'numeric' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'numeric' },
             { type: 'numeric' },
         ]
@@ -1094,10 +1096,10 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'numeric' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
             { type: 'numeric' },
             { type: 'numeric' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
         ]
   });
   break;
@@ -1151,22 +1153,12 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'boolean' },
+            { type: 'checkbox' },
             { type: 'text' },
 
         ]
   });
   break;
-    // default:
-    // $('#spreadsheet').jexcel({
-    // // file path of the CSV file
-    // csv: localStorage.getItem("fullFilePath"),
-    // // Get the first of the CSV file and consider the headers
-    // csvHeaders: true,
-    // tableOverflow: true,
-    // tableHeight: '430px',
-    // colWidths: [ 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300]
-    // });
 }
 
 //Download CSV button function, thn return to index.html

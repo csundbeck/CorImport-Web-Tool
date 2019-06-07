@@ -14,13 +14,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.2/css/jquery.jexcel.css" type="text/css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="https://jexcel.net/v3/jexcel.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jcalendar.css" type="text/css" />
 
     <script src="https://jexcel.net/v2/jexcel.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.3/jquery.csv.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.0/js/jquery.jexcel.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.2/js/jquery.jcalendar.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jcalendar.js"></script>
+
+
 
     <script src="corimport.js" type="text/javascript"></script>
 
@@ -32,14 +35,14 @@
   <div class="style">
     <form>
       <div class="menu-container" onclick="openHelpMenu(this)">
-          <div class="bar1"></div>
-          <div class="bar2"></div>
-          <div class="bar3"></div>
-            <div id="help-menu-contents" class="dropdown-content">
-              <a href="https://support.corridor.aero/hc/en-us/sections/115000828514-CorImport">CorImport How-To</a>
-              <a href="https://support.corridor.aero/hc/en-us/categories/115001230327-FAQ">Corridor FAQ</a>
-              <a href="#">Launch corimport.exe</a>
-            </div>
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+          <div id="help-menu-contents" class="dropdown-content">
+            <a href="https://support.corridor.aero/hc/en-us/sections/115000828514-CorImport">CorImport How-To</a>
+            <a href="https://support.corridor.aero/hc/en-us/categories/115001230327-FAQ">Corridor FAQ</a>
+            <a href="#">Launch corimport.exe</a>
+          </div>
       </div>
       <a href="https://www.corridor.aero/"><img src="images\CORRIDOR-CAMP-Systems-White-copy.png" alt="CORRIDOR"></a><br/>
       <div id="sub-div">
@@ -111,6 +114,15 @@ if (data == null) {
   dataFileName.innerHTML = "The name of this file is " + trimFileName;
 }
 
+//'DD-Mon-YYYY currently not working, so setting fields to text type if that date format is selected'
+var calendarType;
+if (dateFormat != "DD-Mon-YYYY") {
+  calendarType = 'calendar';
+  dateFormat
+} else {
+    calendarType = 'text';
+}
+
 //Spreadsheet entry
 switch(dataSetNameText) {
   case 'Add Account Numbers':
@@ -171,22 +183,22 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'calendar',
-                options: { format: dateFormat }
+            { type: calendarType,
+               options: { format: dateFormat }
             },
-            { type: 'calendar',
-                options: { format: dateFormat }
+            { type: calendarType,
+               options: { format: dateFormat }
             },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            { type: 'numeric', mask:'###.##,00', decimal:',' },
+            { type: 'numeric', mask:'###.##,00', decimal:',' },
             { type: 'numeric' },
             { type: 'numeric' },
             { type: 'text' },
             { type: 'numeric' },
             { type: 'text' },
             { type: 'text' },
-            { type:'calendar',
-              options: { format: dateFormat }
+            { type: calendarType,
+               options: { format: dateFormat }
             },
         ]
   });
@@ -496,8 +508,8 @@ switch(dataSetNameText) {
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'numeric' },
-            { type:'calendar',
-              options: { format: dateFormat }
+            { type: calendarType,
+               options: { format: dateFormat }
             },
             { type: 'text' },
             { type: 'numeric' },
@@ -513,8 +525,8 @@ switch(dataSetNameText) {
             { type: 'checkbox' },
             { type: 'text' },
             { type: 'text' },
-            { type:'calendar',
-              options: { format: dateFormat }
+            { type: calendarType,
+               options: { format: dateFormat }
             },
             { type: 'text' },
             { type: 'checkbox' },
@@ -622,16 +634,16 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type:'calendar',
-              options: { format: dateFormat }
+            { type: calendarType,
+               options: { format: dateFormat }
             },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type:'calendar',
-              options: { format: dateFormat }
+            { type: calendarType,
+               options: { format: dateFormat }
             },
             { type: 'text' },
             { type: 'text' },
@@ -766,26 +778,26 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'numeric' },
             { type: 'numeric' },
-            { type:'calendar',
-              options: { format: dateFormat }
+            { type: calendarType,
+               options: { format: dateFormat }
             },
             { type: 'numeric' },
             { type: 'numeric' },
-            { type:'calendar',
-              options: { format: dateFormat }
+            { type: calendarType,
+               options: { format: dateFormat }
             },
             { type: 'numeric' },
             { type: 'numeric' },
-            { type:'calendar',
-              options: { format: dateFormat }
+            { type: calendarType,
+               options: { format: dateFormat }
             },
             { type: 'numeric' },
             { type: 'numeric' },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type:'calendar',
-              options: { format: dateFormat }
+            { type: calendarType,
+               options: { format: dateFormat }
             },
             { type: 'text' },
             { type: 'text' },
@@ -795,14 +807,14 @@ switch(dataSetNameText) {
             { type: 'checkbox' },
             { type: 'text' },
             { type: 'text' },
-            { type:'calendar',
-              options: { format: dateFormat }
+            { type: calendarType,
+               options: { format: dateFormat }
             },
-            { type:'calendar',
-              options: { format: dateFormat }
+            { type: calendarType,
+               options: { format: dateFormat }
             },
-            { type:'calendar',
-              options: { format: dateFormat }
+            { type: calendarType,
+               options: { format: dateFormat }
             },
         ]
   });
@@ -941,8 +953,8 @@ switch(dataSetNameText) {
             { type: 'numeric' },
             { type: 'text' },
             { type: 'text' },
-            { type:'calendar',
-              options: { format: dateFormat }
+            { type: calendarType,
+               options: { format: dateFormat }
             },
             { type: 'text' },
             { type: 'text' },
@@ -953,8 +965,8 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type:'calendar',
-              options: { format: dateFormat }
+            { type: calendarType,
+               options: { format: dateFormat }
             },
         ]
   });

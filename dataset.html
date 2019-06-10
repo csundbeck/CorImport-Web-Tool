@@ -14,16 +14,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.2/css/jquery.jexcel.css" type="text/css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="https://jexcel.net/v3/jexcel.css" type="text/css" />
+    <link rel="stylesheet" href="https://jexcel.net/v3/japp.css" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jcalendar.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="material-icons.css"  />
 
-    <script src="https://jexcel.net/v2/jexcel.js"></script>
+    <script src="https://jexcel.net/v3/jexcel.js"></script>
+    <script src="https://jexcel.net/v3/japp.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.3/jquery.csv.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.0/js/jquery.jexcel.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.2/js/jquery.jcalendar.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jcalendar.js"></script>
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.0/js/jquery.jcalendar.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 
     <script src="corimport.js" type="text/javascript"></script>
 
@@ -51,9 +52,10 @@
           <p id="data-file-name"></p><br/><br/>
           <hr id="dataset-hr"/><br/>
         </div>
+        <div></div>
         <div id="spreadsheet"></div><br/>
         <div class="button-container">
-          <button type="button" id="btnDownloadCSV" class="button-style"><i class="fa fa-download"></i>    Download CSV</button><br/>
+          <!-- <button type="button" id="btnDownloadCSV" class="button-style"><i class="fa fa-download"></i>    Download CSV</button><br/> -->
           <button type="button" id="btnSendToSupport" class="button-style"><i class="far fa-envelope"></i>   Send to CORRIDOR Support</button><br/>
           <button type="button" id="btnRestart" class="button-style"><i class="fa fa-repeat" aria-hidden="true"></i>    Restart</button>
         </div>
@@ -116,7 +118,7 @@ if (data == null) {
 
 //'DD-Mon-YYYY currently not working, so setting fields to text type if that date format is selected'
 var calendarType;
-if (dateFormat != "DD-Mon-YYYY") {
+if (dateFormat !== "DD-Mon-YYYY") {
   calendarType = 'calendar';
   dateFormat
 } else {
@@ -126,17 +128,17 @@ if (dateFormat != "DD-Mon-YYYY") {
 //Spreadsheet entry
 switch(dataSetNameText) {
   case 'Add Account Numbers':
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  tableHeight: '430px',
-  colWidths: [200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200],
+  search:true,
+  pagination:20,
+  loadingSpin:true,
   columns: [
-            { type: 'text' },
-            { type: 'dropdown', source:[{id:1,name:'Accounts payable'},
+            { type: 'text', width:'200px' },
+            { type: 'dropdown', width:'200px', source:[{id:1,name:'Accounts payable'},
                                            {id:2,name:'Accounts receivable'},
                                            {id:3,name:'Cash'},
                                            {id:4,name:'Cost of sales'},
@@ -146,23 +148,39 @@ switch(dataSetNameText) {
                                            {id:8,name:'Purchases'},
                                            {id:9,name:'Sales revenue'},
                                            {id:10,name:'Work in process'}
-                                         ]},
-            { type: 'text' },
-        ]
-  });
+                                         ],
+                                         options: { type:'picker' },
+                                         autocomplete:true},
+            { type: 'text', width:'200px' },
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
+      });
   break;
   case 'Add Aircraft':
   //Aircrafts
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -200,42 +218,70 @@ switch(dataSetNameText) {
             { type: calendarType,
                options: { format: dateFormat }
             },
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
   case 'Canned Squawk Applicability':
   //CSqwk Applicability
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'numeric' },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
   case 'Canned Squawk Estimate Adjustment':
   //CSqwk Est Adj
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'numeric' },
@@ -246,21 +292,35 @@ switch(dataSetNameText) {
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
   case 'Canned Squawk Estimated Labor':
   //CSqwk Est Labor
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'numeric' },
@@ -273,42 +333,70 @@ switch(dataSetNameText) {
             { type: 'checkbox' },
             { type: 'numeric' },
             { type: 'numeric' },
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
   case 'Canned Squawk Files':
   //CSqwk Files
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'numeric' },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
   case 'Canned Squawk Part':
   //CSqwk Parts
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'numeric' },
@@ -320,21 +408,35 @@ switch(dataSetNameText) {
             { type: 'numeric' },
             { type: 'numeric' },
             { type: 'text' },
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
   case 'Canned Squawk Planning':
   //CSqwk Planning
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'numeric' },
@@ -343,21 +445,35 @@ switch(dataSetNameText) {
             { type: 'numeric' },
             { type: 'numeric' },
             { type: 'numeric' },
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
   case 'Canned Squawk':
   //CSqwk
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -398,21 +514,35 @@ switch(dataSetNameText) {
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'text' },
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
   case 'Add Company Addresses':
   //Company Address
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -433,21 +563,35 @@ switch(dataSetNameText) {
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
   case 'Add Company Phone':
   //Company Phone
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -467,21 +611,35 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'checkbox' },
             { type: 'checkbox' },
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
   case 'Add Company Profile':
   //Company Profile
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -535,21 +693,35 @@ switch(dataSetNameText) {
             { type: 'checkbox' },
             { type: 'text' },
             { type: 'text' },
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
   case 'Add Contact Address':
   //Contact Addresses
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -568,21 +740,35 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'checkbox' },
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
   case 'Add Contact Phone':
   //Contact Phones
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -602,21 +788,35 @@ switch(dataSetNameText) {
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
   case 'Add Contact Profile':
   //Contact Profiles
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -647,21 +847,35 @@ switch(dataSetNameText) {
             },
             { type: 'text' },
             { type: 'text' },
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
   case 'Part Masters':
   //Part Masters
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -744,21 +958,35 @@ switch(dataSetNameText) {
             { type: 'checkbox' },
             { type: 'text' },
             { type: 'numeric' },
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
   case 'Add Inventory Lots':
   //Inventory Lots
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -816,21 +1044,35 @@ switch(dataSetNameText) {
             { type: calendarType,
                options: { format: dateFormat }
             },
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
   case 'Part Discount Codes':
   //Part Discount Codes
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -841,16 +1083,14 @@ switch(dataSetNameText) {
   break;
   case 'Part Pricing':
   //Part Pricing
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -863,41 +1103,69 @@ switch(dataSetNameText) {
             { type: 'numeric' },
             { type: 'numeric' },
             { type: 'numeric' },
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
   case 'Warehouse Min & Max':
   //Warehouse Min/Max
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'text' },
             { type: 'numeric' },
             { type: 'numeric' },
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
   case 'Tool Master':
   //Tool Master
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -913,42 +1181,70 @@ switch(dataSetNameText) {
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'text' },
-          ]
+          ],
+          toolbar:[
+            { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+            { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+            { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+            { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+      ],
+          //Make cells red if they are missing data
+          updateTable:function(instance, cell, col, row, val, label, cellName) {
+              //Checks cells that are empty (sends warning with red text)
+              if (cell.innerText == "") {
+                cell.style.backgroundColor = '#ff7676';
+              } else {
+              cell.style.backgroundColor = '#ffffff';
+            }
+
+          }
   });
   break;
   case 'Tool Master Calibration':
   //Tool Master Cal
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'numeric' },
             { type: 'text' },
             { type: 'numeric' },
             { type: 'text' },
-          ]
+          ],
+          toolbar:[
+            { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+            { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+            { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+            { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+      ],
+          //Make cells red if they are missing data
+          updateTable:function(instance, cell, col, row, val, label, cellName) {
+              //Checks cells that are empty (sends warning with red text)
+              if (cell.innerText == "") {
+                cell.style.backgroundColor = '#ff7676';
+              } else {
+              cell.style.backgroundColor = '#ffffff';
+            }
+
+          }
   });
   break;
   case 'Tools':
   //Tool IDs
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'numeric' },
             { type: 'text' },
@@ -968,41 +1264,69 @@ switch(dataSetNameText) {
             { type: calendarType,
                options: { format: dateFormat }
             },
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
   case 'Work Pak Applicability':
   //Work Pak Applicability
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'numeric' },
             { type: 'text' },
             { type: 'text' },
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
   case 'Work Pak Detail':
   //Work Pak Detail
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'numeric' },
@@ -1031,21 +1355,35 @@ switch(dataSetNameText) {
             { type: 'numeric' },
             { type: 'checkbox' },
             { type: 'text' },
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
   case 'Work Pak Estimate Adjustment':
   //Work Pak Est Adj
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'numeric' },
@@ -1057,21 +1395,35 @@ switch(dataSetNameText) {
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
   case 'Work Pak Estimated Labor':
   //Work Pak Est Labor
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'numeric' },
@@ -1085,21 +1437,35 @@ switch(dataSetNameText) {
             { type: 'checkbox' },
             { type: 'numeric' },
             { type: 'numeric' },
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
   case 'Work Pak Part':
   //Work Pak Parts
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'numeric' },
@@ -1112,21 +1478,35 @@ switch(dataSetNameText) {
             { type: 'numeric' },
             { type: 'numeric' },
             { type: 'checkbox' },
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
   case 'Work Pak Planning':
   //Work Pak Planning
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'numeric' },
@@ -1136,21 +1516,35 @@ switch(dataSetNameText) {
             { type: 'numeric' },
             { type: 'numeric' },
             { type: 'numeric' },
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
   case 'Work Pak':
   //Work Paks
-  $('#spreadsheet').jexcel({
+  var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  tableOverflow: true,
-  lazyLoading:true,
+  search:true,
+  pagination:20,
   loadingSpin:true,
-  tableHeight: '430px',
-  defaultColWidth: 200,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -1168,23 +1562,37 @@ switch(dataSetNameText) {
             { type: 'checkbox' },
             { type: 'text' },
 
-        ]
+        ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+    ],
+        //Make cells red if they are missing data
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            if (cell.innerText == "") {
+              cell.style.backgroundColor = '#ff7676';
+            } else {
+            cell.style.backgroundColor = '#ffffff';
+          }
+
+        }
   });
   break;
 }
 
-//Download CSV button function, thn return to index.html
-$('#btnDownloadCSV').on('click', function () {
-   $('#spreadsheet').jexcel('download');
- });
-
-//Retrun to index.html
+//Return to index.html
  $('#btnRestart').on('click', function () {
    location.href = 'index.html';
  });
 
 // When the user clicks the button, open the email modal and populate the subject line
  $("#btnSendToSupport").click(function() {
+   $("#spreadsheet").css("display", "none");
+   $("#btnSendToSupport").css("display", "none");
+   $("#btnRestart").css("display", "none");
    $("#email-modal").fadeIn('fast');
    $("#email-subject").val(localStorage.getItem('dataSetName') + ' CorImport Issue');
  });
@@ -1194,18 +1602,23 @@ $('#btnDownloadCSV').on('click', function () {
  });
 
  $('#btnEmailSupport').click(function() {
-
    $("#email-modal").fadeOut('fast');
  });
 
  $("#modal-close").click(function() {
    $("#email-modal").fadeOut('fast');
+   $("#spreadsheet").css("display", "block");
+   $("#btnSendToSupport").css("display", "block");
+   $("#btnRestart").css("display", "block");
  });
 
 // When the user clicks anywhere outside of the modal, close it
  $(window).click(function(event) {
    if (event.target == emailModal) {
      $("#email-modal").fadeOut('fast');
+     $("#spreadsheet").css("display", "block");
+     $("#btnSendToSupport").css("display", "block");
+     $("#btnRestart").css("display", "block");
    }
  });
  </script>

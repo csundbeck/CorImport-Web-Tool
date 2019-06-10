@@ -3,7 +3,7 @@ body {
   font-family: 'Oswald', sans-serif;
   font-size: 14px
   color: #FFFFFF;
-  overflow-y: hidden;
+  overflow-y: scroll;
 }
 
 img {
@@ -60,7 +60,7 @@ form {
 }
 
 .button-style {
-  width: 40%;
+  width: 30%;
   background-color: #151952;
   color: white;
   padding: 16px 10px;
@@ -149,6 +149,11 @@ form {
   transition: 0.4s;
 }
 
+#header-container {
+  text-align: center;
+  z-index: 0
+}
+
 .menu-container {
   padding-left: 20px;
   padding-top: 20px;
@@ -228,9 +233,12 @@ form {
 }
 
  .button-container {
-  align-content: center;
   width: 100%;
-  z-index: 1;
+  margin-top: 1%;
+    margin-top: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   }
 
 .index-button-container {
@@ -243,6 +251,7 @@ form {
 
 #btnDownloadCSV {
   margin-bottom: 1%;
+  margin-right: 2%;
 }
 
 #btnDownloadCSV:hover {
@@ -261,6 +270,7 @@ margin-bottom: 1%;
 
 #btnSendToSupport {
   margin-bottom: 1%;
+  margin-right: 2%;
 }
 
 #btnSendToSupport:hover {
@@ -269,19 +279,51 @@ margin-bottom: 1%;
 }
 
 #sub-div {
-  text-align: center;
+  align-self: center;
   display: inline-block;
   width: 100%;
 }
 
 #spreadsheet {
-  margin-top: -1%;
-  margin-bottom: 1%;
-  z-index: 0;
+  margin-top: -2%;
   overflow-x: scroll;
   width: 100%;
   color: #000000;
   font-size: 12px;
+}
+
+.jexcel_filter {
+  color: #ffffff;
+  font-family: 'Oswald', sans-serif;
+  font-size: 20px;
+}
+
+.jexcel_content {
+  display: flex;
+  margin-top: -.25%;
+}
+
+.jexcel_pagination {
+  color: #ffffff;
+  font-family: 'Oswald', sans-serif;
+  font-size: 12px;
+}
+
+.jexcel_toolbar{
+  margin-top: -0.5%;
+}
+
+.jexcel_toolbar_item, .material-icons {
+  margin: auto 0.5%;
+  font-family: 'Oswald', sans-serif;
+  font-size: 20px;
+  transition: 0.4s;
+  color: #1C316C;
+}
+
+.jexcel_toolbar_item:hover {
+  font-size: 28px;
+  transition: 0.4s;
 }
 
 #error-modal {

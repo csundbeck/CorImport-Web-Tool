@@ -124,6 +124,13 @@ if (dateFormat !== "DD-Mon-YYYY") {
     calendarType = 'text';
 }
 
+//Insert '#NULL' for empty cells
+var nullInsert = function () {
+  if (cell.innerText == "") {
+    cell.innerText = "#NULL";
+  }
+}
+
 //Spreadsheet entry
 switch(dataSetNameText) {
   case 'Add Account Numbers':
@@ -136,7 +143,6 @@ switch(dataSetNameText) {
   pagination:20,
   loadingSpin:true,
   columns: [
-            { type: 'numeric', decimal: decimalSep },
             { type: 'text', width:'200px' },
             { type: 'dropdown', width:'200px', source:[{id:1,name:'Accounts payable'},
                                            {id:2,name:'Accounts receivable'},
@@ -158,7 +164,7 @@ switch(dataSetNameText) {
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
           { type:'i', content:'#NULL', onclick:function (cell) { if (cell.innerText == '') {
-                                                                cell.innerText = '#NULL';
+                                                                cell.setValue() = '#NULL';
                                                               }
                                                              }
                                                            },
@@ -167,12 +173,10 @@ switch(dataSetNameText) {
         updateTable:function(instance, cell, col, row, val, label, cellName) {
           var headerLabels = spreadsheet.getHeaders().split(",");
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "" && spreadsheet.getHeader(0) == "Account Numbers") {
-              cell.style.backgroundColor = '#FFFF66';
-            } else if (cell.innerText == "" && spreadsheet.getHeader(1) == "Account Category") {
-              cell.style.backgroundColor = '#FFFF66';
-            } else if (cell.innerText == "" && spreadsheet.getHeader(2) == "Account Description") {
-              cell.style.backgroundColor = '#FFFF66';
+            if (cell.innerText == "") {
+              if (cell.innerText == "" && spreadsheet.getHeader(0) == 'Account Number') {
+                cell.style.backgroundColor = '#FFFF66';
+              }
             } else {
               cell.style.backgroundColor = '#FFFFFF';
           }

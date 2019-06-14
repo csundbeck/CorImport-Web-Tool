@@ -49,14 +49,13 @@
       <div id="sub-div">
         <div id="header-container">
           <h1 id="data-set-name"></h1><br/>
-          <p id="data-file-name"></p><br/><br/>
+          <p id="data-file-name"></p><br/>
           <hr id="dataset-hr"/><br/>
         </div>
         <div></div>
         <div id="spreadsheet"></div><br/>
         <div class="button-container">
-          <!-- <button type="button" id="btnDownloadCSV" class="button-style"><i class="fa fa-download"></i>    Download CSV</button><br/> -->
-          <button type="button" id="btnSendToSupport" class="button-style"><i class="far fa-envelope"></i>   Send to CORRIDOR Support</button><br/>
+          <button type="button" id="btnSendToSupport" class="button-style"><i class="fas fa-envelope"></i>  Send to CORRIDOR Support</button><br/>
           <button type="button" id="btnRestart" class="button-style"><i class="fa fa-repeat" aria-hidden="true"></i>    Restart</button>
         </div>
       </div>
@@ -120,7 +119,7 @@ if (data == null) {
 var calendarType;
 if (dateFormat !== "DD-Mon-YYYY") {
   calendarType = 'calendar';
-  dateFormat
+  dateFormat;
 } else {
     calendarType = 'text';
 }
@@ -137,6 +136,7 @@ switch(dataSetNameText) {
   pagination:20,
   loadingSpin:true,
   columns: [
+            { type: 'numeric', decimal: decimalSep },
             { type: 'text', width:'200px' },
             { type: 'dropdown', width:'200px', source:[{id:1,name:'Accounts payable'},
                                            {id:2,name:'Accounts receivable'},
@@ -157,15 +157,24 @@ switch(dataSetNameText) {
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
+          { type:'i', content:'#NULL', onclick:function (cell) { if (cell.innerText == '') {
+                                                                cell.innerText = '#NULL';
+                                                              }
+                                                             }
+                                                           },
     ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
+          var headerLabels = spreadsheet.getHeaders().split(",");
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
+            if (cell.innerText == "" && spreadsheet.getHeader(0) == "Account Numbers") {
+              cell.style.backgroundColor = '#FFFF66';
+            } else if (cell.innerText == "" && spreadsheet.getHeader(1) == "Account Category") {
+              cell.style.backgroundColor = '#FFFF66';
+            } else if (cell.innerText == "" && spreadsheet.getHeader(2) == "Account Description") {
+              cell.style.backgroundColor = '#FFFF66';
             } else {
-            cell.style.backgroundColor = '#ffffff';
+              cell.style.backgroundColor = '#FFFFFF';
           }
 
         }
@@ -207,8 +216,8 @@ switch(dataSetNameText) {
             { type: calendarType,
                options: { format: dateFormat }
             },
-            { type: 'numeric', mask:'###.##,00', decimal:',' },
-            { type: 'numeric', mask:'###.##,00', decimal:',' },
+            { type: 'numeric', mask:'###.##,00', decimal: decimalSep },
+            { type: 'numeric', mask:'###.##,00', decimal: decimalSep },
             { type: 'numeric' },
             { type: 'numeric' },
             { type: 'text' },
@@ -249,7 +258,7 @@ switch(dataSetNameText) {
   loadingSpin:true,
   columns: [
             { type: 'text' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
@@ -284,10 +293,10 @@ switch(dataSetNameText) {
   loadingSpin:true,
   columns: [
             { type: 'text' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'text' },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
@@ -323,16 +332,16 @@ switch(dataSetNameText) {
   loadingSpin:true,
   columns: [
             { type: 'text' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'text' },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
@@ -364,7 +373,7 @@ switch(dataSetNameText) {
   loadingSpin:true,
   columns: [
             { type: 'text' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
@@ -399,14 +408,14 @@ switch(dataSetNameText) {
   loadingSpin:true,
   columns: [
             { type: 'text' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'checkbox' },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'text' },
         ],
         toolbar:[
@@ -439,12 +448,12 @@ switch(dataSetNameText) {
   loadingSpin:true,
   columns: [
             { type: 'text' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
@@ -493,15 +502,15 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'checkbox' },
             { type: 'checkbox' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
@@ -665,12 +674,12 @@ switch(dataSetNameText) {
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
             { type: calendarType,
                options: { format: dateFormat }
             },
             { type: 'text' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
@@ -914,31 +923,25 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep},
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
-            { type: 'numeric' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
@@ -948,7 +951,13 @@ switch(dataSetNameText) {
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
-            { type: 'numeric' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
@@ -957,7 +966,7 @@ switch(dataSetNameText) {
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'text' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
@@ -991,36 +1000,36 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'text' },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
             { type: calendarType,
                options: { format: dateFormat }
             },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
             { type: calendarType,
                options: { format: dateFormat }
             },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
             { type: calendarType,
                options: { format: dateFormat }
             },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
@@ -1077,7 +1086,7 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
         ]
   });
   break;
@@ -1095,14 +1104,14 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
@@ -1135,8 +1144,8 @@ switch(dataSetNameText) {
   columns: [
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
@@ -1212,9 +1221,9 @@ switch(dataSetNameText) {
   loadingSpin:true,
   columns: [
             { type: 'text' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'text' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'text' },
           ],
           toolbar:[
@@ -1246,7 +1255,7 @@ switch(dataSetNameText) {
   pagination:20,
   loadingSpin:true,
   columns: [
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'text' },
             { type: 'text' },
             { type: calendarType,
@@ -1295,7 +1304,7 @@ switch(dataSetNameText) {
   loadingSpin:true,
   columns: [
             { type: 'text' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'text' },
             { type: 'text' },
         ],
@@ -1329,7 +1338,7 @@ switch(dataSetNameText) {
   loadingSpin:true,
   columns: [
             { type: 'text' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
@@ -1341,7 +1350,7 @@ switch(dataSetNameText) {
             { type: 'checkbox' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'checkbox' },
             { type: 'text' },
             { type: 'numeric' },
@@ -1386,11 +1395,11 @@ switch(dataSetNameText) {
   loadingSpin:true,
   columns: [
             { type: 'text' },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'text' },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
@@ -1426,17 +1435,17 @@ switch(dataSetNameText) {
   loadingSpin:true,
   columns: [
             { type: 'text' },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'text' },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
@@ -1468,15 +1477,15 @@ switch(dataSetNameText) {
   loadingSpin:true,
   columns: [
             { type: 'text' },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'checkbox' },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'checkbox' },
         ],
         toolbar:[
@@ -1509,13 +1518,12 @@ switch(dataSetNameText) {
   loadingSpin:true,
   columns: [
             { type: 'text' },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric' },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            { type: 'numeric', decimal: decimalSep },
+            { type: 'numeric', decimal: decimalSep },
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
@@ -1603,6 +1611,9 @@ switch(dataSetNameText) {
 
  $('#btnEmailSupport').click(function() {
    $("#email-modal").fadeOut('fast');
+   $("#spreadsheet").css("display", "block");
+   $("#btnSendToSupport").css("display", "block");
+   $("#btnRestart").css("display", "block");
  });
 
  $("#modal-close").click(function() {

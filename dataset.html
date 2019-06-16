@@ -148,17 +148,16 @@ switch(dataSetNameText) {
             // {type: 'numeric', mask: '###.00', decimal:'.'},
             { type: 'text' },
             { type: 'dropdown', source:[{id:1,name:'Accounts payable'},
-                                           {id:2,name:'Accounts receivable'},
-                                           {id:3,name:'Cash'},
-                                           {id:4,name:'Cost of sales'},
-                                           {id:5,name:'Current liabilities'},
-                                           {id:6,name:'Expenses'},
-                                           {id:7,name:'Inventory'},
-                                           {id:8,name:'Purchases'},
-                                           {id:9,name:'Sales revenue'},
-                                           {id:10,name:'Work in process'}
-                                         ],
-                                         autocomplete:true},
+                                        {id:2,name:'Accounts receivable'},
+                                        {id:3,name:'Cash'},
+                                        {id:4,name:'Cost of sales'},
+                                        {id:5,name:'Current liabilities'},
+                                        {id:6,name:'Expenses'},
+                                        {id:7,name:'Inventory'},
+                                        {id:8,name:'Purchases'},
+                                        {id:9,name:'Sales revenue'},
+                                        {id:10,name:'Work in process'}
+                                      ], autocomplete:true},
             { type: 'text' },
         ],
         toolbar:[
@@ -167,7 +166,7 @@ switch(dataSetNameText) {
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
           { type:'i', content:'add', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
           { type:'i', content:'#NULL', onclick:function (cell) { if (cell.innerText == '') {
-                                                                cell.setValue() = '#NULL';
+                                                                      spreadsheet.setValue([A1],['#NULL']);
                                                               }
                                                             }
                                                           },
@@ -176,6 +175,7 @@ switch(dataSetNameText) {
         updateTable:function(instance, cell, col, row, val, label, cellName) {
           var headerLabels = spreadsheet.getHeaders().split(",");
           var numCols = headerLabels.length;
+          // var headerLabelName = document.getElementsByClassName('resizable').getElementsByTagName('td');
 
             for (let i = 0; i < numCols; i++) {
               if (cell.innerText == "") {

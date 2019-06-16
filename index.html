@@ -34,7 +34,7 @@
             <div id="help-menu-contents" class="dropdown-content">
               <a href="https://support.corridor.aero/hc/en-us/sections/115000828514-CorImport">CorImport How-To</a>
               <a href="https://support.corridor.aero/hc/en-us/categories/115001230327-FAQ">Corridor FAQ</a>
-              <a href="#">Launch corimport.exe</a>
+              <!-- <a href="#">Launch corimport.exe</a> -->
             </div>
           </div>
           <a href="https://www.corridor.aero/"><img src="images\CORRIDOR-CAMP-Systems-White-copy.png" alt="CORRIDOR"></a><br/>
@@ -115,15 +115,10 @@
           <option value=".">Period</option>
           <option value=",">Comma</option>
         </select></br/>
-        <label id="name">Thousands Separator:</label><br/>
-        <select id="thousand-sep-dropdown" onchange="thousSepSave()">
-          <option value=".">Period</option>
-          <option value=",">Comma</option>
-        </select></br/>
       </div>
       <div class="index-button-container">
-        <button type="submit"  class="button-style" id="btnGenerate" name="submit" onclick="Generate()">    Generate</button><br/>
-        <button type="button" class="button-style" id="btnErrorSearch"><i class="fas fa-exclamation-triangle"></i>    Have an Error?</button>
+        <button type="submit"  class="button-style" id="btnGenerate" name="submit" onclick="Generate()"><i class="fas fa-check-circle"></i>    Generate</button>
+        <button type="button" class="button-style" id="btnErrorSearch"><i class="fas fa-exclamation-triangle"></i>    Error Search</button>
       </div>
     </div>
     </form>
@@ -1060,13 +1055,6 @@
       var decimalSepString = decimalSep.options[decimalSep.selectedIndex].value;
 
       localStorage.setItem("ss-DecimalSepFormat", decimalSepString);
-    }
-    //Saving thousands separator to local storage to local storage
-    function thousSepSave() {
-      var thousandSep = document.getElementById('thousand-sep-dropdown');
-      var thousandSepString = thousandSep.options[thousandSep.selectedIndex].value;
-
-      localStorage.setItem("ss-ThousandSepFormat", thousandSepString);
     }
 
     //Allow the file to be accessed on the client side

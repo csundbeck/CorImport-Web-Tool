@@ -11,20 +11,15 @@
     <link rel="stylesheet" type="text/css" href="form.css">
     <link rel="stylesheet" type="text/css" href="font-awesome-4.7.0\css\font-awesome.min.css">
     <link rel="icon" href="images\corridor-icon.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.2/css/jquery.jexcel.css" type="text/css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="https://jexcel.net/v3/jexcel.css" type="text/css" />
     <link rel="stylesheet" href="https://jexcel.net/v3/japp.css" type="text/css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jcalendar.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="material-icons.css"  />
 
     <script src="https://jexcel.net/v3/jexcel.js"></script>
     <script src="https://jexcel.net/v3/japp.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.3/jquery.csv.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.0/js/jquery.jexcel.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.0.0/js/jquery.jcalendar.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 
     <script src="corimport.js" type="text/javascript"></script>
 
@@ -42,7 +37,7 @@
           <div id="help-menu-contents" class="dropdown-content">
             <a href="https://support.corridor.aero/hc/en-us/sections/115000828514-CorImport">CorImport How-To</a>
             <a href="https://support.corridor.aero/hc/en-us/categories/115001230327-FAQ">Corridor FAQ</a>
-            <a href="#">Launch corimport.exe</a>
+            <!-- <a href="#">Launch corimport.exe</a> -->
           </div>
       </div>
       <a href="https://www.corridor.aero/"><img src="images\CORRIDOR-CAMP-Systems-White-copy.png" alt="CORRIDOR"></a><br/>
@@ -71,7 +66,7 @@
       <textarea rows="10" placeholder="Include a message..."></textarea><br>
       <p>Attach the error log: </br><input type="file" name="fileToUpload" accept=".txt" required/></p>
       </hr>
-      <div class="index-button-container">
+      <div class="email-button-container">
         <button id="btnEmailSupport" class="button-style"><i class="fas fa-paper-plane"></i>   Send</button>
       </div>
     </div>
@@ -81,6 +76,7 @@
 var dataSetName = document.getElementById('data-set-name');
 var dataFileName = document.getElementById('data-file-name');
 var data = localStorage.getItem("dataFileName");
+var btnSendToSupport = document.getElementById("btnSendToSupport");
 var emailModal = document.getElementById('email-modal');
 var dataSetNameText = localStorage.getItem('dataSetName');
 var dateFormat = localStorage.getItem('ss-DateFormat');
@@ -102,22 +98,24 @@ function openHelpMenu(x) {
 
 if (localStorage.getItem('dataSetName') == null) {
   dataSetName.innerHTML = "CorImport Web Tool";
+  btnSendToSupport.style.display = 'none';
   alert('Please return the the home page and select a Data Set and a Data File to format.');
 } else {
   dataSetName.innerHTML = localStorage.getItem('dataSetName') + " Import";
+  btnSendToSupport.style.display = 'block';
 }
 
 if (data == null) {
   dataFileName.innerHTML = "**No file has been selected**";
-  dataFileName.style.color = '#FF0000';
+  dataFileName.style.color = '#FFFF66';
 } else {
   var trimFileName = localStorage.getItem('fileURL').slice(12);
   dataFileName.innerHTML = "The name of this file is " + trimFileName;
 }
 
-//'DD-Mon-YYYY currently not working, so setting fields to text type if that date format is selected'
+//'DD-Mon-YYYY' and 'YYYY/MM/DD' currently not working, so setting fields to text type if those date formats are selected
 var calendarType;
-if (dateFormat !== "DD-Mon-YYYY") {
+if (dateFormat !== "DD-Mon-YYYY" || dateFormat !== "YYYY/MM/DD") {
   calendarType = 'calendar';
   dateFormat;
 } else {
@@ -134,17 +132,22 @@ var nullInsert = function () {
 //Spreadsheet entry
 switch(dataSetNameText) {
   case 'Add Account Numbers':
+
   var spreadsheet = jexcel(document.getElementById('spreadsheet'), {
   // file path of the CSV file
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
-            { type: 'text', width:'200px' },
-            { type: 'dropdown', width:'200px', source:[{id:1,name:'Accounts payable'},
+            // {type: 'numeric', mask: '###.00', decimal:'.'},
+            { type: 'text' },
+            { type: 'dropdown', source:[{id:1,name:'Accounts payable'},
                                            {id:2,name:'Accounts receivable'},
                                            {id:3,name:'Cash'},
                                            {id:4,name:'Cost of sales'},
@@ -155,32 +158,34 @@ switch(dataSetNameText) {
                                            {id:9,name:'Sales revenue'},
                                            {id:10,name:'Work in process'}
                                          ],
-                                         options: { type:'picker' },
                                          autocomplete:true},
-            { type: 'text', width:'200px' },
+            { type: 'text' },
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content:'add', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
           { type:'i', content:'#NULL', onclick:function (cell) { if (cell.innerText == '') {
                                                                 cell.setValue() = '#NULL';
                                                               }
-                                                             }
-                                                           },
-    ],
+                                                            }
+                                                          },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
           var headerLabels = spreadsheet.getHeaders().split(",");
-            //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              if (cell.innerText == "" && spreadsheet.getHeader(0) == 'Account Number') {
-                cell.style.backgroundColor = '#FFFF66';
-              }
-            } else {
-              cell.style.backgroundColor = '#FFFFFF';
-          }
+          var numCols = headerLabels.length;
 
+            for (let i = 0; i < numCols; i++) {
+              if (cell.innerText == "") {
+                if (spreadsheet.getHeader(i) == "Account Number") {
+                  cell.style.backgroundColor = '#FFFF66';
+                  }
+                } else {
+                cell.style.backgroundColor = '#FFFFFF';
+            }
+          }
         }
       });
   break;
@@ -192,8 +197,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -215,10 +223,10 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: calendarType,
-               options: { format: dateFormat }
+               options: { format: dateFormat, today: 1, placeholder: dateFormat }
             },
             { type: calendarType,
-               options: { format: dateFormat }
+               options: { format: dateFormat, today: 1, placeholder: dateFormat }
             },
             { type: 'numeric', mask:'###.##,00', decimal: decimalSep },
             { type: 'numeric', mask:'###.##,00', decimal: decimalSep },
@@ -229,7 +237,7 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: calendarType,
-               options: { format: dateFormat }
+               options: { format: dateFormat, today: 1, placeholder: dateFormat }
             },
         ],
         toolbar:[
@@ -258,8 +266,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'numeric', decimal: decimalSep },
@@ -293,8 +304,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'numeric', decimal: decimalSep },
@@ -332,8 +346,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'numeric', decimal: decimalSep },
@@ -373,8 +390,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'numeric', decimal: decimalSep },
@@ -408,8 +428,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'numeric', decimal: decimalSep },
@@ -448,8 +471,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'numeric', decimal: decimalSep },
@@ -485,8 +511,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -554,8 +583,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -603,8 +635,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -651,8 +686,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -680,7 +718,7 @@ switch(dataSetNameText) {
             { type: 'checkbox' },
             { type: 'numeric', decimal: decimalSep },
             { type: calendarType,
-               options: { format: dateFormat }
+               options: { format: dateFormat, today: 1, placeholder: dateFormat }
             },
             { type: 'text' },
             { type: 'numeric', decimal: decimalSep },
@@ -697,7 +735,7 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: calendarType,
-               options: { format: dateFormat }
+               options: { format: dateFormat, today: 1, placeholder: dateFormat }
             },
             { type: 'text' },
             { type: 'checkbox' },
@@ -733,8 +771,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -780,8 +821,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -828,8 +872,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -848,7 +895,7 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: calendarType,
-               options: { format: dateFormat }
+               options: { format: dateFormat, today: 1, placeholder: dateFormat }
             },
             { type: 'text' },
             { type: 'text' },
@@ -856,7 +903,7 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: calendarType,
-               options: { format: dateFormat }
+               options: { format: dateFormat, today: 1, placeholder: dateFormat }
             },
             { type: 'text' },
             { type: 'text' },
@@ -887,8 +934,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -998,8 +1048,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -1020,17 +1073,17 @@ switch(dataSetNameText) {
             { type: 'numeric', decimal: decimalSep },
             { type: 'numeric', decimal: decimalSep },
             { type: calendarType,
-               options: { format: dateFormat }
+               options: { format: dateFormat, today: 1, placeholder: dateFormat }
             },
             { type: 'numeric', decimal: decimalSep },
             { type: 'numeric', decimal: decimalSep },
             { type: calendarType,
-               options: { format: dateFormat }
+               options: { format: dateFormat, today: 1, placeholder: dateFormat }
             },
             { type: 'numeric', decimal: decimalSep },
             { type: 'numeric', decimal: decimalSep },
             { type: calendarType,
-               options: { format: dateFormat }
+               options: { format: dateFormat, today: 1, placeholder: dateFormat }
             },
             { type: 'numeric', decimal: decimalSep },
             { type: 'numeric', decimal: decimalSep },
@@ -1038,7 +1091,7 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: calendarType,
-               options: { format: dateFormat }
+               options: { format: dateFormat, today: 1, placeholder: dateFormat }
             },
             { type: 'text' },
             { type: 'text' },
@@ -1049,13 +1102,13 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: calendarType,
-               options: { format: dateFormat }
+               options: { format: dateFormat, today: 1, placeholder: dateFormat }
             },
             { type: calendarType,
-               options: { format: dateFormat }
+               options: { format: dateFormat, today: 1, placeholder: dateFormat }
             },
             { type: calendarType,
-               options: { format: dateFormat }
+               options: { format: dateFormat, today: 1, placeholder: dateFormat }
             },
         ],
         toolbar:[
@@ -1084,8 +1137,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -1102,8 +1158,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -1143,8 +1202,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -1177,8 +1239,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'text' },
@@ -1221,8 +1286,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'numeric', decimal: decimalSep },
@@ -1256,14 +1324,17 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'numeric', decimal: decimalSep },
             { type: 'text' },
             { type: 'text' },
             { type: calendarType,
-               options: { format: dateFormat }
+               options: { format: dateFormat, today: 1, placeholder: dateFormat }
             },
             { type: 'text' },
             { type: 'text' },
@@ -1275,7 +1346,7 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: calendarType,
-               options: { format: dateFormat }
+               options: { format: dateFormat, today: 1, placeholder: dateFormat }
             },
         ],
         toolbar:[
@@ -1304,8 +1375,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'numeric', decimal: decimalSep },
@@ -1338,8 +1412,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'numeric', decimal: decimalSep },
@@ -1394,9 +1471,11 @@ switch(dataSetNameText) {
   csv: localStorage.getItem("fullFilePath"),
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
-  search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'numeric', decimal: decimalSep },
@@ -1435,8 +1514,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'numeric', decimal: decimalSep },
@@ -1477,8 +1559,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'numeric', decimal: decimalSep },
@@ -1518,8 +1603,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'numeric', decimal: decimalSep },
@@ -1555,8 +1643,11 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  pagination:20,
+  tableHeight: '462px',
+  tableOverflow:true,
+  lazyLoading:true,
   loadingSpin:true,
+  defaultColWidth: 150,
   columns: [
             { type: 'text' },
             { type: 'text' },

@@ -288,6 +288,7 @@ margin-bottom: 1%;
 #spreadsheet {
   margin-top: -2%;
   overflow-x: scroll;
+  overflow-y: hidden;
   width: 100%;
   color: #000000;
   font-size: 12px;
@@ -298,7 +299,6 @@ margin-bottom: 1%;
   font-family: 'Oswald', sans-serif;
   font-size: 20px;
   margin-right: 85%;
-  margin-bottom: 43px;
   position: fixed;
 }
 
@@ -306,16 +306,11 @@ margin-bottom: 1%;
   padding: 2%;
 }
 
-.jexcel_content {
-  display: flex;
-  margin-top: 130px;
-}
-
 .jexcel_toolbar{
   position: fixed;
   width: 100%;
   padding: 1%;
-  margin-top: 88px;
+  margin-top: 70px;
 }
 
 .jexcel_toolbar_item, .material-icons {
@@ -334,6 +329,15 @@ margin-bottom: 1%;
 
 .material-icons:hover {
   background-color: #F3F3F3;
+}
+
+.jexcel_content {
+  display: block;
+  margin: 110px 0px 0px 0px;
+}
+
+.jexcel_pagination {
+  margin-top: -2%;
 }
 
 #error-modal {

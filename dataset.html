@@ -123,7 +123,7 @@ if (dateFormat !== "DD-Mon-YYYY" || dateFormat !== "YYYY/MM/DD") {
 }
 
 //Insert '#NULL' for empty cells
-var nullInsert = function () {
+function insertNull() {
   if (cell.innerText == "") {
     cell.innerText = "#NULL";
   }

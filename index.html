@@ -129,7 +129,7 @@
         <span class="information"><i id="info" class="fas fa-info-circle"></i></span>
         <span id="modal-close" class="close"><i class="far fa-times-circle"></i></span><br/>
         <h2>Search for CorImport Errors</h2>
-        <input type="text" id="error-search-box" class="modal-h2" onkeyup="filterErrorList(); displayErrorList();" placeholder="Start by searching for an error code...">
+        <input type="text" id="error-search-box" class="modal-h2" onkeyup="filterErrorList(); displayErrorList();" placeholder="Start by searching for an error code..." autofocus>
           <div id="no-input-div">
             <h3>Please see the example below. The code highlighted in the image of the error file should the the number used when searching.</h3>
             <img id="error-example-img" src="images/error_example.png">
@@ -479,143 +479,137 @@
             <div class="solution"></div>
           </li> -->
           <!-- INVENTORY -->
-          <li class="error-code"><a href='#'>1031101: Invalid adjustment reason.</a>
-            <div class="solution">Column that represents the Min Inventory value is higher than the Max for this row.
-              Min needs to be less that the Max to avoid this error.</div>
-          </li>
-          <li class="error-code"><a href='#'>1031102: Adjustment reason exists.</a>
-            <div class="solution">Date format in the data file does not match the format in CORRIDOR's
-              System Configuration. Date format must match exactly. Make sure that any date field on the data set
-              includes leading zeros for months that are typically represented my a single number
-               (Example: January 6th, 2019 = 01/06/2019, if date format is MM/DD/YYYY).</div>
-          </li>
-          <li class="error-code"><a href='#'>1031103: Adjustment reason cannot be empty.</a>
-            <div class="solution">The serial number on the data file already exists for this part number.
-              CORRIDOR will not allow duplicate serial numbers for the same part number</div>
-          </li>
-          <li class="error-code"><a href='#'>1031104: Invalid deletion justification reason.</a>
-            <div class="solution">Generic message that the record failed.
-               The error file will likely contin another error for this same record and will help identify why the record did not import.</div>
-          </li>
-          <li class="error-code"><a href='#'>1030001: SQL error in Inventory.</a>
+          <!-- <li class="error-code"><a href='#'>1031101: Invalid adjustment reason.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1031102: Adjustment reason exists.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1031103: Adjustment reason cannot be empty.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1031104: Invalid deletion justification reason.</a>
+            <div class="solution"></div>
+          </li> -->
+          <li class="error-code"><a href='#'>1030001: SQL error</a>
             <div class="solution">Database Error. Please contact CORRIDOR Support for assistance.</div>
           </li>
           <li class="error-code"><a href='#'>1030002: Part Number Missing.</a>
-            <div class="solution">Calibration position likely does not exist.
-              Only specify a calibration if updating a current position.</div>
+            <div class="solution">Part Number is a required field for this import.
+              Please review the file and make sure that a valid part number is assigned to the record and attempt the import again.</div>
           </li>
           <li class="error-code"><a href='#'>1030003: Non-empty Part Description missing.  </a>
-            <div class="solution">The part number exists, but is marked as inactive.
-               Click the "Activate Part Master" button and attempt to import the record again.</div>
+            <div class="solution">Part Description is a required field for this import.
+            Please review the file and make sure that a Description is assigned to the record and attempt the import again.</div>
           </li>
           <li class="error-code"><a href='#'>1030004: AutoRequest error</a>
             <div class="solution">Calibration position likely does not exist.
               Only specify a calibration if updating a current position.</div>
           </li>
-          <li class="error-code"><a href='#'>1030005: Cannot add part number. That part number already exists.</a>
-            <div class="solution">This is how you fix</div>
+          <!-- <li class="error-code"><a href='#'>1030005: Cannot add part number. That part number already exists.</a>
+            <div class="solution"></div>
+          </li> -->
+          <li class="error-code"><a href='#'>1030006: Part master key missing</a>
+            <div class="solution">The database is not able to assign a unique identifier to this part master.
+              If there are other associated errors, try resolving these first and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030006: Part master key missing.</a>
-            <div class="solution">Applicability is required for canned squawks.
-              Canned squawks with no applicability defined must be imported as unapproved.
-              In the column that represents "Approved", change value to 0.
-              These can be approved once applicability is defined.</div>
+          <li class="error-code"><a href='#'>1030007: Quantity to add missing</a>
+            <div class="solution">Quantity is required when importing Inventory lots.
+              PLease review te file and make sure tha each record is assigned a quantity that is greater than 0.</div>
           </li>
-          <li class="error-code"><a href='#'>1030007: Quantity to add missing.</a>
-            <div class="solution">String of text is too long. CorImport can only import strings of 255 characters or less.
-               Reduce string lengths to less than or equal to 255 characters.</div>
+          <li class="error-code"><a href='#'>1030008: Cost missing</a>
+            <div class="solution">Inventory lot cost is a required field when importing Invenory lots.
+            Please review the file an make sure that each record is assigned a cost value and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030008: Cost missing.</a>
-            <div class="solution">Format any columns representing a currency value as Number.
-              Omit thousands seperator and currency symbols.</div>
+          <li class="error-code"><a href='#'>1030009: Owner Missing</a>
+            <div class="solution">Owner Code is a required field when importing Invenory lots.
+            Please review the file an make sure that each record is assigned a valid, active owner code and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030009: Owner Missing.</a>
-            <div class="solution">Part master may exist for the lot that is trying to import, but part number is in all uppercase and the part master on the data file must also reflect all uppercase to load correctly.
-              Edit the part number field on the data file to capitalize all alphabetical characters. Additionally, tshe column on the data file needs to be formatted as plain text.</div>
+          <li class="error-code"><a href='#'>1030010: Condition key missing</a>
+            <div class="solution">The part condition key is missing, likely becase t has not been created.
+            Navigate to Maintain > Inventory > Conditions and create the Condition and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030010: Condition key missing.</a>
-            <div class="solution">Serial Number cannot validate because part number doesn't exist or is in the incorrect format.
-              If part number does exist in CORRIDOR, edit the part number field on the data file to capitalize all alphabetical characters.</div>
+          <li class="error-code"><a href='#'>1030011: Status key missing</a>
+            <div class="solution">The part status key is missing, likely becase t has not been created.
+            Navigate to Maintain > Inventory > Statuses and create the Status and attempt the import again.</div>
           </li>
-          <!-- AIRCRAFT OWNERSHIP -->
-          <li class="error-code"><a href='#'>1030011: Status key missing.</a>
-            <div class="solution">Database Error. Please contact CORRIDOR Support for assistance.</div>
-          </li>
-          <li class="error-code"><a href='#'>1030012: Manufacturer missing.</a>
-            <div class="solution">The Operating Condition does not already exist in Corridor. Please create the Operating Condition (Maintain > Aircraft > Operating Conditions...) and attempt to import the file again.</div>
-          </li>
+          <!-- <li class="error-code"><a href='#'>1030012: Manufacturer missing</a>
+            <div class="solution"></div>
+          </li> -->
           <li class="error-code"><a href='#'>1030013: Invalid owner.</a>
-            <div class="solution">The Status does not already exist in Corridor. Please create the Status (Maintain > Aircraft > Statuses...) and attempt to import the file again.</div>
+            <div class="solution">The Owner Code assigned to the record is either marked as inactive, or did not exist prior t the import.
+              Please open the Company Database module and make sure that the company code has been created and is not inactive.</div>
           </li>
           <li class="error-code"><a href='#'>1030014: Part kitted key missing.</a>
-            <div class="solution">The Airport does not already exist in Corridor and cannot be imported to the "Home Airport" field. Please create the Airport (Maintain > Company Database > Airports...) and attempt to import the file again.</div>
+            <div class="solution">The database is not able to assign a unique identifier to this kit.
+              If there are other associated errors, try resolving these first and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030015: Missing action.</a>
-            <div class="solution">The Company designated as the Purchasor does not already exist in Corridor and cannot be imported to the "Purchased from" field. Please create the Company in the Company Database module and attempt to import the file again.</div>
-          </li>
-          <li class="error-code"><a href='#'>1030016: Quantity must be one.</a>
-            <div class="solution">The Company designated as the Owner does not already exist in Corridor and cannot be imported to the "Owned by" field. Please create the Company in the Company Database module and attempt to import the file again.</div>
-          </li>
-          <li class="error-code"><a href='#'>1030017: Missing adjustment reason.</a>
-            <div class="solution">The Company designated as the Leasor does not already exist in Corridor and cannot be imported to the "Leased by" field. Please create the Company in the Company Database module and attempt to import the file again.</div>
-          </li>
-          <li class="error-code"><a href='#'>1030018: Part key missing.</a>
-            <div class="solution">The Company designated as the Manager does not already exist in Corridor and cannot be imported to the "Managed by" field. Please create the Company in the Company Database module and attempt to import the file again.</div>
-          </li>
-          <li class="error-code"><a href='#'>1030019: Part sold key missing.</a>
-            <div class="solution">The Company designated as the Operator does not already exist in Corridor and cannot be imported to the "Operated by" field. Please create the Company in the Company Database module and attempt to import the file again.</div>
-          </li>
-          <li class="error-code"><a href='#'>1030020: Missing part deleted key.</a>
-            <div class="solution">The Company does not already exist in Corridor and must exist in Corridor prior to attempting an import. Please create the Company in the Company Database module and attempt to import the file again.</div>
-          </li>
-          <li class="error-code"><a href='#'>1030021: Invalid part key.</a>
-            <div class="solution">The specific model of Aircraft has not been assigned to the corresponding Manufacturer. Assign this model to the manufacturer (Maintain > System > Aircraft > Models) by searching for the specific model and re-selecting the Manufacturer, or create a new Model if it does not yet exist.</div>
-          </li>
-          <li class="error-code"><a href='#'>1030022: Invalid part sold key.</a>
-            <div class="solution">The Registration number field is required for this import. Please speficy a Registration number for each record on the spreadsheett and attempt the import again.</div>
-          </li>
-          <li class="error-code"><a href='#'>1030023: Invalid part deleted key.</a>
+          <!-- <li class="error-code"><a href='#'>1030015: Missing action</a>
             <div class="solution"></div>
+          </li> -->
+          <li class="error-code"><a href='#'>1030016: Quantity must be one.</a>
+            <div class="solution">The part is marked as Serialized, and Serialized lots can only be assined a quantity of 1.
+            Please review the file and make sure that each record is assigned a quantity of 1</div>
           </li>
-          <li class="error-code"><a href='#'>1030024: Invalid qty.</a>
-            <div class="solution">The Manufacturer Code is a required field for this import. Please specify the company code for a Company that currently exists in the Company Database module and is designated as an Aircraft Manufacturer.</div>
+          <!-- <li class="error-code"><a href='#'>1030017: Missing adjustment reason.</a>
+            <div class="solution"></div>
+          </li> -->
+          <li class="error-code"><a href='#'>1030018: Part key missing.</a>
+            <div class="solution">The database is not able to assign a unique identifier to this part.
+              If there are other associated errors, try resolving these first and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030025: Invalid floating point quantity.</a>
-            <div class="solution">The Aircraft is already associated to an Compliance Configuration and cannot be inactivated. Please remove the Tracking ID item in Corridor to disassociate from the configuration and attempt the import again.</div>
+          <!-- <li class="error-code"><a href='#'>1030019: Part sold key missing.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030020: Missing part deleted key.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030021: Invalid part key.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030022: Invalid part sold key.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030023: Invalid part deleted key.</a>
+            <div class="solution"></div>
+          </li> -->
+          <li class="error-code"><a href='#'>1030024: Invalid qty</a>
+            <div class="solution">The value of the quantity field for this record is not formatted for te expected data type.
+               Make sure that the quantity field for each record is formatted to be a number with the correct number of decimal places as defined on the Part Master.
           </li>
-          <li class="error-code"><a href='#'>1030026: Invalid integer.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030027: Part in cycle count.</a>
-            <div class="solution">The Serial Number Core is a required field for this import. Please speficy the core part of each serial number for each record on the spreadsheet and attempt the import again.</div>
-          </li>
-          <li class="error-code"><a href='#'>1030028: Sold to missing.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030029: Request quantity exceeds quantity on hand.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030030: Return quantity exceeds quantity sold.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030031: Part not sellable.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030032: Error calculating method cost.</a>
-            <div class="solution">The Base of Operations specified on the file does not yet exist. The drop down list for this field is populated from the list addresses that are currently set up for the company that is assigned in the "Owned by" field. Please create the address for the company in the Company Database module and attempt to import the file again</div>
-          </li>
-          <li class="error-code"><a href='#'>1030033: Error in recalc cost.</a>
-            <div class="solution">The Aircraft model field is a required field for this import. Please specify an aircraft model that this Registration number should be associated to andattempt the import again.</div>
-          </li>
-          <li class="error-code"><a href='#'>1030034: Return quantity exceeds quantity on hand.</a>
-            <div class="solution">The file is attempting to import a Base of Operations, but there is no Owned by company listed for the record. Please make sure that an Owned by company is listed for each record, and that the Base of operations has been added as a company address in the Company Database module for the company that is being designated as the owner.</div>
-          </li>
+          <!-- <li class="error-code"><a href='#'>1030027: Part in cycle count.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030028: Sold to missing.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030029: Request quantity exceeds quantity on hand.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030030: Return quantity exceeds quantity sold.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030031: Part not sellable.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030032: Error calculating method cost</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030033: Error in recalc cost.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030034: Return quantity exceeds quantity on hand.</a>
+            <div class="solution"></div>
+          </li> -->
           <li class="error-code"><a href='#'>1030035: Cannot add part number. This is not a valid part number.</a>
-            <div class="solution">The Warranty Program that has been selected to import is not valid or has not been created. Please create this Warranty Program in Maintain > Warranty > Warranty Programs... and attempt the import again.</div>
+            <div class="solution">The Part Number may contain invalid charcters that are not compatible with the database.
+               Please review the file and make sure that the file only includes alphanumeric characters and special character, limited to the Latin keyboard.</div>
           </li>
           <li class="error-code"><a href='#'>1030036: Default warehouse has been deleted.</a>
-            <div class="solution">////////////////////</div>
+            <div class="solution">The Warehouse that is being imported to the Default Warehouse field has been deleted.
+               Navigate to Maintain > System > Departments, undelete the Warehouse, and attempt the import again.</div>
           </li>
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------          
           <li class="error-code"><a href='#'>1030037: Unknown part number.</a>
             <div class="solution">The serial number is already assigned to another aircraft and cannot be used again. Please review and correct the serial number for this record and attempt the import again.</div>
           </li>
@@ -623,7 +617,8 @@
             <div class="solution">////////////////////</div>
           </li>
           <li class="error-code"><a href='#'>1030039: Invalid Overhauling Agency key.</a>
-            <div class="solution">The company selected to be imported to the Owned by field does not exist or has been inactivated in Corridor. Please create this company or reacivate the company in the Comapny database module and attempt the import again.</div>
+            <div class="solution">The company selected to be imported to the Overhauling Agency field does not exist or has been inactivated in Corridor.
+               Please create this company or reacivate the company in the Comapny database module and attempt the import again.</div>
           </li>
           <li class="error-code"><a href='#'>1030040: Invalid Default Warehouse name.</a>
             <div class="solution">////////////////////</div>

@@ -124,8 +124,7 @@ if (dateFormat !== "DD-Mon-YYYY" || dateFormat !== "YYYY/MM/DD") {
 
 //Insert '#NULL' for empty cells
 function insertNull() {
-  if (cell.innerText == "") {
-    cell.innerText = "#NULL";
+  if (document.querySelectorAll('tbody > .draggable > td') == "") {
   }
 }
 
@@ -165,9 +164,10 @@ switch(dataSetNameText) {
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
           { type:'i', content:'add', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
-          { type:'i', content:'#NULL', onclick:function (cell) { if (cell.innerText == '') {
-                                                                      spreadsheet.setValue([A1],['#NULL']);
-                                                              }
+          { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {
+            if (cell.innerText == '') {
+              spreadsheet.innerText = '#NULL';
+            }
                                                             }
                                                           },
           ],

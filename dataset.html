@@ -180,7 +180,7 @@ switch(dataSetNameText) {
             for (let i = 0; i < numCols; i++) {
               if (cell.innerText == "") {
                 if (spreadsheet.getHeader(i) == "Account Number") {
-                  cell.style.backgroundColor = '#FFFF66';
+                  cell.style.backgroundColor = '#FFFF00';
                   }
                 } else {
                 cell.style.backgroundColor = '#FFFFFF';
@@ -1498,7 +1498,7 @@ switch(dataSetNameText) {
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
             if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
+              cell.style.backgroundColor = '#FFFF66';
             } else {
             cell.style.backgroundColor = '#ffffff';
           }
@@ -1675,7 +1675,7 @@ switch(dataSetNameText) {
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
+            if (cell.innerText == null || cell.innerText == "0") {
               cell.style.backgroundColor = '#ff7676';
             } else {
             cell.style.backgroundColor = '#ffffff';

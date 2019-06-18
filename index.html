@@ -601,56 +601,65 @@
           <!-- <li class="error-code"><a href='#'>1030034: Return quantity exceeds quantity on hand.</a>
             <div class="solution"></div>
           </li> -->
-          <li class="error-code"><a href='#'>1030035: Cannot add part number. This is not a valid part number.</a>
+          <li class="error-code"><a href='#'>1030035: Cannot add part number. This is not a valid part number</a>
             <div class="solution">The Part Number may contain invalid charcters that are not compatible with the database.
                Please review the file and make sure that the file only includes alphanumeric characters and special character, limited to the Latin keyboard.</div>
           </li>
-          <li class="error-code"><a href='#'>1030036: Default warehouse has been deleted.</a>
+          <li class="error-code"><a href='#'>1030036: Default warehouse has been deleted</a>
             <div class="solution">The Warehouse that is being imported to the Default Warehouse field has been deleted.
                Navigate to Maintain > System > Departments, undelete the Warehouse, and attempt the import again.</div>
           </li>
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------          
-          <li class="error-code"><a href='#'>1030037: Unknown part number.</a>
-            <div class="solution">The serial number is already assigned to another aircraft and cannot be used again. Please review and correct the serial number for this record and attempt the import again.</div>
+          <li class="error-code"><a href='#'>1030037: Unknown part number</a>
+            <div class="solution">This data import was unsuccessful because the part number does not previously exist, or has been marked as inactive.
+               Please open the Inventory module and make sure that the Part Master for tat part number exists and is in an active state and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030038: Invalid manufacturer name.</a>
-            <div class="solution">////////////////////</div>
+          <li class="error-code"><a href='#'>1030038: Invalid manufacturer name</a>
+            <div class="solution">The Manufacturer must exist in an active state in CORRIDOR prior to importing to this field.
+               Please make sure that the company exsts in the Company database module in an active sat, and is marked as a Manufacturer.</div>
           </li>
-          <li class="error-code"><a href='#'>1030039: Invalid Overhauling Agency key.</a>
+          <li class="error-code"><a href='#'>1030039: Invalid Overhauling Agency key</a>
             <div class="solution">The company selected to be imported to the Overhauling Agency field does not exist or has been inactivated in Corridor.
                Please create this company or reacivate the company in the Comapny database module and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030040: Invalid Default Warehouse name.</a>
-            <div class="solution">////////////////////</div>
+          <li class="error-code"><a href='#'>1030040: Invalid Default Warehouse name</a>
+            <div class="solution">The Warehouse must exist in an active state in CORRIDOR prior to importing to this field.
+               Please create this Warehouse in Maintain > System > Warehouses and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030041: Invalid Default Core Warehouse name.</a>
-            <div class="solution">////////////////////</div>
+          <li class="error-code"><a href='#'>1030041: Invalid Default Core Warehouse name</a>
+            <div class="solution">The Warehouse must exist in an active state in CORRIDOR prior to importing to this field.
+               Please create this Warehouse in Maintain > System > Warehouses and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030042: Invalid Default Warranty Warehouse name.</a>
-            <div class="solution">////////////////////</div>
+          <li class="error-code"><a href='#'>1030042: Invalid Default Warranty Warehouse name</a>
+            <div class="solution">The Warehouse must exist in an active state in CORRIDOR prior to importing to this field.
+               Please create this Warehouse in Maintain > System > Warehouses and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030043: Invalid Retail Sales Posting Profile code.</a>
-            <div class="solution">////////////////////</div>
+          <li class="error-code"><a href='#'>1030043: Invalid Retail Sales Posting Profile code</a>
+            <div class="solution">The Posting Profile must exist in an active state in CORRIDOR prior to importing to this field.
+               Please create this Posting Profile in Maintain > System > Posting Profiles and attempt the import again. Make sure the Posting Profile applies to the Sales Invoice module.</div>
           </li>
-          <li class="error-code"><a href='#'>1030044: Invalid Unit of Measure code.</a>
-            <div class="solution">The Status on the file does not exist in Corridor. Please navigate to Maintain > Aircraft > Statuses... to create this status and attempt the import again.> </div>
+          <li class="error-code"><a href='#'>1030044: Invalid Unit of Measure code</a>
+            <div class="solution">The Unit of Measure must exist in an active state in CORRIDOR prior to importing to this field.
+               Please create this Warehouse in Maintain > Accouning > Units of Measure and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030045: Invalid Part Responsible User name.</a>
-            <div class="solution">The Status on the file does not exist in Corridor. Please navigate to Maintain > Aircraft > Statuses... to create this status and attempt the import again.</div>
+          <li class="error-code"><a href='#'>1030045: Invalid Part Responsible User name</a>
+            <div class="solution">The Responsible User must exist in an active state in CORRIDOR prior to importing to this field.
+               Please create this User in Tools > Administrative > User Manager and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030046: Invalid Product Class name.</a>
-            <div class="solution">////////////////////</div>
+          <li class="error-code"><a href='#'>1030046: Invalid Product Class name</a>
+            <div class="solution">The Product Class must exist in an active state in CORRIDOR prior to importing to this field.
+               Please create this Product Class in Maintain > Inventory > Product Classes and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030047: Cycle Count already closed.</a>
-            <div class="solution">////////////////////</div>
+          <!-- <li class="error-code"><a href='#'>1030047: Cycle Count already closed</a>
+            <div class="solution"></div>
+          </li> -->
+          <li class="error-code"><a href='#'>1030048: Status Key Missing</a>
+            <div class="solution">The Status selected to be imported to the Part Status field does not exist or has been deleted from Corridor.
+               Please create this Status or undelete it in Maintain > Inventory > Statuses and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030048: Status Key Missing.</a>
-            <div class="solution">Serial Number cannot validate because part number doesn't exist or is in the incorrect format.
-              If part number does exist in CORRIDOR, edit the part number field on the data file to capitalize all alphabetical characters.</div>
-          </li>
-          <li class="error-code"><a href='#'>1030049: Acquired for missing.</a>
-            <div class="solution">////////////////////</div>
-          </li>
+          <!-- <li class="error-code"><a href='#'>1030049: Acquired for missing.</a>
+            <div class="solution"></div>
+          </li> -->
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------          
           <li class="error-code"><a href='#'>1030050: Part is not superseded.</a>
             <div class="solution">////////////////////</div>
           </li>

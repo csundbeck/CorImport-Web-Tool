@@ -131,7 +131,7 @@
         <h2>Search for CorImport Errors</h2>
         <input type="text" id="error-search-box" class="modal-h2" onkeyup="filterErrorList(); displayErrorList();" placeholder="Start by searching for an error code..." autofocus>
           <div id="no-input-div">
-            <h3>Please see the example below. The code highlighted in the image of the error file should the the number used when searching.</h3>
+            <h3>Search for a solution to the error by typing in an error code, similar to the code highlighted below, from the error log file.</h3>
             <img id="error-example-img" src="images/error_example.png">
           </div>
         <ul id="error-list">
@@ -731,246 +731,244 @@
           <!-- <li class="error-code"><a href='#'>1030074: Invalid Tax Class</a>
             <div class="solution"></div>
           </li> -->
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-          <li class="error-code"><a href='#'>1030077: Part has been modified and cannot be deleted.  </a>
-            <div class="solution">////////////////////</div>
+          <!-- <li class="error-code"><a href='#'>1030077: Part has been modified and cannot be deleted.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030078: Insufficient privileges to inactivate the Part Master.</a>
+            <div class="solution"></div>
+          </li> -->
+          <li class="error-code"><a href='#'>1030079: The Part Master cannot be inactivated due to one or more part records for it are in use</a>
+            <div class="solution">The Part Master must not have any lots assigned to it on the Inventory Dashoard in order to inactivate the Part Master. Please clear the Inventory Dashboard and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030078: Insufficient privileges to inactivate the Part Master.</a>
-            <div class="solution">////////////////////</div>
+          <li class="error-code"><a href='#'>1030080: The Part Master is inactive and cannot be updated</a>
+            <div class="solution">Part Master is marked as Inactive and must be reactivated before it can be updated. Please reactivate the Part Master and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030079: The Part Master cannot be inactivated due to one or more part records for it are in use.</a>
-            <div class="solution">////////////////////</div>
+          <li class="error-code"><a href='#'>1030081: The Part Master cannot be flagged as a serialized part as it has parts with quantity greater than one</a>
+            <div class="solution">The Part Master has lot(s) assigned to it that have quantities that are greater than one. Serializd parts cannot be assigned a quantity of more than 1. Please adjust the quantities of the lot(s) for the PArt Master nd attempt the import again.  </div>
           </li>
-          <li class="error-code"><a href='#'>1030080: The Part Master is inactive and cannot be updated.</a>
-            <div class="solution">Part master may exist for the lot that is trying to import, but part number is in all uppercase and the part master on the data file must also reflect all uppercase to load correctly.
-              Edit the part number field on the data file to capitalize all alphabetical characters. Additionally, the column on the data file needs to be formatted as plain text.</div>
+          <li class="error-code"><a href='#'>1030083: Inventory part min levels cannot be more than the max levels</a>
+            <div class="solution">The Minimum quantity level cannot be greater than the Maximum quantity level. Please revise the file to make sure the minimum level is lower than the maximm level and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030081: The Part Master cannot be flagged as a serialized part as it has parts with quantity greater than one  </a>
-            <div class="solution">////////////////////</div>
+          <li class="error-code"><a href='#'>1030084: Estimated cost required for part master for manual override</a>
+            <div class="solution">The Override Estimated Cost field must have a value if Set Estimated Cost manually is set to True. Please update the data file to include an Override Estimated COst value.</div>
           </li>
-          <li class="error-code"><a href='#'>1030083: Inventory part min levels cannot be more than the max levels.</a>
-            <div class="solution">////////////////////</div>
+          <!-- <li class="error-code"><a href='#'>1030085: Invalid Part Transferred Key</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030086: Error in Cycle Count modify quantity.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030087: Cannot remove part from active Cycle Count.</a>
+            <div class="solution"></div>
+          </li> -->
+          <li class="error-code"><a href='#'>1030088: Invalid Work Order Posting Profile code</a>
+            <div class="solution">The posting profile is either not applicable to Work Orders, or has not been created. Navigate to Maintain > Accounting > Posting Profiles and create the posting profle if it does not exist, or change the module to be applicable to Work Orders.</div>
           </li>
-          <li class="error-code"><a href='#'>1030084: Estimated cost required for part master for manual override.</a>
-            <div class="solution">////////////////////</div>
+          <li class="error-code"><a href='#'>1030089: Cannot set Work Order posting profile unless enable posting definition set to true</a>
+            <div class="solution">Editing the Work Order Posting Definition is only allowable if the Enable Posting Definition field is set to True. Please update the data file to set Enable Posting Definition to True and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030085: Invalid Part Transferred Key.</a>
-            <div class="solution">Database Error. Please contact CORRIDOR Support for assistance.</div>
+          <!-- <li class="error-code"><a href='#'>1030090: Rented part status is not defined</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030091: Required cycle count classification tolerance value missing.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030092: Required cycle count classification name value missing.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030093: Required cycle count classification frequency value missing.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030094: Required cycle count classification time amount value missing.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030095: Required cycle count classification time unit value missing.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030098: Cannot remove/teardown Kit since the selected Kit part number and kit lot number is currently associated to sale.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030099: Posting profile is designated for sales and cannot be assigned as part number's posting profile.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030802: Hold code is missing.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030803: Hold code is invalid.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030804: Hold code notes cannot be empty.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030805: Hold code does not exist for part.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1031203: Lot cannot be empty.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1031205: invalid user</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1031207: Unable to generate lot number</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1031208: Unable to validate serial number</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1031209: Cannot obtain valid part statuses for lot</a>
+            <div class="solution"></div>
+          </li> -->
+          <li class="error-code"><a href='#'>1031210: Invalid status for part</a>
+            <div class="solution">Part Statuses must exist prior to importing them to Inventory. Navigate to Maintiain > Inventory > Statuses and create the Status and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030086: Error in Cycle Count modify quantity.</a>
-            <div class="solution">////////////////////</div>
+          <!-- <li class="error-code"><a href='#'>1031211: Unable to determine rotable flag</a>
+            <div class="solution"></div>
+          </li> -->
+          <li class="error-code"><a href='#'>1031212: Serial number cannot be empty</a>
+            <div class="solution">The Serialized check box is marked for the Part Master, therefore a Seril Number for each lot is required. Please specify a serial numer for the lot on the data file and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030087: Cannot remove part from active Cycle Count.</a>
-            <div class="solution">////////////////////</div>
+          <!-- <li class="error-code"><a href='#'>1031213: Non-unique lot specified</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1031215: Permissions Failure(s).</a>
+            <div class="solution"></div>
+          </li> -->
+          <li class="error-code"><a href='#'>1031216: Cannot specify exchange price(s) for a non-rotable part</a>
+            <div class="solution">Non-rotable parts cannot be sold on exchange, and therefore cannot be assigned an exchange price. Please revise the data file and remove exchange list prices for any parts that are not marked as Rotable.</div>
           </li>
-          <li class="error-code"><a href='#'>1030088: Invalid Work Order Posting Profile code.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030089: Cannot set Work Order posting profile unless enable posting definition set to true.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030090: Rented part status is not defined.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030091: Required cycle count classification tolerance value missing.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030092: Required cycle count classification name value missing.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030093: Required cycle count classification frequency value missing.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030094: Required cycle count classification time amount value missing.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030095: Required cycle count classification time unit value missing.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030098: Cannot remove/teardown Kit since the selected Kit part number and kit lot number is currently associated to sale.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030099: Posting profile is designated for sales and cannot be assigned as part number's posting profile.  </a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030802: Hold code is missing.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030803: Hold code is invalid.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030804: Hold code notes cannot be empty.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030805: Hold code does not exist for part.</a>
-            <div class="solution">Database Error. Please contact CORRIDOR Support for assistance.</div>
-          </li>
-          <li class="error-code"><a href='#'>1031203: Lot cannot be empty.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1031205: invalid user.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1031207: Unable to generate lot number.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1031208: Unable to validate serial number.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1031209: Cannot obtain valid part statuses for lot.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1031210: Invalid status for part.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1031211: Unable to determine rotable flag.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1031212: Serial number cannot be empty.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1031213: Non-unique lot specified.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1031215: Permissions Failure(s).</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1031216: Cannot specify exchange price(s) for a non-rotable part.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1031217: Serial number already exists.</a>
+          <li class="error-code"><a href='#'>1031217: Serial number already exists</a>
             <div class="solution">The serial number on the data file already exists for this part number.
               CORRIDOR will not allow duplicate serial numbers for the same part number.</div>
           </li>
-          <li class="error-code"><a href='#'>1031220: Warehuose adjustment quantity cannot be empty or zero.</a>
-            <div class="solution">////////////////////</div>
+          <!-- <li class="error-code"><a href='#'>1031220: Warehuose adjustment quantity cannot be empty or zero.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1031228: Local facility cannot be the owner of a third-party owned lot</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1031235: Cannot use Load Local Facility As Owner and Transfer Company Code at the same time.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1031238: Cannot set Third-party owned flag on a third-party owned lot.</a>
+            <div class="solution"></div>
+          </li> -->
+          <li class="error-code"><a href='#'>1030501: Invalid condition name</a>
+            <div class="solution">The Part Condition specified to the lot(s) does not exist. Navigate to Maintain > Inventory > Conditions, create the Part Condition, and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1031228: Local facility cannot be the owner of a third-party owned lot.</a>
-            <div class="solution">////////////////////</div>
+          <!-- <li class="error-code"><a href='#'>1030503: Part condition exists.</a>
+            <div class="solution"></div>
+          </li> -->
+          <li class="error-code"><a href='#'>1030504: Part condition does not exist</a>
+            <div class="solution">The Part Condition specified to the lot(s) does not exist. Navigate to Maintain > Inventory > Conditions, create the Part Condition, and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1031235: Cannot use Load Local Facility As Owner and Transfer Company Code at the same time.</a>
-            <div class="solution">////////////////////</div>
+          <li class="error-code"><a href='#'>1030506: Part condition cannot be empty</a>
+            <div class="solution">The Part Condition is a required field for this type of import. Please specify a Part Condition for each record nd attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1031238: Cannot set Third-party owned flag on a third-party owned lot.</a>
-            <div class="solution">////////////////////</div>
+          <!-- <li class="error-code"><a href='#'>1030702: Part discount code key not found.</a>
+            <div class="solution"></div>
+          </li> -->
+          <li class="error-code"><a href='#'>1031001: Invalid part status name</a>
+            <div class="solution">The Part Status specified to the lot(s) does not exist. Navigate to Maintain > Inventory > Statuses, create the Part Status, and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030501: Invalid condition name.</a>
-            <div class="solution">Database Error. Please contact CORRIDOR Support for assistance.</div>
+          <!-- <li class="error-code"><a href='#'>1031002: Part status exists.</a>
+            <div class="solution"></div>
+          </li> -->
+          <li class="error-code"><a href='#'>1031003: Part status does not exist</a>
+            <div class="solution">The Part Status specified to the lot(s) does not exist. Navigate to Maintain > Inventory > Statuses, create the Part Status, and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030503: Part condition exists.</a>
-            <div class="solution">////////////////////</div>
+          <!-- <li class="error-code"><a href='#'>1030201: Unknown part pricing.</a>
+            <div class="solution"></div>
+          </li> -->
+          <li class="error-code"><a href='#'>1030204: Add Or Update Part Master Pricing unknown part master</a>
+            <div class="solution">The Part Pricing cannot be update for the part master because it has not yet been created, or is Inactive. Please open the Inventory module and reactivate the part master, or create part master if it does not yet exist.</div>
           </li>
-          <li class="error-code"><a href='#'>1030504: Part condition does not exist.</a>
-            <div class="solution">////////////////////</div>
+          <li class="error-code"><a href='#'>1030205: Add Or Update Part Master Pricing unknown part condition</a>
+            <div class="solution">The Part Condition specified for the Part Pricing update does not exist. Navigate to Maintain > Inventory > Conditions, create the Part Condition, and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030506: Part condition cannot be empty.</a>
-            <div class="solution">////////////////////</div>
+          <li class="error-code"><a href='#'>1030206: Add Or Update Part Master Pricing unknown part currency</a>
+            <div class="solution">The Part Currency specified for the Part Pricing update does not exist. Navigate to Maintain > System > Currencies, create the Currency, and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030702: Part discount code key not found.</a>
-            <div class="solution">////////////////////</div>
+          <!-- <li class="error-code"><a href='#'>1030901: Product class exists.</a>
+            <div class="solution"></div>
+          </li> -->
+          <li class="error-code"><a href='#'>1030902: Product class does not exis.</a>
+            <div class="solution">The Product Class must exist prior to importing to thi field. Navigate to Maintain > Inventory > Product Classes, create the Product Class, and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1031001: Invalid part status name.</a>
-            <div class="solution">////////////////////</div>
+          <!-- <li class="error-code"><a href='#'>1030903: Product class cannot be empty.</a>
+            <div class="solution"></div>
+          </li> -->
+          <li class="error-code"><a href='#'>1030401: Invalid product class name</a>
+            <div class="solution">The Product Class must exist prior to importing to thi field. Navigate to Maintain > Inventory > Product Classes, create the Product Class, and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1031002: Part status exists.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1031003: Part status does not exist.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030201: Unknown part pricing.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030204: Add Or Update Part Master Pricing unknown part master.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030205: Add Or Update Part Master Pricing unknown part condition.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030206: Add Or Update Part Master Pricing unknown part currency.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030901: Product class exists.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030902: Product class does not exist.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030903: Product class cannot be empty.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030401: Invalid product class name.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030402: Invalid product class description.</a>
-            <div class="solution">////////////////////</div>
-          </li>
+          <!-- <li class="error-code"><a href='#'>1030402: Invalid product class description.</a>
+            <div class="solution"></div>
+          </li> -->
           <li class="error-code"><a href='#'>1030403: Invalid default rotable processing facility.</a>
-            <div class="solution">////////////////////</div>
+            <div class="solution">The facility code assigned to be imported as the Rotable Processing Facility. Only facility codes in Maintain > Enterprise > Enterprise Facilities can be imported to this field.</div>
           </li>
-          <li class="error-code"><a href='#'>1030602: Invalid alternate part master for part.</a>
-            <div class="solution">////////////////////</div>
+          <!-- <li class="error-code"><a href='#'>1030602: Invalid alternate part master for part.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030605: Invalid superseded part master for part master.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030607: Effective date is missing.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030614: Superseded part cannot be emtpy.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030616: Failed to update superseding part.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030617: Alternate part cannot be empty.</a>
+            <div class="solution"></div>
+          </li> -->
+          <li class="error-code"><a href='#'>1030101: Vendor code is invalid</a>
+            <div class="solution">The Company Code used as the Vendor Code is either Inactive, not designated as a vendor, or has not yet been created. Ope the Company Database module and make sure the the Company COde has been created, is in an active state, and is designated as a vendor</div>
           </li>
-          <li class="error-code"><a href='#'>1030605: Invalid superseded part master for part master.</a>
-            <div class="solution">////////////////////</div>
+          <!-- <li class="error-code"><a href='#'>1030102: Vendor code cannot be empty.</a>
+            <div class="solution"></div>
+          </li> -->
+          <li class="error-code"><a href='#'>1030103: UOM Packaging code is invalid</a>
+            <div class="solution">The Unit of Measure has either not been created, or has been deleted. Navigate to Maintain > System > Units of Measure and make sure the UOM has been created and has not bee deleted, then attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030607: Effective date is missing.</a>
-            <div class="solution">////////////////////</div>
+          <!-- <li class="error-code"><a href='#'>1030104: Vendor code is missing.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1030105: Vendor code already exists.</a>
+            <div class="solution"></div>
+          </li> -->
+          <li class="error-code"><a href='#'>1031506: UOM Packaging code already exists, or is missing</a>
+            <div class="solution">The Unit of Measure has either not been created, or has been deleted. Navigate to Maintain > System > Units of Measure and make sure the UOM has been created and is not in a deleted state, then attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030614: Superseded part cannot be emtpy.</a>
-            <div class="solution">////////////////////</div>
+          <li class="error-code"><a href='#'>1030301: Warehouse is missing</a>
+            <div class="solution">The Warehouse field is a required field for this import. Navigate to Maintin > System > Warehouses and make sure the Warehouse has been created and is not in a deleted state, then attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030616: Failed to update superseding part.</a>
-            <div class="solution">////////////////////</div>
+          <li class="error-code"><a href='#'>1030302: Warehouse does not exist</a>
+            <div class="solution">The Warehouse has either not been created, or has been deleted. Navigate to Maintin > System > Warehouses and make sure the Warehouse has been created and is not in a deleted state, then attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030617: Alternate part cannot be empty.</a>
-            <div class="solution">////////////////////</div>
+          <li class="error-code"><a href='#'>1030303: Min max levels are wrong</a>
+            <div class="solution">Min and Max levels cannot be negative, and the miniumum quantity level must always be less than the maximum quantity level. Please adjust the minimum and maximum levels to match these guidelines and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030101: Vendor code is invalid.</a>
-            <div class="solution">////////////////////</div>
+          <li class="error-code"><a href='#'>1030305: Warehouse Bin is not valid</a>
+            <div class="solution">The Warehouse is configured to require validated bins, which are specified in Maintain > System > Warehouses on the Valid Bins tab. Please revise the data file to use the Valid Bins for the Warehouse and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030102: Vendor code cannot be empty.</a>
-            <div class="solution">////////////////////</div>
+          <!-- <li class="error-code"><a href='#'>1030306: You do not have access to perform this task in the warehouse.</a>
+            <div class="solution"></div>
+          </li> -->
+          <li class="error-code"><a href='#'>1031401: Invalid cycle count classification</a>
+            <div class="solution">Cycle COunt Classifictions must be created and in an undeleted state prior to this import. Navigate to Maintain > Inventory > Cycle Count Classificatons to create the Cycle Count Classification and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030103: UOM Packaging code is invalid.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030104: Vendor code is missing.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030105: Vendor code already exists.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1031506: UOM Packaging code already exists, or is missing.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030301: Warehouse is missing.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030302: Warehouse does not exist.</a>
-            <div class="solution">Database Error. Please contact CORRIDOR Support for assistance.</div>
-          </li>
-          <li class="error-code"><a href='#'>1030303: Min max levels are wrong.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030305: Warehouse Bin is not valid.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1030306: You do not have access to perform this task in the warehouse.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1031401: Invalid cycle count classification.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1031601: Component Part Number missing.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1031602: Component Quantity missing.</a>
-            <div class="solution">////////////////////</div>
-          </li>
-          <li class="error-code"><a href='#'>1031603: Cannot add component part number. This is not a valid part number.</a>
-            <div class="solution">////////////////////</div>
-          </li>
+          <!-- <li class="error-code"><a href='#'>1031601: Component Part Number missing.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1031602: Component Quantity missing.</a>
+            <div class="solution"></div>
+          </li> -->
+          <!-- <li class="error-code"><a href='#'>1031603: Cannot add component part number. This is not a valid part number.</a>
+            <div class="solution"></div>
+          </li> -->
         </ul>
     </div>
   </div>

@@ -12,9 +12,9 @@
     <link rel="stylesheet" type="text/css" href="font-awesome-4.7.0\css\font-awesome.min.css">
     <link rel="icon" href="images\corridor-icon.png">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://jexcel.net/v3/jexcel.css" type="text/css" />
-    <link rel="stylesheet" href="https://jexcel.net/v3/japp.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="material-icons.css"  />
+    <link rel="stylesheet" href="https://jexcel.net/v3/jexcel.css" type="text/css"/>
+    <link rel="stylesheet" href="https://jexcel.net/v3/japp.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="material-icons.css"/>
 
     <script src="https://jexcel.net/v3/jexcel.js"></script>
     <script src="https://jexcel.net/v3/japp.js"></script>
@@ -64,6 +64,7 @@
       <h2>Send File to Corridor Support</h2>
       <p>Subject: <input type="text" id="email-subject" class="modal-h2"></p>
       <textarea rows="10" placeholder="Include a message..."></textarea><br>
+      <p>Attach the data file: </br><input type="file" id="email-data-file" name="fileToUpload" accept=".csv" required/></p>
       <p>Attach the error log: </br><input type="file" name="fileToUpload" accept=".txt" required/></p>
       </hr>
       <div class="email-button-container">
@@ -81,7 +82,7 @@ var emailModal = document.getElementById('email-modal');
 var dataSetNameText = localStorage.getItem('dataSetName');
 var dateFormat = localStorage.getItem('ss-DateFormat');
 var decimalSep = localStorage.getItem('ss-DecimalSepFormat');
-var thousandSep = localStorage.getItem('ss-ThousandSepFormat');
+var td = document.getElementsByTagName("td");
 
 //Display help menu
 function openHelpMenu(x) {
@@ -92,7 +93,6 @@ function openHelpMenu(x) {
   } else {
     helpMenuContents.style.display = "none";
   }
-
   x.classList.toggle("change");
 }
 
@@ -122,6 +122,14 @@ if (dateFormat !== "DD-Mon-YYYY" || dateFormat !== "YYYY/MM/DD") {
     calendarType = 'text';
 }
 
+//Setting the numeric field masks
+var numMask;
+if (decimalSep == '.') {
+  numMask = '#0.0#';
+} else {
+  numMask = '#0,0#';
+}
+
 //Insert '#NULL' for empty cells
 function insertNull() {
   if (document.querySelectorAll('tbody > .draggable > td') == "") {
@@ -138,13 +146,13 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  tableHeight: '462px',
+  tableHeight: '508px',
   tableOverflow:true,
   lazyLoading:true,
   loadingSpin:true,
   defaultColWidth: 150,
   columns: [
-            // {type: 'numeric', mask: '###.00', decimal:'.'},
+            { type: 'checkbox' },
             { type: 'text' },
             { type: 'dropdown', source:[{id:1,name:'Accounts payable'},
                                         {id:2,name:'Accounts receivable'},
@@ -165,25 +173,39 @@ switch(dataSetNameText) {
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
           { type:'i', content:'add', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
           { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {
-            if (cell.innerText == '') {
-              spreadsheet.innerText = '#NULL';
+            if (td.innerText == "") {
+              td.innerText = '#NULL';
             }
                                                             }
                                                           },
           ],
-        //Make cells red if they are missing data
+        //Make cells yellow if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
-          var headerLabels = spreadsheet.getHeaders().split(",");
+          var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
           var numCols = headerLabels.length;
-          // var headerLabelName = document.getElementsByClassName('resizable').getElementsByTagName('td');
+
+          var td = document.querySelectorAll("td");
+          var numCells = td.length;
+          var tdCheckbox = document.querySelector("input[type=checkbox]");
+          var crsCell = document.querySelector('table.jexcel > tbody > tr > td');
+
+
+            for (let j = 0; j < numCells; j++) {
+              var tdCheckboxValue = tdCheckbox[j];
+              if (tdCheckbox.checked) {
+                cell.style.backgroundColor = '#FFFFFF';
+              } else {
+                cell.style.backgroundColor = '#FFFF00';
+              }
+            }
 
             for (let i = 0; i < numCols; i++) {
-              if (cell.innerText == "") {
-                if (spreadsheet.getHeader(i) == "Account Number") {
+              if (cell.innerText == "" ) {
+                if (headerLabels.innerText == "Account Number") {
                   cell.style.backgroundColor = '#FFFF00';
-                  }
-                } else {
-                cell.style.backgroundColor = '#FFFFFF';
+                }
+              } else {
+              cell.style.backgroundColor = '#FFFFFF';
             }
           }
         }
@@ -228,12 +250,12 @@ switch(dataSetNameText) {
             { type: calendarType,
                options: { format: dateFormat, today: 1, placeholder: dateFormat }
             },
-            { type: 'numeric', mask:'###.##,00', decimal: decimalSep },
-            { type: 'numeric', mask:'###.##,00', decimal: decimalSep },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'text' },
-            { type: 'numeric' },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'text' },
             { type: 'text' },
             { type: calendarType,
@@ -273,7 +295,7 @@ switch(dataSetNameText) {
   defaultColWidth: 150,
   columns: [
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
@@ -311,10 +333,10 @@ switch(dataSetNameText) {
   defaultColWidth: 150,
   columns: [
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
@@ -353,16 +375,16 @@ switch(dataSetNameText) {
   defaultColWidth: 150,
   columns: [
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
@@ -397,7 +419,7 @@ switch(dataSetNameText) {
   defaultColWidth: 150,
   columns: [
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
@@ -435,14 +457,14 @@ switch(dataSetNameText) {
   defaultColWidth: 150,
   columns: [
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'checkbox' },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'text' },
         ],
         toolbar:[
@@ -478,12 +500,12 @@ switch(dataSetNameText) {
   defaultColWidth: 150,
   columns: [
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
@@ -535,15 +557,15 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'checkbox' },
             { type: 'checkbox' },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
@@ -716,12 +738,12 @@ switch(dataSetNameText) {
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: calendarType,
                options: { format: dateFormat, today: 1, placeholder: dateFormat }
             },
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
@@ -977,31 +999,25 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep},
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
@@ -1011,7 +1027,13 @@ switch(dataSetNameText) {
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
-            { type: 'numeric', decimal: decimalSep },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
@@ -1020,7 +1042,7 @@ switch(dataSetNameText) {
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
@@ -1057,36 +1079,36 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: calendarType,
                options: { format: dateFormat, today: 1, placeholder: dateFormat }
             },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: calendarType,
                options: { format: dateFormat, today: 1, placeholder: dateFormat }
             },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: calendarType,
                options: { format: dateFormat, today: 1, placeholder: dateFormat }
             },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
@@ -1146,7 +1168,7 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
         ]
   });
   break;
@@ -1167,14 +1189,14 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
@@ -1210,8 +1232,8 @@ switch(dataSetNameText) {
   columns: [
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
@@ -1255,7 +1277,7 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric' },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'text' },
@@ -1293,9 +1315,9 @@ switch(dataSetNameText) {
   defaultColWidth: 150,
   columns: [
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'text' },
           ],
           toolbar:[
@@ -1330,7 +1352,7 @@ switch(dataSetNameText) {
   loadingSpin:true,
   defaultColWidth: 150,
   columns: [
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'text' },
             { type: 'text' },
             { type: calendarType,
@@ -1382,7 +1404,7 @@ switch(dataSetNameText) {
   defaultColWidth: 150,
   columns: [
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'text' },
             { type: 'text' },
         ],
@@ -1419,7 +1441,7 @@ switch(dataSetNameText) {
   defaultColWidth: 150,
   columns: [
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
@@ -1431,18 +1453,18 @@ switch(dataSetNameText) {
             { type: 'checkbox' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'checkbox' },
             { type: 'text' },
-            { type: 'numeric' },
-            { type: 'numeric' },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'text' },
-            { type: 'numeric' },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'checkbox' },
             { type: 'text' },
-            { type: 'numeric' },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'checkbox' },
             { type: 'text' },
         ],
@@ -1478,11 +1500,11 @@ switch(dataSetNameText) {
   defaultColWidth: 150,
   columns: [
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
@@ -1521,17 +1543,17 @@ switch(dataSetNameText) {
   defaultColWidth: 150,
   columns: [
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
             { type: 'checkbox' },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
@@ -1566,15 +1588,15 @@ switch(dataSetNameText) {
   defaultColWidth: 150,
   columns: [
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'checkbox' },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'checkbox' },
         ],
         toolbar:[
@@ -1610,12 +1632,12 @@ switch(dataSetNameText) {
   defaultColWidth: 150,
   columns: [
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric', decimal: decimalSep },
-            { type: 'numeric', decimal: decimalSep },
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
+            {type: 'numeric', mask: numMask, decimal: decimalSep},
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
@@ -1685,6 +1707,18 @@ switch(dataSetNameText) {
   });
   break;
 }
+
+function openFile(event) {
+  var input = event.target;
+  var errorFileReader = new FileReader();
+
+  errorFileReader.onload = function() {
+  var dataURL = errorFileReader.result;
+  var output = localStorage.setItem("errorFilePath", dataURL);
+};
+errorFileReader.readAsDataURL(input.files[0]);
+
+};
 
 //Return to index.html
  $('#btnRestart').on('click', function () {

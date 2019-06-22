@@ -136,6 +136,14 @@ function insertNull() {
   }
 }
 
+// var booleanVal = {if (cell.innerHTML != "") {
+//     if (cell.innerHTML != 1 || if cell.innerHTML != 0) {
+//       cell.innerHTML = 1;
+//     }
+//   } else {
+//     return;
+//   }
+
 //Spreadsheet entry
 switch(dataSetNameText) {
   case 'Add Account Numbers':
@@ -146,13 +154,13 @@ switch(dataSetNameText) {
   // Get the first of the CSV file and consider the headers
   csvHeaders: true,
   search:true,
-  tableHeight: '508px',
+  tableHeight: '462px',
   tableOverflow:true,
   lazyLoading:true,
   loadingSpin:true,
   defaultColWidth: 150,
   columns: [
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0', /*editor: booleanVal*/ },
             { type: 'text' },
             { type: 'dropdown', source:[{id:1,name:'Accounts payable'},
                                         {id:2,name:'Accounts receivable'},
@@ -187,27 +195,39 @@ switch(dataSetNameText) {
           var td = document.querySelectorAll("td");
           var numCells = td.length;
           var tdCheckbox = document.querySelector("input[type=checkbox]");
-          var crsCell = document.querySelector('table.jexcel > tbody > tr > td');
+          var crsCell = document.querySelectorAll('table.jexcel > tbody > tr > td');
+          var jexcelRow = document.querySelectorAll('td.jexcel_row');
 
 
-            for (let j = 0; j < numCells; j++) {
-              var tdCheckboxValue = tdCheckbox[j];
-              if (tdCheckbox.checked) {
-                cell.style.backgroundColor = '#FFFFFF';
-              } else {
-                cell.style.backgroundColor = '#FFFF00';
-              }
-            }
 
-            for (let i = 0; i < numCols; i++) {
-              if (cell.innerText == "" ) {
-                if (headerLabels.innerText == "Account Number") {
-                  cell.style.backgroundColor = '#FFFF00';
-                }
-              } else {
-              cell.style.backgroundColor = '#FFFFFF';
+
+            // for (let j = 0; j < numCells; j++) {
+            //   var tdCheckboxValue = tdCheckbox[j];
+            //   if (tdCheckbox.checked) {
+            //     cell.style.backgroundColor = '#FFFFFF';
+            //   } else {
+            //     cell.style.backgroundColor = '#FFFF00';
+            //   }
+            // }
+
+            // for (let i = 0; i < numCols; i++) {
+                // if (spreadsheet.getHeaders[i] == "Account Number") {
+                  if (cell.innerText == "" ) {
+                      cell.style.backgroundColor = '#FFFF00';
+                  } else {
+                      cell.style.backgroundColor = '#FFFFFF';
+                  }
+              // }
+          // }
+
+          for (let k = 0; k < jexcelRow.length; k++) {
+            if (cell.style.backgroundColor == '#FFFF00') {
+              jexcelRow[k].style.backgroundColor = '#FFFF00';
+            } else {
+              jexcelRow[k].style.backgroundColor = '#F3F3F3';
             }
           }
+
         }
       });
   break;

@@ -160,7 +160,6 @@ switch(dataSetNameText) {
   loadingSpin:true,
   defaultColWidth: 150,
   columns: [
-            { type: 'numeric', mask: '0', /*editor: booleanVal*/ },
             { type: 'text' },
             { type: 'dropdown', source:[{id:1,name:'Accounts payable'},
                                         {id:2,name:'Accounts receivable'},
@@ -179,27 +178,20 @@ switch(dataSetNameText) {
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'add', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
-          { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {
-            if (td.innerText == "") {
-              td.innerText = '#NULL';
-            }
-                                                            }
-                                                          },
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
           ],
         //Make cells yellow if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
           var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
           var numCols = headerLabels.length;
 
-          var td = document.querySelectorAll("td");
-          var numCells = td.length;
-          var tdCheckbox = document.querySelector("input[type=checkbox]");
-          var crsCell = document.querySelectorAll('table.jexcel > tbody > tr > td');
-          var jexcelRow = document.querySelectorAll('td.jexcel_row');
-
-
-
+          // var td = document.querySelectorAll("td");
+          // var numCells = td.length;
+          // var tdCheckbox = document.querySelector("input[type=checkbox]");
+          // var crsCell = document.querySelectorAll('table.jexcel > tbody > tr > td');
+          // var jexcelRow = document.querySelectorAll('td.jexcel_row');
 
             // for (let j = 0; j < numCells; j++) {
             //   var tdCheckboxValue = tdCheckbox[j];
@@ -210,24 +202,26 @@ switch(dataSetNameText) {
             //   }
             // }
 
-            // for (let i = 0; i < numCols; i++) {
-                // if (spreadsheet.getHeaders[i] == "Account Number") {
+             for (let i = 0; i < numCols; i++) {
+                 if (headerLabels[i].innerHTML == "Account Number" ||
+                     headerLabels[i].innerHTML == "Account Category" ||
+                     headerLabels[i].innerHTML == "Account Description") {
                   if (cell.innerText == "" ) {
-                      cell.style.backgroundColor = '#FFFF00';
+                      cell.style.backgroundColor = '#FFFF99';
                   } else {
                       cell.style.backgroundColor = '#FFFFFF';
                   }
-              // }
-          // }
-
-          for (let k = 0; k < jexcelRow.length; k++) {
-            if (cell.style.backgroundColor == '#FFFF00') {
-              jexcelRow[k].style.backgroundColor = '#FFFF00';
-            } else {
-              jexcelRow[k].style.backgroundColor = '#F3F3F3';
-            }
+                  headerLabels[i].style.backgroundColor = '#FFFF00';
+              }
           }
 
+          // for (let k = 0; k < jexcelRow.length; k++) {
+          //   if (cell.style.backgroundColor == '#FFFF00') {
+          //     jexcelRow[k].style.backgroundColor = '#FFFF00';
+          //   } else {
+          //     jexcelRow[k].style.backgroundColor = '#F3F3F3';
+          //   }
+          // }
         }
       });
   break;
@@ -286,16 +280,29 @@ switch(dataSetNameText) {
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
+
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Registration Number" ||
+                       headerLabels[i].innerHTML == "Aircraft Manufacturer Code" ||
+                       headerLabels[i].innerHTML == "Airraft Model") ||
+                       headerLabels[i].innerHTML == "Serial Number Core") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
 
         }
   });
@@ -329,11 +336,20 @@ switch(dataSetNameText) {
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
+
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Canned Squawk Name" ||
+                       headerLabels[i].innerHTML == "Sequence Number") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
 
         }
   });
@@ -371,11 +387,21 @@ switch(dataSetNameText) {
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
+
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Canned Squawk Name" ||
+                       headerLabels[i].innerHTML == "Sequence Number" ||
+                       headerLabels[i].innerHTML == "Description") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
 
         }
   });
@@ -415,11 +441,24 @@ switch(dataSetNameText) {
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
+
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Canned Squawk Name" ||
+                       headerLabels[i].innerHTML == "Sequence Number" ||
+                       headerLabels[i].innerHTML == "Department" ||
+                       headerLabels[i].innerHTML == "Revenue Hours" ||
+                       headerLabels[i].innerHTML == "Cost Hours" ||
+                       headerLabels[i].innerHTML == "Estimated Labor Revenue") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
 
         }
   });
@@ -453,13 +492,21 @@ switch(dataSetNameText) {
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
 
-        }
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Canned Squawk Name" ||
+                       headerLabels[i].innerHTML == "Sequence Number" ||
+                       headerLabels[i].innerHTML == "File Name") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
   });
   break;
   case 'Canned Squawk Part':
@@ -496,13 +543,23 @@ switch(dataSetNameText) {
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
 
-        }
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Canned Squawk Name" ||
+                       headerLabels[i].innerHTML == "Sequence Number" ||
+                       headerLabels[i].innerHTML == "Part Number" ||
+                       headerLabels[i].innerHTML == "Part Description" ||
+                       headerLabels[i].innerHTML == "Demand Quantity") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
   });
   break;
   case 'Canned Squawk Planning':
@@ -536,13 +593,20 @@ switch(dataSetNameText) {
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
 
-        }
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Canned Squawk Name" ||
+                       headerLabels[i].innerHTML == "Sequence Number") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
   });
   break;
   case 'Canned Squawk':
@@ -563,10 +627,22 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'text' },
-            { type: 'text' },
-            { type: 'text' },
-            { type: 'text' },
+            { type: 'dropdown', source:[{id:1,name:'Time and Materials'},
+                                        {id:2,name:'Flat Rate'},
+                                        {id:3,name:'No Charge'}
+                                      ], autocomplete:true}, },
+            { type: 'dropdown', source:[{id:1,name:'Time and Materials'},
+                                        {id:2,name:'Flat Rate'},
+                                        {id:3,name:'No Charge'}
+                                      ], autocomplete:true}, },
+            { type: 'dropdown', source:[{id:1,name:'Time and Materials'},
+                                        {id:2,name:'Flat Rate'},
+                                        {id:3,name:'No Charge'}
+                                       ], autocomplete:true}, },
+            { type: 'dropdown', source:[{id:1,name:'Time and Materials'},
+                                        {id:2,name:'Flat Rate'},
+                                        {id:3,name:'No Charge'}
+                                       ], autocomplete:true}, },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
@@ -608,13 +684,21 @@ switch(dataSetNameText) {
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
 
-        }
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Canned Squawk Name" ||
+                       headerLabels[i].innerHTML == "Description" ||
+                       headerLabels[i].innerHTML == "Squawk Part Activity") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
   });
   break;
   case 'Add Company Addresses':
@@ -660,11 +744,20 @@ switch(dataSetNameText) {
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
+
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Account Code" ||
+                       headerLabels[i].innerHTML == "Title") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
 
         }
   });
@@ -711,13 +804,20 @@ switch(dataSetNameText) {
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
 
-        }
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Account Code" ||
+                       headerLabels[i].innerHTML == "Title") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
   });
   break;
   case 'Add Company Profile':
@@ -796,11 +896,20 @@ switch(dataSetNameText) {
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
+
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Account Code" ||
+                       headerLabels[i].innerHTML == "Company Name") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
 
         }
   });
@@ -897,13 +1006,22 @@ switch(dataSetNameText) {
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
 
-        }
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Contact Name" ||
+                       headerLabels[i].innerHTML == "Title" ||
+                       headerLabels[i].innerHTML == "Address Title") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
+          }
   });
   break;
   case 'Add Contact Profile':
@@ -935,11 +1053,17 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'text' },
+            { type: 'dropdown', source:[{id:1,name:'Male'},
+                                        {id:2,name:'Female'}
+                                      ], autocomplete:true}, },
             { type: calendarType,
                options: { format: dateFormat, today: 1, placeholder: dateFormat }
             },
-            { type: 'text' },
+            { type: 'dropdown', source:[{id:1,name:'Divorced'},
+                                        {id:2,name:'Married'},
+                                        {id:3,name:'Single'},
+                                        {id:3,name:'Widowed'}
+                                      ], autocomplete:true}, },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
@@ -959,11 +1083,19 @@ switch(dataSetNameText) {
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
+
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Contact Name") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
 
         }
   });
@@ -1073,12 +1205,20 @@ switch(dataSetNameText) {
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
 
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Part Number" ||
+                       headerLabels[i].innerHTML == "Description") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
         }
   });
   break;
@@ -1162,11 +1302,26 @@ switch(dataSetNameText) {
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
+
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Part Number" ||
+                       headerLabels[i].innerHTML == "Part Condition" ||
+                       headerLabels[i].innerHTML == "Part Status" ||
+                       headerLabels[i].innerHTML == "Part Quantity" ||
+                       headerLabels[i].innerHTML == "Owner Code" ||
+                       headerLabels[i].innerHTML == "Warehouse" ||
+                       headerLabels[i].innerHTML == "Cost" ||
+                       headerLabels[i].innerHTML == "Serial Number") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
 
         }
   });
@@ -1189,7 +1344,26 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-        ]
+        ],
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            //Checks cells that are empty (sends warning with red text)
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
+
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Part Number" ||
+                       headerLabels[i].innerHTML == "Part Condition" ||
+                       headerLabels[i].innerHTML == "Discount Code") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
+
+        }
   });
   break;
   case 'Part Pricing':
@@ -1227,11 +1401,20 @@ switch(dataSetNameText) {
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
+
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Part Number" ||
+                       headerLabels[i].innerHTML == "Part Condition") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
 
         }
   });
@@ -1264,11 +1447,21 @@ switch(dataSetNameText) {
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
+
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Part Number" ||
+                       headerLabels[i].innerHTML == "Warehouse Minimum" ||
+                       headerLabels[i].innerHTML == "Warehouse Maximum") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
 
         }
   });
@@ -1311,11 +1504,20 @@ switch(dataSetNameText) {
           //Make cells red if they are missing data
           updateTable:function(instance, cell, col, row, val, label, cellName) {
               //Checks cells that are empty (sends warning with red text)
-              if (cell.innerText == "") {
-                cell.style.backgroundColor = '#ff7676';
-              } else {
-              cell.style.backgroundColor = '#ffffff';
-            }
+              var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+              var numCols = headerLabels.length;
+
+                for (let i = 0; i < numCols; i++) {
+                     if (headerLabels[i].innerHTML == "Tool Number" ||
+                         headerLabels[i].innerHTML == "Description") {
+                      if (cell.innerText == "" ) {
+                          cell.style.backgroundColor = '#FFFF99';
+                      } else {
+                          cell.style.backgroundColor = '#FFFFFF';
+                      }
+                      headerLabels[i].style.backgroundColor = '#FFFF00';
+                  }
+              }
 
           }
   });
@@ -1349,11 +1551,21 @@ switch(dataSetNameText) {
           //Make cells red if they are missing data
           updateTable:function(instance, cell, col, row, val, label, cellName) {
               //Checks cells that are empty (sends warning with red text)
-              if (cell.innerText == "") {
-                cell.style.backgroundColor = '#ff7676';
-              } else {
-              cell.style.backgroundColor = '#ffffff';
-            }
+              var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+              var numCols = headerLabels.length;
+
+                for (let i = 0; i < numCols; i++) {
+                     if (headerLabels[i].innerHTML == "Tool Number" ||
+                         headerLabels[i].innerHTML == "Position" ||
+                         headerLabels[i].innerHTML == "Frequency") {
+                      if (cell.innerText == "" ) {
+                          cell.style.backgroundColor = '#FFFF99';
+                      } else {
+                          cell.style.backgroundColor = '#FFFFFF';
+                      }
+                      headerLabels[i].style.backgroundColor = '#FFFF00';
+                  }
+              }
 
           }
   });
@@ -1400,11 +1612,21 @@ switch(dataSetNameText) {
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
+
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Tool ID" ||
+                       headerLabels[i].innerHTML == "Tool Number" ||
+                       headerLabels[i].innerHTML == "Tool Room") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
 
         }
   });
@@ -1437,11 +1659,20 @@ switch(dataSetNameText) {
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
+
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Work Pak Name" ||
+                       headerLabels[i].innerHTML == "Applicability Sequence Number") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
 
         }
   });
@@ -1497,11 +1728,21 @@ switch(dataSetNameText) {
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
+
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Work Pak Name" ||
+                       headerLabels[i].innerHTML == "Step Sequence Number" ||
+                       headerLabels[i].innerHTML == "Description") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
 
         }
   });
@@ -1539,11 +1780,22 @@ switch(dataSetNameText) {
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#FFFF66';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
+
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Work Pak Name" ||
+                       headerLabels[i].innerHTML == "Work Pak Step Sequence Number" ||
+                       headerLabels[i].innerHTML == "Adjustment Sequence Number" ||
+                       headerLabels[i].innerHTML == "Description") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
 
         }
   });
@@ -1584,11 +1836,24 @@ switch(dataSetNameText) {
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
+
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Work Pak Name" ||
+                       headerLabels[i].innerHTML == "Work Pak Step Sequence Number" ||
+                       headerLabels[i].innerHTML == "Estimated Labor Sequence Number" ||
+                       headerLabels[i].innerHTML == "Department" ||
+                       headerLabels[i].innerHTML == "Revenue Hours" ||
+                       headerLabels[i].innerHTML == "Cost hours" ||) {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
 
         }
   });
@@ -1628,11 +1893,24 @@ switch(dataSetNameText) {
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
+
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Work Pak Name" ||
+                       headerLabels[i].innerHTML == "Work Pak Step Sequence Number" ||
+                       headerLabels[i].innerHTML == "Part Sequence Number" ||
+                       headerLabels[i].innerHTML == "Part Number" ||
+                       headerLabels[i].innerHTML == "PartDescription" ||
+                       headerLabels[i].innerHTML == "Demand Quantity") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
 
         }
   });
@@ -1668,11 +1946,21 @@ switch(dataSetNameText) {
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
+
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Work Pak Name" ||
+                       headerLabels[i].innerHTML == "Work Pak Step Sequence Number" ||
+                       headerLabels[i].innerHTML == "Planning Sequence Number") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
 
         }
   });
@@ -1717,11 +2005,20 @@ switch(dataSetNameText) {
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == null || cell.innerText == "0") {
-              cell.style.backgroundColor = '#ff7676';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
+
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Work Pak Name" ||
+                       headerLabels[i].innerHTML == "Description") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
 
         }
   });

@@ -136,14 +136,6 @@ function insertNull() {
   }
 }
 
-// var booleanVal = {if (cell.innerHTML != "") {
-//     if (cell.innerHTML != 1 || if cell.innerHTML != 0) {
-//       cell.innerHTML = 1;
-//     }
-//   } else {
-//     return;
-//   }
-
 //Spreadsheet entry
 switch(dataSetNameText) {
   case 'Add Account Numbers':
@@ -203,9 +195,7 @@ switch(dataSetNameText) {
             // }
 
              for (let i = 0; i < numCols; i++) {
-                 if (headerLabels[i].innerHTML == "Account Number" ||
-                     headerLabels[i].innerHTML == "Account Category" ||
-                     headerLabels[i].innerHTML == "Account Description") {
+                 if (headerLabels[i].innerHTML == "Account Number" || headerLabels[i].innerHTML == "Account Category" || headerLabels[i].innerHTML == "Account Description") {
                   if (cell.innerText == "" ) {
                       cell.style.backgroundColor = '#FFFF99';
                   } else {
@@ -291,10 +281,7 @@ switch(dataSetNameText) {
             var numCols = headerLabels.length;
 
               for (let i = 0; i < numCols; i++) {
-                   if (headerLabels[i].innerHTML == "Registration Number" ||
-                       headerLabels[i].innerHTML == "Aircraft Manufacturer Code" ||
-                       headerLabels[i].innerHTML == "Airraft Model") ||
-                       headerLabels[i].innerHTML == "Serial Number Core") {
+                   if (headerLabels[i].innerHTML == "Registration Number" || headerLabels[i].innerHTML == "Aircraft Manufacturer Code" || headerLabels[i].innerHTML == "Airraft Model" /*|| headerLabels[i].innerHTML == "Serial Number Core"*/) {
                     if (cell.innerText == "" ) {
                         cell.style.backgroundColor = '#FFFF99';
                     } else {
@@ -303,7 +290,6 @@ switch(dataSetNameText) {
                     headerLabels[i].style.backgroundColor = '#FFFF00';
                 }
             }
-
         }
   });
   break;
@@ -331,8 +317,10 @@ switch(dataSetNameText) {
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
@@ -340,8 +328,7 @@ switch(dataSetNameText) {
             var numCols = headerLabels.length;
 
               for (let i = 0; i < numCols; i++) {
-                   if (headerLabels[i].innerHTML == "Canned Squawk Name" ||
-                       headerLabels[i].innerHTML == "Sequence Number") {
+                   if (headerLabels[i].innerHTML == "Canned Squawk Name" || headerLabels[i].innerHTML == "Sequence Number") {
                     if (cell.innerText == "" ) {
                         cell.style.backgroundColor = '#FFFF99';
                     } else {
@@ -350,7 +337,6 @@ switch(dataSetNameText) {
                     headerLabels[i].style.backgroundColor = '#FFFF00';
                 }
             }
-
         }
   });
   break;
@@ -373,17 +359,19 @@ switch(dataSetNameText) {
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
@@ -391,9 +379,7 @@ switch(dataSetNameText) {
             var numCols = headerLabels.length;
 
               for (let i = 0; i < numCols; i++) {
-                   if (headerLabels[i].innerHTML == "Canned Squawk Name" ||
-                       headerLabels[i].innerHTML == "Sequence Number" ||
-                       headerLabels[i].innerHTML == "Description") {
+                   if (headerLabels[i].innerHTML == "Canned Squawk Name" || headerLabels[i].innerHTML == "Sequence Number" || headerLabels[i].innerHTML == "Description") {
                     if (cell.innerText == "" ) {
                         cell.style.backgroundColor = '#FFFF99';
                     } else {
@@ -402,7 +388,6 @@ switch(dataSetNameText) {
                     headerLabels[i].style.backgroundColor = '#FFFF00';
                 }
             }
-
         }
   });
   break;
@@ -425,10 +410,10 @@ switch(dataSetNameText) {
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
         ],
@@ -436,8 +421,10 @@ switch(dataSetNameText) {
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
@@ -445,12 +432,7 @@ switch(dataSetNameText) {
             var numCols = headerLabels.length;
 
               for (let i = 0; i < numCols; i++) {
-                   if (headerLabels[i].innerHTML == "Canned Squawk Name" ||
-                       headerLabels[i].innerHTML == "Sequence Number" ||
-                       headerLabels[i].innerHTML == "Department" ||
-                       headerLabels[i].innerHTML == "Revenue Hours" ||
-                       headerLabels[i].innerHTML == "Cost Hours" ||
-                       headerLabels[i].innerHTML == "Estimated Labor Revenue") {
+                   if (headerLabels[i].innerHTML == "Canned Squawk Name" || headerLabels[i].innerHTML == "Sequence Number" || headerLabels[i].innerHTML == "Department" || headerLabels[i].innerHTML == "Revenue Hours" || headerLabels[i].innerHTML == "Cost Hours" || headerLabels[i].innerHTML == "Estimated Labor Revenue") {
                     if (cell.innerText == "" ) {
                         cell.style.backgroundColor = '#FFFF99';
                     } else {
@@ -459,7 +441,6 @@ switch(dataSetNameText) {
                     headerLabels[i].style.backgroundColor = '#FFFF00';
                 }
             }
-
         }
   });
   break;
@@ -487,8 +468,10 @@ switch(dataSetNameText) {
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
@@ -496,9 +479,7 @@ switch(dataSetNameText) {
             var numCols = headerLabels.length;
 
               for (let i = 0; i < numCols; i++) {
-                   if (headerLabels[i].innerHTML == "Canned Squawk Name" ||
-                       headerLabels[i].innerHTML == "Sequence Number" ||
-                       headerLabels[i].innerHTML == "File Name") {
+                   if (headerLabels[i].innerHTML == "Canned Squawk Name" || headerLabels[i].innerHTML == "Sequence Number" || headerLabels[i].innerHTML == "File Name") {
                     if (cell.innerText == "" ) {
                         cell.style.backgroundColor = '#FFFF99';
                     } else {
@@ -507,6 +488,7 @@ switch(dataSetNameText) {
                     headerLabels[i].style.backgroundColor = '#FFFF00';
                 }
             }
+        }
   });
   break;
   case 'Canned Squawk Part':
@@ -529,7 +511,7 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'text' },
@@ -538,8 +520,10 @@ switch(dataSetNameText) {
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
@@ -547,11 +531,7 @@ switch(dataSetNameText) {
             var numCols = headerLabels.length;
 
               for (let i = 0; i < numCols; i++) {
-                   if (headerLabels[i].innerHTML == "Canned Squawk Name" ||
-                       headerLabels[i].innerHTML == "Sequence Number" ||
-                       headerLabels[i].innerHTML == "Part Number" ||
-                       headerLabels[i].innerHTML == "Part Description" ||
-                       headerLabels[i].innerHTML == "Demand Quantity") {
+                   if (headerLabels[i].innerHTML == "Canned Squawk Name" || headerLabels[i].innerHTML == "Sequence Number" || headerLabels[i].innerHTML == "Part Number" || headerLabels[i].innerHTML == "Part Description" || headerLabels[i].innerHTML == "Demand Quantity") {
                     if (cell.innerText == "" ) {
                         cell.style.backgroundColor = '#FFFF99';
                     } else {
@@ -560,6 +540,7 @@ switch(dataSetNameText) {
                     headerLabels[i].style.backgroundColor = '#FFFF00';
                 }
             }
+        }
   });
   break;
   case 'Canned Squawk Planning':
@@ -588,8 +569,10 @@ switch(dataSetNameText) {
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
@@ -597,8 +580,7 @@ switch(dataSetNameText) {
             var numCols = headerLabels.length;
 
               for (let i = 0; i < numCols; i++) {
-                   if (headerLabels[i].innerHTML == "Canned Squawk Name" ||
-                       headerLabels[i].innerHTML == "Sequence Number") {
+                   if (headerLabels[i].innerHTML == "Canned Squawk Name" || headerLabels[i].innerHTML == "Sequence Number") {
                     if (cell.innerText == "" ) {
                         cell.style.backgroundColor = '#FFFF99';
                     } else {
@@ -607,6 +589,7 @@ switch(dataSetNameText) {
                     headerLabels[i].style.backgroundColor = '#FFFF00';
                 }
             }
+        }
   });
   break;
   case 'Canned Squawk':
@@ -627,22 +610,22 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
+            { type: 'dropdown', source:[{id:1, name: 'Time and Materials'},
+                                        {id:2, name: 'Flat Rate'},
+                                        {id:3, name: 'No Charge'},
+                                      ], autocomplete: true},
             { type: 'dropdown', source:[{id:1,name:'Time and Materials'},
                                         {id:2,name:'Flat Rate'},
                                         {id:3,name:'No Charge'}
-                                      ], autocomplete:true}, },
+                                      ], autocomplete:true},
             { type: 'dropdown', source:[{id:1,name:'Time and Materials'},
                                         {id:2,name:'Flat Rate'},
-                                        {id:3,name:'No Charge'}
-                                      ], autocomplete:true}, },
+                                        {id:3,name:'No Charge'},
+                                       ], autocomplete:true},
             { type: 'dropdown', source:[{id:1,name:'Time and Materials'},
                                         {id:2,name:'Flat Rate'},
-                                        {id:3,name:'No Charge'}
-                                       ], autocomplete:true}, },
-            { type: 'dropdown', source:[{id:1,name:'Time and Materials'},
-                                        {id:2,name:'Flat Rate'},
-                                        {id:3,name:'No Charge'}
-                                       ], autocomplete:true}, },
+                                        {id:3,name:'No Charge'},
+                                       ], autocomplete:true},
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
@@ -654,33 +637,35 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'checkbox' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
             { type: 'text' },
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
@@ -688,9 +673,7 @@ switch(dataSetNameText) {
             var numCols = headerLabels.length;
 
               for (let i = 0; i < numCols; i++) {
-                   if (headerLabels[i].innerHTML == "Canned Squawk Name" ||
-                       headerLabels[i].innerHTML == "Description" ||
-                       headerLabels[i].innerHTML == "Squawk Part Activity") {
+                   if (headerLabels[i].innerHTML == "Canned Squawk Name" || headerLabels[i].innerHTML == "Description" || headerLabels[i].innerHTML == "Squawk Part Activity") {
                     if (cell.innerText == "" ) {
                         cell.style.backgroundColor = '#FFFF99';
                     } else {
@@ -699,6 +682,7 @@ switch(dataSetNameText) {
                     headerLabels[i].style.backgroundColor = '#FFFF00';
                 }
             }
+        }
   });
   break;
   case 'Add Company Addresses':
@@ -731,16 +715,18 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
@@ -748,8 +734,7 @@ switch(dataSetNameText) {
             var numCols = headerLabels.length;
 
               for (let i = 0; i < numCols; i++) {
-                   if (headerLabels[i].innerHTML == "Account Code" ||
-                       headerLabels[i].innerHTML == "Title") {
+                   if (headerLabels[i].innerHTML == "Account Code" || headerLabels[i].innerHTML == "Title") {
                     if (cell.innerText == "" ) {
                         cell.style.backgroundColor = '#FFFF99';
                     } else {
@@ -758,7 +743,6 @@ switch(dataSetNameText) {
                     headerLabels[i].style.backgroundColor = '#FFFF00';
                 }
             }
-
         }
   });
   break;
@@ -782,25 +766,27 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
             { type: 'text' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
@@ -808,8 +794,7 @@ switch(dataSetNameText) {
             var numCols = headerLabels.length;
 
               for (let i = 0; i < numCols; i++) {
-                   if (headerLabels[i].innerHTML == "Account Code" ||
-                       headerLabels[i].innerHTML == "Title") {
+                   if (headerLabels[i].innerHTML == "Account Code" || headerLabels[i].innerHTML == "Title") {
                     if (cell.innerText == "" ) {
                         cell.style.backgroundColor = '#FFFF99';
                     } else {
@@ -818,6 +803,7 @@ switch(dataSetNameText) {
                     headerLabels[i].style.backgroundColor = '#FFFF00';
                 }
             }
+        }
   });
   break;
   case 'Add Company Profile':
@@ -836,28 +822,27 @@ switch(dataSetNameText) {
   columns: [
             { type: 'text' },
             { type: 'text' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
             { type: 'text' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'text' },
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
             { type: 'text' },
             { type: 'text' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
             { type: 'text' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'text' },
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: calendarType,
                options: { format: dateFormat, today: 1, placeholder: dateFormat }
@@ -873,17 +858,17 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
             { type: 'text' },
             { type: 'text' },
             { type: calendarType,
                options: { format: dateFormat, today: 1, placeholder: dateFormat }
             },
             { type: 'text' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
             { type: 'text' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
             { type: 'text' },
             { type: 'text' },
         ],
@@ -891,8 +876,10 @@ switch(dataSetNameText) {
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
@@ -900,8 +887,7 @@ switch(dataSetNameText) {
             var numCols = headerLabels.length;
 
               for (let i = 0; i < numCols; i++) {
-                   if (headerLabels[i].innerHTML == "Account Code" ||
-                       headerLabels[i].innerHTML == "Company Name") {
+                   if (headerLabels[i].innerHTML == "Account Code" || headerLabels[i].innerHTML == "Company Name") {
                     if (cell.innerText == "" ) {
                         cell.style.backgroundColor = '#FFFF99';
                     } else {
@@ -910,7 +896,6 @@ switch(dataSetNameText) {
                     headerLabels[i].style.backgroundColor = '#FFFF00';
                 }
             }
-
         }
   });
   break;
@@ -944,23 +929,32 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
-            if (cell.innerText == "") {
-              cell.style.backgroundColor = '#ff7676';
-            } else {
-            cell.style.backgroundColor = '#ffffff';
-          }
+            var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+            var numCols = headerLabels.length;
 
+              for (let i = 0; i < numCols; i++) {
+                   if (headerLabels[i].innerHTML == "Contact Name" || headerLabels[i].innerHTML == "Title") {
+                    if (cell.innerText == "" ) {
+                        cell.style.backgroundColor = '#FFFF99';
+                    } else {
+                        cell.style.backgroundColor = '#FFFFFF';
+                    }
+                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                }
+            }
         }
   });
   break;
@@ -985,24 +979,26 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
@@ -1010,9 +1006,7 @@ switch(dataSetNameText) {
             var numCols = headerLabels.length;
 
               for (let i = 0; i < numCols; i++) {
-                   if (headerLabels[i].innerHTML == "Contact Name" ||
-                       headerLabels[i].innerHTML == "Title" ||
-                       headerLabels[i].innerHTML == "Address Title") {
+                   if (headerLabels[i].innerHTML == "Contact Name" || headerLabels[i].innerHTML == "Title" || headerLabels[i].innerHTML == "Address Title") {
                     if (cell.innerText == "" ) {
                         cell.style.backgroundColor = '#FFFF99';
                     } else {
@@ -1020,7 +1014,7 @@ switch(dataSetNameText) {
                     }
                     headerLabels[i].style.backgroundColor = '#FFFF00';
                 }
-            }
+             }
           }
   });
   break;
@@ -1047,15 +1041,15 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
             { type: 'dropdown', source:[{id:1,name:'Male'},
                                         {id:2,name:'Female'}
-                                      ], autocomplete:true}, },
+                                      ], autocomplete:true},
             { type: calendarType,
                options: { format: dateFormat, today: 1, placeholder: dateFormat }
             },
@@ -1063,7 +1057,7 @@ switch(dataSetNameText) {
                                         {id:2,name:'Married'},
                                         {id:3,name:'Single'},
                                         {id:3,name:'Widowed'}
-                                      ], autocomplete:true}, },
+                                      ], autocomplete:true},
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
@@ -1078,8 +1072,10 @@ switch(dataSetNameText) {
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
@@ -1164,35 +1160,35 @@ switch(dataSetNameText) {
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
         ],
@@ -1200,8 +1196,10 @@ switch(dataSetNameText) {
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
@@ -1209,8 +1207,7 @@ switch(dataSetNameText) {
             var numCols = headerLabels.length;
 
               for (let i = 0; i < numCols; i++) {
-                   if (headerLabels[i].innerHTML == "Part Number" ||
-                       headerLabels[i].innerHTML == "Description") {
+                   if (headerLabels[i].innerHTML == "Part Number" || headerLabels[i].innerHTML == "Description") {
                     if (cell.innerText == "" ) {
                         cell.style.backgroundColor = '#FFFF99';
                     } else {
@@ -1277,10 +1274,10 @@ switch(dataSetNameText) {
             },
             { type: 'text' },
             { type: 'text' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
             { type: 'text' },
             { type: 'text' },
             { type: calendarType,
@@ -1297,8 +1294,10 @@ switch(dataSetNameText) {
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
@@ -1306,14 +1305,7 @@ switch(dataSetNameText) {
             var numCols = headerLabels.length;
 
               for (let i = 0; i < numCols; i++) {
-                   if (headerLabels[i].innerHTML == "Part Number" ||
-                       headerLabels[i].innerHTML == "Part Condition" ||
-                       headerLabels[i].innerHTML == "Part Status" ||
-                       headerLabels[i].innerHTML == "Part Quantity" ||
-                       headerLabels[i].innerHTML == "Owner Code" ||
-                       headerLabels[i].innerHTML == "Warehouse" ||
-                       headerLabels[i].innerHTML == "Cost" ||
-                       headerLabels[i].innerHTML == "Serial Number") {
+                   if (headerLabels[i].innerHTML == "Part Number" || headerLabels[i].innerHTML == "Part Condition" || headerLabels[i].innerHTML == "Part Status" || headerLabels[i].innerHTML == "Part Quantity" || headerLabels[i].innerHTML == "Owner Code" || headerLabels[i].innerHTML == "Warehouse" || headerLabels[i].innerHTML == "Cost" || headerLabels[i].innerHTML == "Serial Number") {
                     if (cell.innerText == "" ) {
                         cell.style.backgroundColor = '#FFFF99';
                     } else {
@@ -1345,15 +1337,21 @@ switch(dataSetNameText) {
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
         ],
+        toolbar:[
+          { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
+          { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
+          { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
               for (let i = 0; i < numCols; i++) {
-                   if (headerLabels[i].innerHTML == "Part Number" ||
-                       headerLabels[i].innerHTML == "Part Condition" ||
-                       headerLabels[i].innerHTML == "Discount Code") {
+                   if (headerLabels[i].innerHTML == "Part Number" || headerLabels[i].innerHTML == "Part Condition" || headerLabels[i].innerHTML == "Discount Code") {
                     if (cell.innerText == "" ) {
                         cell.style.backgroundColor = '#FFFF99';
                     } else {
@@ -1396,8 +1394,10 @@ switch(dataSetNameText) {
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
@@ -1405,8 +1405,7 @@ switch(dataSetNameText) {
             var numCols = headerLabels.length;
 
               for (let i = 0; i < numCols; i++) {
-                   if (headerLabels[i].innerHTML == "Part Number" ||
-                       headerLabels[i].innerHTML == "Part Condition") {
+                   if (headerLabels[i].innerHTML == "Part Number" || headerLabels[i].innerHTML == "Part Condition") {
                     if (cell.innerText == "" ) {
                         cell.style.backgroundColor = '#FFFF99';
                     } else {
@@ -1442,8 +1441,10 @@ switch(dataSetNameText) {
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
@@ -1451,9 +1452,7 @@ switch(dataSetNameText) {
             var numCols = headerLabels.length;
 
               for (let i = 0; i < numCols; i++) {
-                   if (headerLabels[i].innerHTML == "Part Number" ||
-                       headerLabels[i].innerHTML == "Warehouse Minimum" ||
-                       headerLabels[i].innerHTML == "Warehouse Maximum") {
+                   if (headerLabels[i].innerHTML == "Part Number" || headerLabels[i].innerHTML == "Warehouse Minimum" || headerLabels[i].innerHTML == "Warehouse Maximum") {
                     if (cell.innerText == "" ) {
                         cell.style.backgroundColor = '#FFFF99';
                     } else {
@@ -1485,22 +1484,24 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'checkbox' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
             { type: 'text' },
           ],
           toolbar:[
             { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
             { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
             { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-            { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-      ],
+            { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+            { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+            // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+            ],
           //Make cells red if they are missing data
           updateTable:function(instance, cell, col, row, val, label, cellName) {
               //Checks cells that are empty (sends warning with red text)
@@ -1508,8 +1509,7 @@ switch(dataSetNameText) {
               var numCols = headerLabels.length;
 
                 for (let i = 0; i < numCols; i++) {
-                     if (headerLabels[i].innerHTML == "Tool Number" ||
-                         headerLabels[i].innerHTML == "Description") {
+                     if (headerLabels[i].innerHTML == "Tool Number" || headerLabels[i].innerHTML == "Description") {
                       if (cell.innerText == "" ) {
                           cell.style.backgroundColor = '#FFFF99';
                       } else {
@@ -1546,8 +1546,10 @@ switch(dataSetNameText) {
             { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
             { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
             { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-            { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-      ],
+            { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+            { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+            // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+            ],
           //Make cells red if they are missing data
           updateTable:function(instance, cell, col, row, val, label, cellName) {
               //Checks cells that are empty (sends warning with red text)
@@ -1555,9 +1557,7 @@ switch(dataSetNameText) {
               var numCols = headerLabels.length;
 
                 for (let i = 0; i < numCols; i++) {
-                     if (headerLabels[i].innerHTML == "Tool Number" ||
-                         headerLabels[i].innerHTML == "Position" ||
-                         headerLabels[i].innerHTML == "Frequency") {
+                     if (headerLabels[i].innerHTML == "Tool Number" || headerLabels[i].innerHTML == "Position" || headerLabels[i].innerHTML == "Frequency") {
                       if (cell.innerText == "" ) {
                           cell.style.backgroundColor = '#FFFF99';
                       } else {
@@ -1592,7 +1592,7 @@ switch(dataSetNameText) {
             },
             { type: 'text' },
             { type: 'text' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
@@ -1607,8 +1607,10 @@ switch(dataSetNameText) {
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
@@ -1616,9 +1618,7 @@ switch(dataSetNameText) {
             var numCols = headerLabels.length;
 
               for (let i = 0; i < numCols; i++) {
-                   if (headerLabels[i].innerHTML == "Tool ID" ||
-                       headerLabels[i].innerHTML == "Tool Number" ||
-                       headerLabels[i].innerHTML == "Tool Room") {
+                   if (headerLabels[i].innerHTML == "Tool ID" || headerLabels[i].innerHTML == "Tool Number" || headerLabels[i].innerHTML == "Tool Room") {
                     if (cell.innerText == "" ) {
                         cell.style.backgroundColor = '#FFFF99';
                     } else {
@@ -1654,8 +1654,10 @@ switch(dataSetNameText) {
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
@@ -1663,8 +1665,7 @@ switch(dataSetNameText) {
             var numCols = headerLabels.length;
 
               for (let i = 0; i < numCols; i++) {
-                   if (headerLabels[i].innerHTML == "Work Pak Name" ||
-                       headerLabels[i].innerHTML == "Applicability Sequence Number") {
+                   if (headerLabels[i].innerHTML == "Work Pak Name" || headerLabels[i].innerHTML == "Applicability Sequence Number") {
                     if (cell.innerText == "" ) {
                         cell.style.backgroundColor = '#FFFF99';
                     } else {
@@ -1699,32 +1700,34 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
             { type: 'text' },
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'checkbox' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
             { type: 'text' },
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
@@ -1732,9 +1735,7 @@ switch(dataSetNameText) {
             var numCols = headerLabels.length;
 
               for (let i = 0; i < numCols; i++) {
-                   if (headerLabels[i].innerHTML == "Work Pak Name" ||
-                       headerLabels[i].innerHTML == "Step Sequence Number" ||
-                       headerLabels[i].innerHTML == "Description") {
+                   if (headerLabels[i].innerHTML == "Work Pak Name" || headerLabels[i].innerHTML == "Step Sequence Number" || headerLabels[i].innerHTML == "Description") {
                     if (cell.innerText == "" ) {
                         cell.style.backgroundColor = '#FFFF99';
                     } else {
@@ -1766,17 +1767,19 @@ switch(dataSetNameText) {
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
@@ -1784,10 +1787,7 @@ switch(dataSetNameText) {
             var numCols = headerLabels.length;
 
               for (let i = 0; i < numCols; i++) {
-                   if (headerLabels[i].innerHTML == "Work Pak Name" ||
-                       headerLabels[i].innerHTML == "Work Pak Step Sequence Number" ||
-                       headerLabels[i].innerHTML == "Adjustment Sequence Number" ||
-                       headerLabels[i].innerHTML == "Description") {
+                   if (headerLabels[i].innerHTML == "Work Pak Name" || headerLabels[i].innerHTML == "Work Pak Step Sequence Number" || headerLabels[i].innerHTML == "Adjustment Sequence Number" || headerLabels[i].innerHTML == "Description") {
                     if (cell.innerText == "" ) {
                         cell.style.backgroundColor = '#FFFF99';
                     } else {
@@ -1820,10 +1820,10 @@ switch(dataSetNameText) {
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
+            { type: 'numeric', mask: '0'},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
         ],
@@ -1831,8 +1831,10 @@ switch(dataSetNameText) {
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
@@ -1840,12 +1842,7 @@ switch(dataSetNameText) {
             var numCols = headerLabels.length;
 
               for (let i = 0; i < numCols; i++) {
-                   if (headerLabels[i].innerHTML == "Work Pak Name" ||
-                       headerLabels[i].innerHTML == "Work Pak Step Sequence Number" ||
-                       headerLabels[i].innerHTML == "Estimated Labor Sequence Number" ||
-                       headerLabels[i].innerHTML == "Department" ||
-                       headerLabels[i].innerHTML == "Revenue Hours" ||
-                       headerLabels[i].innerHTML == "Cost hours" ||) {
+                   if (headerLabels[i].innerHTML == "Work Pak Name" || headerLabels[i].innerHTML == "Work Pak Step Sequence Number" || headerLabels[i].innerHTML == "Estimated Labor Sequence Number" || headerLabels[i].innerHTML == "Department" || headerLabels[i].innerHTML == "Revenue Hours" || headerLabels[i].innerHTML == "Cost hours") {
                     if (cell.innerText == "" ) {
                         cell.style.backgroundColor = '#FFFF99';
                     } else {
@@ -1879,17 +1876,19 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
@@ -1897,12 +1896,7 @@ switch(dataSetNameText) {
             var numCols = headerLabels.length;
 
               for (let i = 0; i < numCols; i++) {
-                   if (headerLabels[i].innerHTML == "Work Pak Name" ||
-                       headerLabels[i].innerHTML == "Work Pak Step Sequence Number" ||
-                       headerLabels[i].innerHTML == "Part Sequence Number" ||
-                       headerLabels[i].innerHTML == "Part Number" ||
-                       headerLabels[i].innerHTML == "PartDescription" ||
-                       headerLabels[i].innerHTML == "Demand Quantity") {
+                   if (headerLabels[i].innerHTML == "Work Pak Name" || headerLabels[i].innerHTML == "Work Pak Step Sequence Number" || headerLabels[i].innerHTML == "Part Sequence Number" || headerLabels[i].innerHTML == "Part Number" || headerLabels[i].innerHTML == "PartDescription" || headerLabels[i].innerHTML == "Demand Quantity") {
                     if (cell.innerText == "" ) {
                         cell.style.backgroundColor = '#FFFF99';
                     } else {
@@ -1941,8 +1935,10 @@ switch(dataSetNameText) {
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
@@ -1950,9 +1946,7 @@ switch(dataSetNameText) {
             var numCols = headerLabels.length;
 
               for (let i = 0; i < numCols; i++) {
-                   if (headerLabels[i].innerHTML == "Work Pak Name" ||
-                       headerLabels[i].innerHTML == "Work Pak Step Sequence Number" ||
-                       headerLabels[i].innerHTML == "Planning Sequence Number") {
+                   if (headerLabels[i].innerHTML == "Work Pak Name" || headerLabels[i].innerHTML == "Work Pak Step Sequence Number" || headerLabels[i].innerHTML == "Planning Sequence Number") {
                     if (cell.innerText == "" ) {
                         cell.style.backgroundColor = '#FFFF99';
                     } else {
@@ -1992,7 +1986,7 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'checkbox' },
+            { type: 'numeric', mask: '0'},
             { type: 'text' },
 
         ],
@@ -2000,8 +1994,10 @@ switch(dataSetNameText) {
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
           { type:'i', content:'redo', onclick:function() { spreadsheet.redo(); } },
           { type:'i', content:'get_app', onclick:function () { spreadsheet.download(); } },
-          { type:'i', content:'#NULL', onclick:function () { spreadsheet.setValue(['i'],['#NULL']); } },
-    ],
+          { type:'i', content: 'add' + 'COL', onclick:function () { spreadsheet.insertColumn(1, spreadsheet.getHeaders().split(",").length - 1, 0, {type: 'text', title: 'UDF'}); } },
+          { type:'i', content: 'add' + 'ROW', onclick:function () { spreadsheet.insertRow(1) } },
+          // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
+          ],
         //Make cells red if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             //Checks cells that are empty (sends warning with red text)
@@ -2009,8 +2005,7 @@ switch(dataSetNameText) {
             var numCols = headerLabels.length;
 
               for (let i = 0; i < numCols; i++) {
-                   if (headerLabels[i].innerHTML == "Work Pak Name" ||
-                       headerLabels[i].innerHTML == "Description") {
+                   if (headerLabels[i].innerHTML == "Work Pak Name" || headerLabels[i].innerHTML == "Description") {
                     if (cell.innerText == "" ) {
                         cell.style.backgroundColor = '#FFFF99';
                     } else {

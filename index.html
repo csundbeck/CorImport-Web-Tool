@@ -137,54 +137,42 @@
             <img id="error-example-img" src="images/error_example.png">
           </div>
         <ul id="error-list">
-          <li class="error-code"><a href='#'>1030083</a>
-            <div class="solution">Column that represents the Min Inventory value is higher than the Max for this row.
-              Min needs to be less that the Max to avoid this error.</div>
           </li>
-          <li class="error-code"><a href='#'>1000050</a>
+          <li class="error-code"><a href='#'>1000050: Invalid date format</a>
             <div class="solution">Date format in the data file does not match the format in CORRIDOR's
               System Configuration. Date format must match exactly. Make sure that any date field on the data set
               includes leading zeros for months that are typically represented my a single number
                (Example: January 6th, 2019 = 01/06/2019, if date format is MM/DD/YYYY).</div>
           </li>
-          <li class="error-code"><a href='#'>1990008</a>
+          <li class="error-code"><a href='#'>1990008: Generic message that the record failed</a>
             <div class="solution">Generic message that the record failed.
                The error file will likely contin another error for this same record and will help identify why the record did not import.</div>
           </li>
-          <li class="error-code"><a href='#'>1990001</a>
+          <li class="error-code"><a href='#'>1990001: ORA-01403</a>
             <div class="solution">Nothing to import. This can be caused by the following:
-            Importing a lot with a quantity of zero,.</div>
+            Importing a lot with a quantity of zero.</div>
           </li>
-          <li class="error-code"><a href='#'>1030080</a>
-            <div class="solution">The part number exists, but is marked as inactive.
-               Click the "Activate Part Master" button and attempt to import the record again.</div>
-          </li>
-          <li class="error-code"><a href='#'>2001007</a>
+          <li class="error-code"><a href='#'>2001007: Calibration position is invalid</a>
             <div class="solution">Calibration position likely does not exist.
               Only specify a calibration if updating a current position.</div>
           </li>
-          <li class="error-code"><a href='#'>1030003</a>
-            <div class="solution">This is how you fix</div>
+          <li class="error-code"><a href='#'>1030003: Non-empty Part Description missing</a>
+            <div class="solution">Part Description is required for this import. Please review the file and dpecify a description for each record and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1029019</a>
+          <li class="error-code"><a href='#'>1029019: Canned squawk cannot be approved as there is no applicability defined for it</a>
             <div class="solution">Applicability is required for canned squawks.
               Canned squawks with no applicability defined must be imported as unapproved.
               In the column that represents "Approved", change value to 0.
               These can be approved once applicability is defined.</div>
           </li>
-          <li class="error-code"><a href='#'>1000052</a>
+          <li class="error-code"><a href='#'>1000052: Invalid data, the string is too long</a>
             <div class="solution">String of text is too long. CorImport can only import strings of 255 characters or less.
                Reduce string lengths to less than or equal to 255 characters.</div>
           </li>
-          <li class="error-code"><a href='#'>1000026</a>
-            <div class="solution">Format any columns representing a currency value as Number.
-              Omit thousands seperator and currency symbols.</div>
+          <li class="error-code"><a href='#'>1000026: Invalid company code</a>
+            <div class="solution">The Company Code either does not exist or has been inactivated. Please open the Company Database module and create the company, or reactivate it, and attempt the import again.</div>
           </li>
-          <li class="error-code"><a href='#'>1030035</a>
-            <div class="solution">Part master may exist for the lot that is trying to import, but part number is in all uppercase and the part master on the data file must also reflect all uppercase to load correctly.
-              Edit the part number field on the data file to capitalize all alphabetical characters. Additionally, tshe column on the data file needs to be formatted as plain text.</div>
-          </li>
-          <li class="error-code"><a href='#'>1031208</a>
+          <li class="error-code"><a href='#'>1031208: Unable to validate serial number</a>
             <div class="solution">Serial Number cannot validate because part number doesn't exist or is in the incorrect format.
               If part number does exist in CORRIDOR, edit the part number field on the data file to capitalize all alphabetical characters.</div>
           </li>

@@ -299,19 +299,21 @@ margin-bottom: 1%;
   color: #ffffff;
   font-family: 'Oswald', sans-serif;
   font-size: 20px;
-  margin-right: 85%;
+  width: 100%;
   position: fixed;
 }
 
 .jexcel_search {
-  padding: 2%;
+  padding: 0.5%;
+  width: 25%;
+  margin-right: 1900px;
 }
 
 .jexcel_toolbar{
   position: fixed;
   width: 100%;
   padding: 1%;
-  margin-top: 70px;
+  margin-top: 90px;
 }
 
 .material-icons {
@@ -338,7 +340,7 @@ margin-bottom: 1%;
 
 .jexcel_content {
   display: block;
-  margin: 110px 0px 0px 0px;
+  margin: 130px 0px 0px 0px;
 }
 
 .jexcel_pagination {

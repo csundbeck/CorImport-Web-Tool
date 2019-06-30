@@ -141,6 +141,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -150,7 +151,6 @@ switch(dataSetNameText) {
   columnResize: 1,
   minSpareCols: 0,
   columns: [
-            { type: 'checkbox' },
             { type: 'text' },
             { type: 'dropdown', source:[{id:1,name:'Accounts payable'},
                                         {id:2,name:'Accounts receivable'},
@@ -176,42 +176,21 @@ switch(dataSetNameText) {
         //Make cells yellow if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
           var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
-          var cellInput = document.querySelectorAll('table.jexcel > tbody > tr > td > input');
-          var tbodyCell = document.querySelectorAll('table.jexcel > tbody > tr > td');
           var numCols = headerLabels.length;
 
-            for (let h = 0; h < cellInput.length; h++) {
-              if (cellInput[h].type !== 'checkbox' || cell.innerText == "") {
-                tbodyCell[h].style.backgroundColor = '#FFFF99';
-              } else {
-              tbodyCell[h].style.backgroundColor = '#FFFFFF';
-            }
-          }
-
-             //Changing the Columns and Cell colors based on require ment and missing data
-             if (cell.innerText == "") {
-                 cell.style.backgroundColor = '#FFFF99';
-             } else {
-                 cell.style.backgroundColor = '#FFFFFF';
-             }
+             //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+              if (cell.innerHTML == "") {
+                   cell.style.backgroundColor = '#FFFF99';
+               } else {
+                   cell.style.backgroundColor = '#FFFFFF';
+               }
 
              for (let i = 0; i < numCols; i++) {
                  if (headerLabels[i].innerHTML == "Account Number" || headerLabels[i].innerHTML == "Account Category" || headerLabels[i].innerHTML == "Account Description") {
                    headerLabels[i].style.backgroundColor = '#FFFF00';
-                }
               }
-
-          //Changing Boolean values to set all values > 1 to 1, value < 1 to 0, and everything else set to null
-          if (cell.mask == '0') {
-            if (cell.innerHTML > "1") {
-              cell.innerHTML = "1";
-            } else if (cell.innerHTML == "0") {
-                cell.innerHTML = "0";
-            } else {
-              cell.innerHTML = ""
             }
           }
-        }
       });
   break;
   case 'Add Aircraft':
@@ -225,6 +204,7 @@ switch(dataSetNameText) {
   tableHeight: '462px',
   tableOverflow:true,
   loadingSpin:true,
+  lazyLoading: true,
   defaultColWidth: 150,
   rowDrag: 1,
   rowResize: 1,
@@ -284,11 +264,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-            if (cell.innerText == "" ) {
-                cell.style.backgroundColor = '#FFFF99';
-            } else {
-                cell.style.backgroundColor = '#FFFFFF';
-            }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
             for (let i = 0; i < numCols; i++) {
                 if (headerLabels[i].innerHTML == "Registration Number" || headerLabels[i].innerHTML == "Aircraft Manufacturer Code" || headerLabels[i].innerHTML == "Aircraft Model" || headerLabels[i].innerHTML == "Serial Number Core") {
@@ -308,6 +289,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -337,11 +319,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-            if (cell.innerText == "" ) {
-                cell.style.backgroundColor = '#FFFF99';
-            } else {
-                cell.style.backgroundColor = '#FFFFFF';
-            }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Canned Squawk Name" || headerLabels[i].innerHTML == "Sequence Number") {
@@ -361,6 +344,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -375,10 +359,10 @@ switch(dataSetNameText) {
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
@@ -394,11 +378,12 @@ switch(dataSetNameText) {
             let headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             let numCols = headerLabels.length;
 
-            if (cell.innerText == "" ) {
-                cell.style.backgroundColor = '#FFFF99';
-            } else {
-                cell.style.backgroundColor = '#FFFFFF';
-            }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Canned Squawk Name" || headerLabels[i].innerHTML == "Sequence Number" || headerLabels[i].innerHTML == "Description") {
@@ -418,6 +403,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -432,10 +418,10 @@ switch(dataSetNameText) {
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
         ],
@@ -453,11 +439,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-            if (cell.innerText == "" ) {
-                cell.style.backgroundColor = '#FFFF99';
-            } else {
-                cell.style.backgroundColor = '#FFFFFF';
-            }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Canned Squawk Name" || headerLabels[i].innerHTML == "Sequence Number" || headerLabels[i].innerHTML == "Department" || headerLabels[i].innerHTML == "Revenue Hours" || headerLabels[i].innerHTML == "Cost Hours" || headerLabels[i].innerHTML == "Estimated Labor Revenue") {
@@ -477,6 +464,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -506,11 +494,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-             if (cell.innerText == "" ) {
-                 cell.style.backgroundColor = '#FFFF99';
-             } else {
-                 cell.style.backgroundColor = '#FFFFFF';
-             }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Canned Squawk Name" || headerLabels[i].innerHTML == "Sequence Number" || headerLabels[i].innerHTML == "File Name") {
@@ -530,6 +519,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -545,7 +535,7 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: 'text' },
@@ -564,11 +554,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-             if (cell.innerText == "" ) {
-                 cell.style.backgroundColor = '#FFFF99';
-             } else {
-                 cell.style.backgroundColor = '#FFFFFF';
-             }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Canned Squawk Name" || headerLabels[i].innerHTML == "Sequence Number" || headerLabels[i].innerHTML == "Part Number" || headerLabels[i].innerHTML == "Part Description" || headerLabels[i].innerHTML == "Demand Quantity") {
@@ -588,6 +579,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -619,11 +611,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-             if (cell.innerText == "" ) {
-                 cell.style.backgroundColor = '#FFFF99';
-             } else {
-                 cell.style.backgroundColor = '#FFFFFF';
-             }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Canned Squawk Name" || headerLabels[i].innerHTML == "Sequence Number") {
@@ -643,6 +636,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -683,25 +677,25 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'text' },
         ],
         toolbar:[
@@ -718,11 +712,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-             if (cell.innerText == "" ) {
-                 cell.style.backgroundColor = '#FFFF99';
-             } else {
-                 cell.style.backgroundColor = '#FFFFFF';
-             }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Canned Squawk Name" || headerLabels[i].innerHTML == "Description" || headerLabels[i].innerHTML == "Squawk Part Activity") {
@@ -742,6 +737,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -767,9 +763,9 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
@@ -785,11 +781,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-             if (cell.innerText == "" ) {
-                 cell.style.backgroundColor = '#FFFF99';
-             } else {
-                 cell.style.backgroundColor = '#FFFFFF';
-             }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Account Code" || headerLabels[i].innerHTML == "Title") {
@@ -809,6 +806,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -824,18 +822,18 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'text' },
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
+            { type: 'checkbox' },
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
@@ -851,11 +849,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-             if (cell.innerText == "" ) {
-                 cell.style.backgroundColor = '#FFFF99';
-             } else {
-                 cell.style.backgroundColor = '#FFFFFF';
-             }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Account Code" || headerLabels[i].innerHTML == "Title") {
@@ -875,6 +874,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -886,27 +886,27 @@ switch(dataSetNameText) {
   columns: [
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'text' },
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'text' },
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             { type: calendarType,
                options: { format: dateFormat, today: 1, placeholder: dateFormat }
@@ -922,17 +922,17 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
             { type: 'text' },
             { type: 'text' },
             { type: calendarType,
                options: { format: dateFormat, today: 1, placeholder: dateFormat }
             },
             { type: 'text' },
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'text' },
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
             { type: 'text' },
             { type: 'text' },
         ],
@@ -950,11 +950,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-             if (cell.innerText == "" ) {
-                 cell.style.backgroundColor = '#FFFF99';
-             } else {
-                 cell.style.backgroundColor = '#FFFFFF';
-             }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Account Code" || headerLabels[i].innerHTML == "Company Name") {
@@ -974,6 +975,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -999,7 +1001,7 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
@@ -1015,11 +1017,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-             if (cell.innerText == "" ) {
-                 cell.style.backgroundColor = '#FFFF99';
-             } else {
-                 cell.style.backgroundColor = '#FFFFFF';
-             }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Contact Name" || headerLabels[i].innerHTML == "Title") {
@@ -1039,6 +1042,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -1055,17 +1059,17 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
@@ -1081,11 +1085,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-             if (cell.innerText == "" ) {
-                 cell.style.backgroundColor = '#FFFF99';
-             } else {
-                 cell.style.backgroundColor = '#FFFFFF';
-             }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Contact Name" || headerLabels[i].innerHTML == "Title" || headerLabels[i].innerHTML == "Address Title") {
@@ -1105,6 +1110,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -1123,9 +1129,9 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
@@ -1164,11 +1170,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-             if (cell.innerText == "" ) {
-                 cell.style.backgroundColor = '#FFFF99';
-             } else {
-                 cell.style.backgroundColor = '#FFFFFF';
-             }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Contact Name") {
@@ -1189,6 +1196,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -1248,35 +1256,35 @@ switch(dataSetNameText) {
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
         ],
@@ -1294,11 +1302,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-             if (cell.innerText == "" ) {
-                 cell.style.backgroundColor = '#FFFF99';
-             } else {
-                 cell.style.backgroundColor = '#FFFFFF';
-             }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Part Number" || headerLabels[i].innerHTML == "Description") {
@@ -1318,6 +1327,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -1368,10 +1378,10 @@ switch(dataSetNameText) {
             },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'text' },
             { type: 'text' },
             { type: calendarType,
@@ -1398,11 +1408,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-             if (cell.innerText == "" ) {
-                 cell.style.backgroundColor = '#FFFF99';
-             } else {
-                 cell.style.backgroundColor = '#FFFFFF';
-             }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Part Number" || headerLabels[i].innerHTML == "Part Condition" || headerLabels[i].innerHTML == "Part Status" || headerLabels[i].innerHTML == "Part Quantity" || headerLabels[i].innerHTML == "Owner Code" || headerLabels[i].innerHTML == "Warehouse" || headerLabels[i].innerHTML == "Cost"
@@ -1424,6 +1435,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -1450,11 +1462,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-             if (cell.innerText == "" ) {
-                 cell.style.backgroundColor = '#FFFF99';
-             } else {
-                 cell.style.backgroundColor = '#FFFFFF';
-             }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Part Number" || headerLabels[i].innerHTML == "Part Condition" || headerLabels[i].innerHTML == "Discount Code") {
@@ -1475,6 +1488,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -1510,11 +1524,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-             if (cell.innerText == "" ) {
-                 cell.style.backgroundColor = '#FFFF99';
-             } else {
-                 cell.style.backgroundColor = '#FFFFFF';
-             }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Part Number" || headerLabels[i].innerHTML == "Part Condition") {
@@ -1535,6 +1550,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -1563,11 +1579,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-             if (cell.innerText == "" ) {
-                 cell.style.backgroundColor = '#FFFF99';
-             } else {
-                 cell.style.backgroundColor = '#FFFFFF';
-             }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Part Number" || headerLabels[i].innerHTML == "Warehouse Minimum" || headerLabels[i].innerHTML == "Warehouse Maximum") {
@@ -1588,6 +1605,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -1602,14 +1620,14 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'text' },
           ],
           toolbar:[
@@ -1626,11 +1644,12 @@ switch(dataSetNameText) {
               var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
               var numCols = headerLabels.length;
 
-               if (cell.innerText == "" ) {
-                   cell.style.backgroundColor = '#FFFF99';
-               } else {
-                   cell.style.backgroundColor = '#FFFFFF';
-               }
+              //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+               if (cell.innerHTML == "") {
+                    cell.style.backgroundColor = '#FFFF99';
+                } else {
+                    cell.style.backgroundColor = '#FFFFFF';
+                }
 
                 for (let i = 0; i < numCols; i++) {
                      if (headerLabels[i].innerHTML == "Tool Number" || headerLabels[i].innerHTML == "Description") {
@@ -1651,6 +1670,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -1680,11 +1700,12 @@ switch(dataSetNameText) {
               var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
               var numCols = headerLabels.length;
 
-               if (cell.innerText == "" ) {
-                   cell.style.backgroundColor = '#FFFF99';
-               } else {
-                   cell.style.backgroundColor = '#FFFFFF';
-               }
+              //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+               if (cell.innerHTML == "") {
+                    cell.style.backgroundColor = '#FFFF99';
+                } else {
+                    cell.style.backgroundColor = '#FFFFFF';
+                }
 
                 for (let i = 0; i < numCols; i++) {
                      if (headerLabels[i].innerHTML == "Tool Number" || headerLabels[i].innerHTML == "Position" || headerLabels[i].innerHTML == "Frequency") {
@@ -1705,6 +1726,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -1722,7 +1744,7 @@ switch(dataSetNameText) {
             },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
@@ -1747,11 +1769,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-             if (cell.innerText == "" ) {
-                 cell.style.backgroundColor = '#FFFF99';
-             } else {
-                 cell.style.backgroundColor = '#FFFFFF';
-             }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Tool ID" || headerLabels[i].innerHTML == "Tool Number" || headerLabels[i].innerHTML == "Tool Room") {
@@ -1772,6 +1795,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -1800,11 +1824,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-             if (cell.innerText == "" ) {
-                 cell.style.backgroundColor = '#FFFF99';
-             } else {
-                 cell.style.backgroundColor = '#FFFFFF';
-             }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Work Pak Name" || headerLabels[i].innerHTML == "Applicability Sequence Number") {
@@ -1825,6 +1850,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -1842,24 +1868,24 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'text' },
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
             { type: 'text' },
         ],
         toolbar:[
@@ -1876,11 +1902,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-             if (cell.innerText == "" ) {
-                 cell.style.backgroundColor = '#FFFF99';
-             } else {
-                 cell.style.backgroundColor = '#FFFFFF';
-             }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Work Pak Name" || headerLabels[i].innerHTML == "Step Sequence Number" || headerLabels[i].innerHTML == "Description") {
@@ -1900,6 +1927,7 @@ switch(dataSetNameText) {
   csvHeaders: true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -1915,10 +1943,10 @@ switch(dataSetNameText) {
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
@@ -1934,11 +1962,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-             if (cell.innerText == "" ) {
-                 cell.style.backgroundColor = '#FFFF99';
-             } else {
-                 cell.style.backgroundColor = '#FFFFFF';
-             }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Work Pak Name" || headerLabels[i].innerHTML == "Work Pak Step Sequence Number" || headerLabels[i].innerHTML == "Adjustment Sequence Number" || headerLabels[i].innerHTML == "Description") {
@@ -1959,6 +1988,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -1974,10 +2004,10 @@ switch(dataSetNameText) {
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
+            { type: 'checkbox' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
         ],
@@ -1995,11 +2025,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-             if (cell.innerText == "" ) {
-                 cell.style.backgroundColor = '#FFFF99';
-             } else {
-                 cell.style.backgroundColor = '#FFFFFF';
-             }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Work Pak Name" || headerLabels[i].innerHTML == "Work Pak Step Sequence Number" || headerLabels[i].innerHTML == "Estimated Labor Sequence Number" || headerLabels[i].innerHTML == "Department" || headerLabels[i].innerHTML == "Revenue Hours" || headerLabels[i].innerHTML == "Cost hours") {
@@ -2020,6 +2051,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -2036,10 +2068,10 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
             {type: 'numeric', mask: numMask, decimal: decimalSep},
             {type: 'numeric', mask: numMask, decimal: decimalSep},
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
         ],
         toolbar:[
           { type:'i', content:'undo', onclick:function() { spreadsheet.undo(); } },
@@ -2055,11 +2087,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-             if (cell.innerText == "" ) {
-                 cell.style.backgroundColor = '#FFFF99';
-             } else {
-                 cell.style.backgroundColor = '#FFFFFF';
-             }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Work Pak Name" || headerLabels[i].innerHTML == "Work Pak Step Sequence Number" || headerLabels[i].innerHTML == "Part Sequence Number" || headerLabels[i].innerHTML == "Part Number" || headerLabels[i].innerHTML == "PartDescription" || headerLabels[i].innerHTML == "Demand Quantity") {
@@ -2080,6 +2113,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -2111,11 +2145,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-             if (cell.innerText == "" ) {
-                 cell.style.backgroundColor = '#FFFF99';
-             } else {
-                 cell.style.backgroundColor = '#FFFFFF';
-             }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Work Pak Name" || headerLabels[i].innerHTML == "Work Pak Step Sequence Number" || headerLabels[i].innerHTML == "Planning Sequence Number") {
@@ -2136,6 +2171,7 @@ switch(dataSetNameText) {
   search:true,
   tableHeight: '462px',
   tableOverflow:true,
+  lazyLoading: true,
   loadingSpin:true,
   defaultColWidth: 150,
   rowDrag: 1,
@@ -2158,7 +2194,7 @@ switch(dataSetNameText) {
             { type: 'text' },
             { type: 'text' },
             { type: 'text' },
-            { type: 'numeric', mask: '0'},
+            { type: 'checkbox' },
             { type: 'text' },
 
         ],
@@ -2176,11 +2212,12 @@ switch(dataSetNameText) {
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
 
-             if (cell.innerText == "" ) {
-                 cell.style.backgroundColor = '#FFFF99';
-             } else {
-                 cell.style.backgroundColor = '#FFFFFF';
-             }
+            //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
+             if (cell.innerHTML == "") {
+                  cell.style.backgroundColor = '#FFFF99';
+              } else {
+                  cell.style.backgroundColor = '#FFFFFF';
+              }
 
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Work Pak Name" || headerLabels[i].innerHTML == "Description") {

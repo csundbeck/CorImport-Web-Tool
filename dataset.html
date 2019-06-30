@@ -130,12 +130,6 @@ if (decimalSep == '.') {
   numMask = '#0,0#';
 }
 
-//Insert '#NULL' for empty cells
-// function insertNull() {
-//   if (document.querySelectorAll('tbody > .draggable > td') == "") {
-//   }
-// }
-
 //Spreadsheet entry
 switch(dataSetNameText) {
   case 'Add Account Numbers':
@@ -156,7 +150,7 @@ switch(dataSetNameText) {
   columnResize: 1,
   minSpareCols: 0,
   columns: [
-            { type: 'numeric', mask: '0' },
+            { type: 'checkbox' },
             { type: 'text' },
             { type: 'dropdown', source:[{id:1,name:'Accounts payable'},
                                         {id:2,name:'Accounts receivable'},
@@ -182,10 +176,20 @@ switch(dataSetNameText) {
         //Make cells yellow if they are missing data
         updateTable:function(instance, cell, col, row, val, label, cellName) {
           var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+          var cellInput = document.querySelectorAll('table.jexcel > tbody > tr > td > input');
+          var tbodyCell = document.querySelectorAll('table.jexcel > tbody > tr > td');
           var numCols = headerLabels.length;
 
+            for (let h = 0; h < cellInput.length; h++) {
+              if (cellInput[h].type !== 'checkbox' || cell.innerText == "") {
+                tbodyCell[h].style.backgroundColor = '#FFFF99';
+              } else {
+              tbodyCell[h].style.backgroundColor = '#FFFFFF';
+            }
+          }
+
              //Changing the Columns and Cell colors based on require ment and missing data
-             if (cell.innerText == "" ) {
+             if (cell.innerText == "") {
                  cell.style.backgroundColor = '#FFFF99';
              } else {
                  cell.style.backgroundColor = '#FFFFFF';

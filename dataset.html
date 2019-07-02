@@ -150,6 +150,7 @@ switch(dataSetNameText) {
   columnDrag: 1,
   columnResize: 1,
   minSpareCols: 0,
+  selectionCopy: 1,
   columns: [
             { type: 'text' },
             { type: 'dropdown', source:[{id:1,name:'Accounts payable'},
@@ -174,9 +175,10 @@ switch(dataSetNameText) {
           // { type:'i', content:'#NULL', onclick:function (instance, cell, col, row, val, label, cellName) {if (td.innerText == "") {td.innerText = '#NULL';} } },
           ],
         //Make cells yellow if they are missing data
-        updateTable:function(instance, cell, col, row, val, label, cellName) {
+        updateTable: function(instance, cell, col, row, val, label, cellName) {
           var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
           var numCols = headerLabels.length;
+          var cellInput = document.getElementsByTagName('table.jexcel > tbody > tr > td');
 
              //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
               if (cell.innerHTML == "") {
@@ -190,6 +192,12 @@ switch(dataSetNameText) {
                    headerLabels[i].style.backgroundColor = '#FFFF00';
               }
             }
+
+            // if (cell.type === 'numeric' && cell.innerText > 1) {
+            //       cell.innerText = "";
+            //   } else {
+            //       cellInput.innerText = 0;
+            //   }
           }
       });
   break;

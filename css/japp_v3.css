@@ -57,7 +57,7 @@
     border:0px;
     padding:0px;
     z-index:8000;
-    
+
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
      -khtml-user-select: none; /* Konqueror HTML */
@@ -134,7 +134,7 @@
     0% { transform: translateX(-100%); }
     100% { -webkit-transform: translateX(0%); }
 }
-    
+
 @keyframes slide-left-out
 {
     0% { transform: translateX(0%); }
@@ -159,7 +159,7 @@
     0% { transform: translateX(100%); }
     100% { -webkit-transform: translateX(0%); }
 }
-    
+
 @keyframes slide-right-out
 {
     0% { transform: translateX(0%); }
@@ -184,7 +184,7 @@
     0% { transform: translateY(-100%); }
     100% { -webkit-transform: translateY(0%); }
 }
-    
+
 @keyframes slide-top-out
 {
     0% { transform: translateY(0%); }
@@ -208,7 +208,7 @@
     0% { transform: translateY(100%); }
     100% { -webkit-transform: translateY(0%); }
 }
-    
+
 @keyframes slide-bottom-out
 {
     0% { transform: translateY(0%); }
@@ -253,7 +253,7 @@
  * Author: paul.hodel@gmail.com
  * https://github.com/paulhodel/jtools
  */
- 
+
 .jcalendar {
     position:relative;
     z-index:9000;
@@ -359,7 +359,7 @@
 
 .jcalendar-months td, .jcalendar-years td {
     height:24px;
-} 
+}
 
 .jcalendar-input {
     padding-right:18px;
@@ -498,7 +498,7 @@
  * Author: paul.hodel@gmail.com
  * https://github.com/paulhodel/jtools
  */
- 
+
 .jcontextmenu {
     position:absolute;
     z-index:10000;
@@ -570,7 +570,7 @@
  * Author: paul.hodel@gmail.com
  * https://github.com/paulhodel/jtools
  */
- 
+
 .jdialog
 {
     position:absolute;
@@ -1215,11 +1215,11 @@
     height:20px;
     line-height:20px;
     color:#777;
-    
+
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
     -ms-user-select: none;      /* IE 10+ */
-    user-select: none;          /* Likely future */   
+    user-select: none;          /* Likely future */
 }
 
 .jeditor-toolbar select {
@@ -1285,13 +1285,13 @@
     content:'';
     display:block;
     margin:0 auto;
-    margin-top:50vh;
-    width:40px;
-    height:40px;
-    border-style:solid;
-    border-color:white;
+    margin-top:40vh;
+    width:80px;
+    height:80px;
+    border-style: solid;
+    border-color:#48dbfb;
     border-top-color:transparent;
-    border-width:4px;
+    border-width:8px;
     border-radius:50%;
     -webkit-animation: spin .8s linear infinite;
     animation: spin .8s linear infinite;
@@ -1304,7 +1304,7 @@
 .jloading.spin::after {
     margin:0 auto;
     margin-top:80px;
-    border-color:#aaa;
+    border-color:#48dbfb;
     border-top-color:transparent;
 }
 
@@ -1541,7 +1541,7 @@
 .app .block-border
 {
     border-top:1px solid #ddd;
-    border-bottom:1px solid #ddd; 
+    border-bottom:1px solid #ddd;
 }
 
 .app .block-footer
@@ -2122,7 +2122,7 @@
 
 /** Picker **/
 
-.app .picker 
+.app .picker
 {
     background-color:#fff;
     border-top:1px solid #e6e6e8;
@@ -2192,7 +2192,7 @@
 .app .top-search
 {
     padding:10px;
-    border-bottom:1px solid #ddd; 
+    border-bottom:1px solid #ddd;
 }
 
 .app .top-search input
@@ -2891,4 +2891,3 @@
     padding:20px;
     font-size:0.7em;
 }
-

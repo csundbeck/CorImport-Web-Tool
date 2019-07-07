@@ -22,7 +22,7 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery.csv.min.js"></script>
 
-    <script src="corimport.js" type="text/javascript"></script>
+    <script src="js/corimport.js" type="text/javascript"></script>
 
     <title>CorImport Web Tool</title>
 
@@ -131,6 +131,13 @@ if (decimalSep == '.') {
   numMask = '#0,0#';
 }
 
+var customCol = {
+  openEditor: function(cell) {
+    var element = doument.getElementsByTagName('input');
+    element.innerText.toUpperCase()
+  }
+}
+
 //Spreadsheet entry
 switch(dataSetNameText) {
   case 'Add Account Numbers':
@@ -163,7 +170,7 @@ switch(dataSetNameText) {
                                         {id:8,name:'Purchases'},
                                         {id:9,name:'Sales revenue'},
                                         {id:10,name:'Work in process'}
-                                      ], autocomplete:true},
+                                      ], autocomplete:true, placeholder: 'blah'},
             { type: 'text' },
         ],
         toolbar:[
@@ -177,8 +184,8 @@ switch(dataSetNameText) {
         //Make cells yellow if they are missing data
         updateTable: function(instance, cell, col, row, val, label, cellName) {
           var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
+          var cellValues = document.querySelectorAll('table.jexcel > tbody > tr > td > input').innerText;
           var numCols = headerLabels.length;
-          var cellInput = document.getElementsByTagName('table.jexcel > tbody > tr > td > input');
 
              //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
               if (cell.innerHTML == "") {
@@ -188,9 +195,17 @@ switch(dataSetNameText) {
                }
 
              for (let i = 0; i < numCols; i++) {
-                 if (headerLabels[i].innerHTML == "Account Number" || headerLabels[i].innerHTML == "Account Category" || headerLabels[i].innerHTML == "Account Description") {
+                 if (headerLabels[i].innerText == "Account Number" || headerLabels[i].innerHTML == "Account Category" || headerLabels[i].innerHTML == "Account Description") {
                    headerLabels[i].style.backgroundColor = '#FFFF00';
               }
+          }
+
+            for (let j = 0; j < numCols; j++) {
+              if (headerLabels[i].innerText == "Part Number") {
+                for (let h = 0; h < cell.length; h++) {
+                  cellValues.classList.add("uppercase");
+              }
+            }
           }
         }
       });

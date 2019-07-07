@@ -347,12 +347,6 @@ margin-bottom: 1%;
   margin-top: -22px;
 }
 
-/* jloading::after {
-  width: 100px !important;
-  height: 100px !important;
-  border-style: !important dotted;
-} */
-
 #error-modal {
   display: none;
   position: fixed;
@@ -521,4 +515,8 @@ margin-bottom: 1%;
 
 #btnEmailSupport {
   margin-bottom: 10%;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }

@@ -132,13 +132,6 @@ if (decimalSep == '.') {
   numMask = '#0,0#';
 }
 
-var customCol = {
-  openEditor: function(cell) {
-    var element = doument.getElementsByTagName('input');
-    element.innerText.toUpperCase()
-  }
-}
-
 //Spreadsheet entry
 switch(dataSetNameText) {
   case 'Add Account Numbers':
@@ -185,7 +178,7 @@ switch(dataSetNameText) {
         //Make cells yellow if they are missing data
         updateTable: function(instance, cell, col, row, val, label, cellName) {
           var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
-          var cellValues = document.querySelectorAll('table.jexcel > tbody > tr > td > input').innerText;
+          var cellValues = document.querySelectorAll('table.jexcel > tbody > tr > td > input');
           var numCols = headerLabels.length;
 
              //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
@@ -196,17 +189,10 @@ switch(dataSetNameText) {
                }
 
              for (let i = 0; i < numCols; i++) {
-                 if (headerLabels[i].innerText == "Account Number" || headerLabels[i].innerHTML == "Account Category" || headerLabels[i].innerHTML == "Account Description") {
+                 if (headerLabels[i].innerText == "Part Number" || headerLabels[i].innerHTML == "Account Category" || headerLabels[i].innerHTML == "Account Description") {
                    headerLabels[i].style.backgroundColor = '#FFFF00';
+                   // cell.style.textTransform = "uppercase";
               }
-          }
-
-            for (let j = 0; j < numCols; j++) {
-              if (headerLabels[j].innerText == "Part Number") {
-                for (let h = 0; h < cell.length; h++) {
-                  cellValues.style.textTransform = "uppercase";
-              }
-            }
           }
         }
       });

@@ -1485,6 +1485,8 @@ switch(dataSetNameText) {
             //Checks cells that are empty (sends warning with red text)
             var headerLabels = document.querySelectorAll('table.jexcel > thead > tr > td');
             var numCols = headerLabels.length;
+            var colData = spreadsheet.getColumnData(j);
+            var colDataLength = colData.length;
 
             //Changing the Columns and Cell colors based on require ment and missing data (Boolean cells will stay '#FFFFFF' regardless)
              if (cell.innerHTML == "") {
@@ -1495,11 +1497,13 @@ switch(dataSetNameText) {
 
               for (let i = 0; i < numCols; i++) {
                 //Returns an array with all of the items in each column. Need to parse each item so that we can capitalize based on the column in which the item resides
-                var colData = spreadsheet.getColumnData(i);
-                   if (headerLabels[i].innerHTML == "Part Number" || headerLabels[i].innerHTML == "Description") {
+                  if (headerLabels[i].innerHTML == "Part Number" || headerLabels[i].innerHTML == "Description") {
                     headerLabels[i].style.backgroundColor = '#FFFF00';
-                    // cell.style.textTransform = "uppercase";
+                  }
                 }
+
+                for (let j = 0; j < colDataLength; j++) {
+                  colData[j].toUpperCase();
             }
         }
   });

@@ -64,7 +64,7 @@
       <span id="modal-close" class="close"><i class="far fa-times-circle"></i></span><br/>
       <h2>Send File to Corridor Support</h2>
       <p>Subject: <input type="text" id="email-subject" class="modal-h2"></p>
-      <textarea rows="10" placeholder="Include a message..."></textarea><br>
+      <textarea id="msg-body" rows="10" placeholder="Include a message..."></textarea><br>
       <p>Attach the data file: </br><input type="file" id="email-data-file" name="fileToUpload" accept=".csv" required/></p>
       <p>Attach the error log: </br><input type="file" name="fileToUpload" accept=".txt" required/></p>
       </hr>
@@ -84,6 +84,7 @@ var dataSetNameText = localStorage.getItem('dataSetName');
 var dateFormat = localStorage.getItem('ss-DateFormat');
 var decimalSep = localStorage.getItem('ss-DecimalSepFormat');
 var td = document.getElementsByTagName("td");
+const API_KEY = '16c173aa5ef987d8de12203e4ee12435-afab6073-d03eb4e0';
 
 //Display help menu
 function openHelpMenu(x) {
@@ -201,9 +202,9 @@ switch(dataSetNameText) {
           }
 
             for (let j = 0; j < numCols; j++) {
-              if (headerLabels[i].innerText == "Part Number") {
+              if (headerLabels[j].innerText == "Part Number") {
                 for (let h = 0; h < cell.length; h++) {
-                  cellValues.classList.add("uppercase");
+                  cellValues.style.textTransform = "uppercase";
               }
             }
           }
@@ -2499,7 +2500,21 @@ errorFileReader.readAsDataURL(input.files[0]);
    alert("This window will allow you to send the data file for review to Corridor Support. Please include your name, aswell as the name of the Company that you are loading the data for in the message of this email.");
  });
 
+ //Send email
  $('#btnEmailSupport').click(function() {
+   const mailgun = require("mailgun-js");
+   const DOMAIN = 'sandbox591759ceacd845eaa68b9b548e006d20.mailgun.org';
+   const mg = mailgun({apiKey: API_KEY, domain: DOMAIN});
+   var data = {
+   	from: 'Excited User <me@samples.mailgun.org>',
+   	to: 'support@corridor.aero, YOU@YOUR_DOMAIN_NAME',
+   	subject: document.getElementById("").value,
+   	text: document.getElementById("msg-body").value,
+   };
+   mg.messages().send(data, function (error, body) {
+   	// console.log(body);
+   });
+
    $("#email-modal").fadeOut('fast');
    $("#spreadsheet").css("display", "block");
    $("#btnSendToSupport").css("display", "block");

@@ -1494,9 +1494,10 @@ switch(dataSetNameText) {
               }
 
               for (let i = 0; i < numCols; i++) {
+                //Returns an array with all of the items in each column. Need to parse each item so that we can capitalize based on the column in which the item resides
+                var colData = spreadsheet.getColumnData(i);
                    if (headerLabels[i].innerHTML == "Part Number" || headerLabels[i].innerHTML == "Description") {
                     headerLabels[i].style.backgroundColor = '#FFFF00';
-                      console.log(headerLabels.data-x);
                     // cell.style.textTransform = "uppercase";
                 }
             }

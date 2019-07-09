@@ -189,9 +189,8 @@ switch(dataSetNameText) {
                }
 
              for (let i = 0; i < numCols; i++) {
-                 if (headerLabels[i].innerText == "Part Number" || headerLabels[i].innerHTML == "Account Category" || headerLabels[i].innerHTML == "Account Description") {
+                 if (headerLabels[i].innerText == "Account Number" || headerLabels[i].innerHTML == "Account Category" || headerLabels[i].innerHTML == "Account Description") {
                    headerLabels[i].style.backgroundColor = '#FFFF00';
-                   // cell.style.textTransform = "uppercase";
               }
           }
         }
@@ -1497,6 +1496,8 @@ switch(dataSetNameText) {
               for (let i = 0; i < numCols; i++) {
                    if (headerLabels[i].innerHTML == "Part Number" || headerLabels[i].innerHTML == "Description") {
                     headerLabels[i].style.backgroundColor = '#FFFF00';
+                      console.log(headerLabels.data-x);
+                    // cell.style.textTransform = "uppercase";
                 }
             }
         }

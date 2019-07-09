@@ -116,7 +116,7 @@ if (data == null) {
 
 //'DD-Mon-YYYY' and 'YYYY/MM/DD' currently not working, so setting fields to text type if those date formats are selected
 var calendarType;
-if (dateFormat !== "DD-Mon-YYYY" || dateFormat !== "YYYY/MM/DD") {
+if (localStorage.getItem('ss-DateFormat') == "DD/MM/YYYY" || localStorage.getItem('ss-DateFormat') == "MM/DD/YYYY") {
   calendarType = 'calendar';
   dateFormat;
 } else {

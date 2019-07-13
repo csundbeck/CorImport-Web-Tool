@@ -68,7 +68,7 @@ var jexcel = (function(el, options) {
         // CSV source
         csv:null,
         // Filename
-        csvFileName:'jexcel',
+        csvFileName: localStorage.getItem('fileURL').slice(12),
         // Consider first line as header
         csvHeaders:true,
         // Delimiters
@@ -82,7 +82,7 @@ var jexcel = (function(el, options) {
         // Allow search
         search:false,
         // Create pagination
-        pagination:false,
+        pagination:true,
         paginationOptions:null,
         // Full screen
         fullscreen:false,
@@ -118,7 +118,7 @@ var jexcel = (function(el, options) {
         // Texts
         text:{
             noRecordsFound: 'No records found',
-            showingPage: 'Showing page {0} of {1} entries',
+            showingPage: 'Showing page {0} of {1}',
             show: 'Show ',
             entries: ' entries',
             insertANewColumnBefore: 'Insert a new column before',

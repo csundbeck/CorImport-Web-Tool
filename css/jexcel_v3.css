@@ -519,8 +519,11 @@ table.jexcel > thead > tr.jexcel_filter > td > input
 
 .jexcel_pagination > div
 {
-    display:flex;
-    padding:10px;
+    display: flex;
+    padding:0.5%;
+    color: #FFFFFF;
+    font-size: 10px;
+    position:relative;
 }
 
 .jexcel_pagination > div:last-child
@@ -534,17 +537,21 @@ table.jexcel > thead > tr.jexcel_filter > td > input
     text-align:center;
     width:36px;
     height:36px;
-    line-height:34px;
-    border:1px solid #ccc;
-    box-sizing: border-box;
+    line-height:250%;
     margin-left:2px;
     cursor:pointer;
+    font-size: 14px;
 }
 
-.jexcel_page_selected
-{
-    font-weight:bold;
-    background-color:#f3f3f3;
+.jexcel_page {
+  color: #1C316C;
+  border: 2px solid #FFFFFF;
+  background-color: #FFFFFF;
+}
+
+.jexcel_page_selected {
+  color: #FFFFFF;
+  background-color: #1C316C;
 }
 
 .jexcel_toolbar

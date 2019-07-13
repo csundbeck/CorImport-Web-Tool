@@ -81,6 +81,10 @@ h4 {
   margin-bottom: -1%;
   text-align: center;
 }
+input[type='checkbox'] {
+  width: 2.5em;
+  height: 2.5em;
+}
 
 #open-doc-box {
   font-size: 8px;
@@ -288,8 +292,8 @@ margin-bottom: 1%;
 
 #spreadsheet {
   margin-top: -2%;
-  overflow-x: scroll;
   overflow-y: hidden;
+  overflow-x: visible;
   width: 100%;
   color: #000000;
   font-size: 12px;
@@ -341,10 +345,6 @@ margin-bottom: 1%;
 .jexcel_content {
   display: block;
   margin: 130px 0px 0px 0px;
-}
-
-.jexcel_pagination {
-  margin-top: -22px;
 }
 
 #error-modal {

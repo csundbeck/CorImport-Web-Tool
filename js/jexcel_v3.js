@@ -9,6 +9,7 @@
  *
  * Your License: [Please keep your license here]
  */
+var downloadName = localStorage.getItem('fileURL').slice(12, -4);
 var jexcel = (function(el, options) {
     // Create jexcel object
     var obj = {};
@@ -68,7 +69,7 @@ var jexcel = (function(el, options) {
         // CSV source
         csv:null,
         // Filename
-        csvFileName: localStorage.getItem('fileURL').slice(12),
+        csvFileName: downloadName,
         // Consider first line as header
         csvHeaders:true,
         // Delimiters

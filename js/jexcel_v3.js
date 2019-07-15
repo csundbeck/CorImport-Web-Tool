@@ -5420,7 +5420,7 @@ var jexcel = (function(el, options) {
                 }
             });
 
-            About
+            // About
             if (obj.options.about) {
                 items.push({
                     title:obj.options.text.about,

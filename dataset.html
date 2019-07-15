@@ -126,7 +126,7 @@ if (localStorage.getItem('ss-DateFormat') == "DD/MM/YYYY" || localStorage.getIte
 
 //Setting the numeric field masks
 var numMask;
-if (decimalSep == '.') {
+if (localStorage.getItem('ss-DecimalSepFormat') == '.') {
   numMask = '#0.0#';
 } else {
   numMask = '#0,0#';
